@@ -1,0 +1,45 @@
+/*********************************************
+ * OPL 12.3 Data
+ * Author: pziel
+ * Creation Date: 19-09-2011 at 20:11:22
+ *********************************************/
+ alkohole = {"OldCambridgeWhiskey", "JoyJuiceWhiskey", "MasWickedVermouth", "GilBoyGin"};
+ drinki = {"WhiskeySour", "Manhattan", "Martini", "PubSpecial"};
+//koszt alkoholu w $ za kwarte
+ Koszt = #["OldCambridgeWhiskey":8.0,
+ 					 "JoyJuiceWhiskey":10.0, 
+ 					  "MasWickedVermouth":10.0, 
+ 					  "GilBoyGin":6.0
+ 					]#;
+ //cena w $ za jednego drinka			
+ Cena = #["WhiskeySour":1,
+   					"Manhattan":2.0, 
+   					"Martini":2.0, 
+   					"PubSpecial":3.0
+   				 ]#;
+ // ile uncji ma jeden drink  				 
+ AlkoholWDrinku =  #["WhiskeySour":2.0,
+   							"Manhattan":3.0, 
+   							"Martini":3.0, 
+   							"PubSpecial":4.0
+   						    ]#;
+  // ilosc dostepnego alkoholu w kwartach 						    
+  IloscDostepnegoAlkoholu =  #["OldCambridgeWhiskey":1,
+ 					 		   "JoyJuiceWhiskey":1, 
+ 					  		    "MasWickedVermouth":1, 
+ 					  			"GilBoyGin":2
+ 								]#;
+ AlkoholeDrinkiZawartosc = { <"OldCambridgeWhiskey","WhiskeySour",0>, 
+ 							  <"JoyJuiceWhiskey","WhiskeySour",0>, //drink WhiskeySour
+ 							  <"OldCambridgeWhiskey","Manhattan",1>, 
+ 							  <"JoyJuiceWhiskey","Manhattan",1>,
+ 							  <"MasWickedVermouth", "Manhattan",-2>, //drink Manhattan
+ 							  <"GilBoyGin","Martini",1>,
+ 							   <"MasWickedVermouth", "Martini",-2>, //drink Martini
+ 							    <"OldCambridgeWhiskey","PubSpecial",1>, 
+ 							  <"JoyJuiceWhiskey","PubSpecial",1>,
+ 							  <"GilBoyGin", "PubSpecial",-1> //drink PubSpecial
+ 							};   
+ 							  
+ 							 				
+   				 

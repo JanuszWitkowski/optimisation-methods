@@ -1,0 +1,8 @@
+/* The separated file with the data */
+data;
+
+param n := 25; /* the number of nodes in the generated acyclic graph */
+param a:=1;  /* parameters for the generator */
+param b:=20;
+
+end;

@@ -1,0 +1,6 @@
+
+n = 10;
+s = 1;
+t = 10;
+l=1;  /* parametry do generatora */
+u=10; 

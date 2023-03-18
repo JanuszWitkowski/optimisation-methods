@@ -1,0 +1,19 @@
+/*********************************************
+ * OPL 12.3 Data
+ * Author: Pawel Zielinski
+ * Zmodyfikowany Przyklad 3 z materialow do wykladu 
+ * Przyklad ilustruje sytuacje, w ktorej funkja celu nie jest ograniczona z gory
+  * Funkcja celu 
+ * max:  x1 +0.3333 x2; 
+ * Ograniczenia 
+ * -2 x1  + 5 x2 <= 150;          -2 x1  + 5 x2     <= 150;
+ * x1  +   x2 >= 20;               - x1    -   x2   <= -20;
+ * x1         >= 5;                - x1             <=  -5;
+ * domyslnie zmienne x1 i x2 sa rzeczywiste nieujemne
+ *********************************************/
+//inicjalizacja
+m = 3;
+n = 2;
+b = [ 150, -20, -5];
+A = [[-2,5],[-1,-1], [-1,0]];
+c = [ 1, 0.3333];
