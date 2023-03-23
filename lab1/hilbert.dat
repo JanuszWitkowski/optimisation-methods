@@ -1,0 +1,6 @@
+/* The separated file with the data */
+data;
+
+param n := 25; /* rozmiar macierzy Hilberta */
+
+end;

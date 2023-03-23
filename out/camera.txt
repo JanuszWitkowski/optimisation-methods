@@ -1,0 +1,47 @@
+Problem:    camera
+Rows:       7
+Columns:    3
+Non-zeros:  15
+Status:     OPTIMAL
+Objective:  profit = 8291.666667 (MAXimum)
+
+   No.   Row name   St   Activity     Lower bound   Upper bound    Marginal
+------ ------------ -- ------------- ------------- ------------- -------------
+     1 profit       B        8291.67                             
+     2 time_manufacture
+                    B        216.667                         250 
+     3 time_assemble
+                    B        197.917                         350 
+     4 time_inspect NU           150                         150       83.3333 
+     5 requirements_cub
+                    NL           250           250                    -5.33333 
+     6 requirements_quick
+                    NL           375           375                    -7.66667 
+     7 requirements_vip
+                    B        166.667           150               
+
+   No. Column name  St   Activity     Lower bound   Upper bound    Marginal
+------ ------------ -- ------------- ------------- ------------- -------------
+     1 cub          B            250             0               
+     2 quick        B            375             0               
+     3 vip          B        166.667             0               
+
+Karush-Kuhn-Tucker optimality conditions:
+
+KKT.PE: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+KKT.PB: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+KKT.DE: max.abs.err = 3.55e-15 on column 3
+        max.rel.err = 6.97e-17 on column 3
+        High quality
+
+KKT.DB: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+End of output
