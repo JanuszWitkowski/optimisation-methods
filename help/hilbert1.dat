@@ -1,0 +1,2 @@
+param n := 25;
+param eps := 0.01;

@@ -1,0 +1,49 @@
+GLPSOL: GLPK LP/MIP Solver, v4.65
+Parameter(s) specified in the command line:
+ --model hilbert0.mod --data hilbert0.dat --output output/hilbert0.txt
+Reading model section from hilbert0.mod...
+hilbert0.mod:29: warning: data section ignored
+29 lines were read
+Reading data section from hilbert0.dat...
+hilbert0.dat:1: warning: final NL missing before end of file
+hilbert0.dat:1: warning: unexpected end of file; missing end statement inserted
+1 line were read
+Generating cost_func...
+Generating solution...
+Model has been successfully generated
+GLPK Simplex Optimizer, v4.65
+26 rows, 25 columns, 50 non-zeros
+Preprocessing...
+~     0: obj =   3.416235803e+01  infeas =  0.000e+00
+OPTIMAL SOLUTION FOUND BY LP PREPROCESSOR
+Time used:   0.0 secs
+Memory used: 0.2 Mb (231493 bytes)
+solution[i]:
+3.815958
+2.854420
+2.391457
+2.093838
+1.878320
+1.711654
+1.577245
+1.465638
+1.370941
+1.289242
+1.217813
+1.154682
+1.098376
+1.047768
+1.001981
+0.960314
+0.922204
+0.887190
+0.854891
+0.824986
+0.797208
+0.771329
+0.747151
+0.724506
+0.703247
+error 0.82527552094457123921
+Model has been successfully processed
+Writing basic solution to 'output/hilbert0.txt'...

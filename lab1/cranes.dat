@@ -1,0 +1,12 @@
+set Cities := 'Opole' 'Brzeg' 'Nysa' 'Prudnik' 'StrzelceOpolskie' 'Kozle' 'Raciborz'
+set Cranes := 'type1' 'type2'
+
+param distances: Opole Brzeg Nysa Prudnik StrzelceOpolskie Kozle Raciborz
+    Opole 0
+    Brzeg 
+    Nysa 
+    Prudnik 
+    StrzelceOpolskie 
+    Kozle 
+    Raciborz 
+

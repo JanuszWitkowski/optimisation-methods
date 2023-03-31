@@ -1,0 +1,7 @@
+GLPSOL: GLPK LP/MIP Solver, v4.65
+Parameter(s) specified in the command line:
+ --model hilbert1.mod --data hilbert1.dat --output output/hilbert1.txt
+Reading model section from hilbert1.mod...
+hilbert1.mod:14: invalid reference to status, primal value, or dual value of objective obj above solve statement
+Context:  1 .. n } ( 1 / ( i + j - 1 ) ) ; s.t. constr2 : abs ( obj -
+MathProg model processing error
