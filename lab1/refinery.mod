@@ -13,24 +13,83 @@ param wymagana_produkcja{Paliwa}, >= 0;
 param dozwolona_siarka{Paliwa}, >= 0.0, <= 1.0;
 param zawartosc_siarki{Ropy, Produkty}, >= 0.0, <= 1.0;
 
-var kupione_tony_ropy{Ropy}, >= 0;
-var do_krakowania{Ropy}, >= 0.0, <= 1.0;
+# Zmienne do rozwiazania
+var kupione_tony_ropy{Ropy}, >= 0.0;
+# var do_krakowania{Ropy}, >= 0.0, <= 1.0;
+var tony_ropy_do_krakowania{Ropy}, >= 0.0;
 var produkty_na_paliwa{Produkty, Paliwa}, >= 0.0, <= 1.0;
+
+# Zmienne pomocnicze
+var produkcja_paliw{Paliwa}, >= 0.0;
+var siarka_w_paliwach{Paliwa}, >= 0.0;
 
 
 minimize laczne_koszta: sum{ropa in Ropy}(
     kupione_tony_ropy[ropa] * (
-        koszt_ropy_za_tone[ropa] + koszt_destylacji_za_tone[ropa] +
-        wydajnosc_destylacji[ropa, krakowany_produkt] * do_krakowania[ropa] * koszt_krakowania_za_tone
-    )
+        koszt_ropy_za_tone[ropa] + koszt_destylacji_za_tone
+        # + (wydajnosc_destylacji[ropa, krakowany_produkt] * do_krakowania[ropa] * koszt_krakowania_za_tone)
+    ) + tony_ropy_do_krakowania[ropa] * wydajnosc_destylacji[ropa, krakowany_produkt] * koszt_krakowania_za_tone
 );
 
-s.t. wyprodukuj_co_najmniej{paliwo in Paliwa}: 
-    sum{ropa in Ropy, produkt in Produkty}(
-        sklad_paliw[paliwo, produkt] * kupione_tony_ropy[ropa] * wydajnosc_destylacji[ropa, produkt]
-    ) >= wymagana_produkcja[paliwo];
+s.t. def_produkcja_paliw{paliwo in Paliwa}:
+    produkcja_paliw[paliwo] = sum{ropa in Ropy, produkt in Produkty}(
+        sklad_paliw[paliwo, produkt] * (
+            (if produkt != krakowany_produkt then kupione_tony_ropy[ropa] else (kupione_tony_ropy[ropa] - tony_ropy_do_krakowania[ropa])) *
+            wydajnosc_destylacji[ropa, produkt] +
+            tony_ropy_do_krakowania[ropa] * wydajnosc_destylacji[ropa, krakowany_produkt] * wydajnosc_krakowania[produkt]
+        )
+    );
 
-# s.t. uwazaj_na_siarke
+s.t. def_siarka_w_paliwach{paliwo in Paliwa}:
+    siarka_w_paliwach[paliwo] = sum{ropa in Ropy, produkt in Produkty}(
+        zawartosc_siarki[ropa, produkt] * sklad_paliw[paliwo, produkt] * (
+            (if produkt != krakowany_produkt then kupione_tony_ropy[ropa] else (kupione_tony_ropy[ropa] - tony_ropy_do_krakowania[ropa])) *
+            wydajnosc_destylacji[ropa, produkt] +
+            tony_ropy_do_krakowania[ropa] * wydajnosc_destylacji[ropa, krakowany_produkt] * wydajnosc_krakowania[produkt]
+        )
+    );
+
+s.t. odpowiedni_podzial{produkt in Produkty}:
+    sum{paliwo in Paliwa}(produkty_na_paliwa[produkt, paliwo]) <= 1.0;
+
+s.t. odpowiedni_przedzial_ropy_do_krakowania{ropa in Ropy}:
+    tony_ropy_do_krakowania[ropa] <= kupione_tony_ropy[ropa];
+
+s.t. wyprodukuj_co_najmniej{paliwo in Paliwa}: 
+    produkcja_paliw[paliwo] >= wymagana_produkcja[paliwo];
+
+s.t. uwazaj_na_siarke{paliwo in Paliwa}:
+    siarka_w_paliwach[paliwo] <= dozwolona_siarka[paliwo] * produkcja_paliw[paliwo];
+
+solve;
+
+
+printf "\nOPTYMALNY KOSZT: %f\n", laczne_koszta;
+printf "\n";
+
+printf "ZAKUP ROPY\n";
+for{ropa in Ropy} {
+    printf "%s %f\n", ropa, kupione_tony_ropy[ropa];
+}
+printf "\n";
+
+printf "DO KRAKOWANIA\n";
+for{ropa in Ropy} {
+    printf "%s %f\n", ropa, tony_ropy_do_krakowania[ropa];
+}
+printf "\n";
+
+printf "OSTATECZNA PRODUKCJA PALIW\n";
+for{paliwo in Paliwa} {
+    printf "%s %f\n", paliwo, produkcja_paliw[paliwo];
+}
+printf "\n";
+
+printf "SIARKA W PALIWACH\n";
+for{paliwo in Paliwa} {
+    printf "%s %f (%f)\n", paliwo, siarka_w_paliwach[paliwo] / produkcja_paliw[paliwo], dozwolona_siarka[paliwo];
+}
+printf "\n";
 
 
 data;

@@ -1,0 +1,55 @@
+GLPSOL--GLPK LP/MIP Solver 5.0
+Parameter(s) specified in the command line:
+ --model refinery.mod --output out/refinery.txt
+Reading model section from refinery.mod...
+Reading data section from refinery.mod...
+145 lines were read
+Generating laczne_koszta...
+Generating def_produkcja_paliw...
+Generating def_siarka_w_paliwach...
+Generating odpowiedni_podzial...
+Generating odpowiedni_przedzial_ropy_do_krakowania...
+Generating wyprodukuj_co_najmniej...
+Generating uwazaj_na_siarke...
+Model has been successfully generated
+GLPK Simplex Optimizer 5.0
+22 rows, 31 columns, 62 non-zeros
+Preprocessing...
+16 rows, 29 columns, 51 non-zeros
+Scaling...
+ A: min|aij| =  9.000e-05  max|aij| =  1.000e+00  ratio =  1.111e+04
+GM: min|aij| =  3.160e-01  max|aij| =  3.164e+00  ratio =  1.001e+01
+EQ: min|aij| =  1.018e-01  max|aij| =  1.000e+00  ratio =  9.825e+00
+Constructing initial basis...
+Size of triangular part is 16
+      0: obj =   0.000000000e+00 inf =   9.970e+05 (3)
+      3: obj =   1.746666667e+09 inf =   0.000e+00 (0)
+*     6: obj =   1.221395349e+09 inf =   0.000e+00 (0)
+OPTIMAL LP SOLUTION FOUND
+Time used:   0.0 secs
+Memory used: 0.2 Mb (166418 bytes)
+
+OPTYMALNY KOSZT: 1221395348.837209
+
+ZAKUP ROPY
+B1 930232.558140
+B2 0.000000
+
+DO KRAKOWANIA
+B1 930232.558140
+B2 0.000000
+
+OSTATECZNA PRODUKCJA PALIW
+Silnikowe 209302.325581
+Domowe 400000.000000
+Ciezkie 520000.000000
+
+SIARKA W PALIWACH
+Silnikowe 0.000000 (1.000000)
+Domowe 0.002070 (0.005000)
+Ciezkie 0.001431 (1.000000)
+
+Display statement at line 94
+krakowany_produkt = Destylat
+Model has been successfully processed
+Writing basic solution to 'out/refinery.txt'...

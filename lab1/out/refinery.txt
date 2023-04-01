@@ -1,0 +1,138 @@
+Problem:    refinery
+Rows:       22
+Columns:    31
+Non-zeros:  62
+Status:     OPTIMAL
+Objective:  laczne_koszta = 1221395349 (MINimum)
+
+   No.   Row name   St   Activity     Lower bound   Upper bound    Marginal
+------ ------------ -- ------------- ------------- ------------- -------------
+     1 laczne_koszta
+                    B     1.2214e+09                             
+     2 def_produkcja_paliw[Silnikowe]
+                    NS             0            -0             =         < eps
+     3 def_produkcja_paliw[Domowe]
+                    NS             0            -0             =      -3053.49 
+     4 def_produkcja_paliw[Ciezkie]
+                    NS             0            -0             =         < eps
+     5 def_siarka_w_paliwach[Silnikowe]
+                    NS             0            -0             =         < eps
+     6 def_siarka_w_paliwach[Domowe]
+                    NS             0            -0             =         < eps
+     7 def_siarka_w_paliwach[Ciezkie]
+                    NS             0            -0             =         < eps
+     8 odpowiedni_podzial[Benzyna]
+                    B              0                           1 
+     9 odpowiedni_podzial[Olej]
+                    B              0                           1 
+    10 odpowiedni_podzial[Destylat]
+                    B              0                           1 
+    11 odpowiedni_podzial[Resztki]
+                    B              0                           1 
+    12 odpowiedni_podzial[BenzynaKrakowana]
+                    B              0                           1 
+    13 odpowiedni_podzial[OlejKrakowany]
+                    B              0                           1 
+    14 odpowiedni_podzial[ResztkiKrakowane]
+                    B              0                           1 
+    15 odpowiedni_przedzial_ropy_do_krakowania[B1]
+                    NU             0                          -0      -88.6047 
+    16 odpowiedni_przedzial_ropy_do_krakowania[B2]
+                    NU             0                          -0       -118.14 
+    17 wyprodukuj_co_najmniej[Silnikowe]
+                    B         209302        200000               
+    18 wyprodukuj_co_najmniej[Domowe]
+                    NL        400000        400000                     3053.49 
+    19 wyprodukuj_co_najmniej[Ciezkie]
+                    B         520000        250000               
+    20 uwazaj_na_siarke[Silnikowe]
+                    B        -209302                          -0 
+    21 uwazaj_na_siarke[Domowe]
+                    B       -1172.09                          -0 
+    22 uwazaj_na_siarke[Ciezkie]
+                    B        -519256                          -0 
+
+   No. Column name  St   Activity     Lower bound   Upper bound    Marginal
+------ ------------ -- ------------- ------------- ------------- -------------
+     1 kupione_tony_ropy[B1]
+                    B         930233             0               
+     2 kupione_tony_ropy[B2]
+                    NL             0             0                      323.14 
+     3 tony_ropy_do_krakowania[B1]
+                    B         930233             0               
+     4 tony_ropy_do_krakowania[B2]
+                    B              0             0               
+     5 produkty_na_paliwa[Benzyna,Silnikowe]
+                    NL             0             0             1         < eps
+     6 produkty_na_paliwa[Benzyna,Domowe]
+                    NL             0             0             1         < eps
+     7 produkty_na_paliwa[Benzyna,Ciezkie]
+                    NL             0             0             1         < eps
+     8 produkty_na_paliwa[Olej,Silnikowe]
+                    NL             0             0             1         < eps
+     9 produkty_na_paliwa[Olej,Domowe]
+                    NL             0             0             1         < eps
+    10 produkty_na_paliwa[Olej,Ciezkie]
+                    NL             0             0             1         < eps
+    11 produkty_na_paliwa[Destylat,Silnikowe]
+                    NL             0             0             1         < eps
+    12 produkty_na_paliwa[Destylat,Domowe]
+                    NL             0             0             1         < eps
+    13 produkty_na_paliwa[Destylat,Ciezkie]
+                    NL             0             0             1         < eps
+    14 produkty_na_paliwa[Resztki,Silnikowe]
+                    NL             0             0             1         < eps
+    15 produkty_na_paliwa[Resztki,Domowe]
+                    NL             0             0             1         < eps
+    16 produkty_na_paliwa[Resztki,Ciezkie]
+                    NL             0             0             1         < eps
+    17 produkty_na_paliwa[BenzynaKrakowana,Silnikowe]
+                    NL             0             0             1         < eps
+    18 produkty_na_paliwa[BenzynaKrakowana,Domowe]
+                    NL             0             0             1         < eps
+    19 produkty_na_paliwa[BenzynaKrakowana,Ciezkie]
+                    NL             0             0             1         < eps
+    20 produkty_na_paliwa[OlejKrakowany,Silnikowe]
+                    NL             0             0             1         < eps
+    21 produkty_na_paliwa[OlejKrakowany,Domowe]
+                    NL             0             0             1         < eps
+    22 produkty_na_paliwa[OlejKrakowany,Ciezkie]
+                    NL             0             0             1         < eps
+    23 produkty_na_paliwa[ResztkiKrakowane,Silnikowe]
+                    NL             0             0             1         < eps
+    24 produkty_na_paliwa[ResztkiKrakowane,Domowe]
+                    NL             0             0             1         < eps
+    25 produkty_na_paliwa[ResztkiKrakowane,Ciezkie]
+                    NL             0             0             1         < eps
+    26 produkcja_paliw[Silnikowe]
+                    B         209302             0               
+    27 produkcja_paliw[Domowe]
+                    B         400000             0               
+    28 produkcja_paliw[Ciezkie]
+                    B         520000             0               
+    29 siarka_w_paliwach[Silnikowe]
+                    B              0             0               
+    30 siarka_w_paliwach[Domowe]
+                    B        827.907             0               
+    31 siarka_w_paliwach[Ciezkie]
+                    B        744.186             0               
+
+Karush-Kuhn-Tucker optimality conditions:
+
+KKT.PE: max.abs.err = 1.16e-10 on row 15
+        max.rel.err = 7.63e-17 on row 7
+        High quality
+
+KKT.PB: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+KKT.DE: max.abs.err = 2.13e-13 on column 28
+        max.rel.err = 2.13e-13 on column 28
+        High quality
+
+KKT.DB: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+End of output
