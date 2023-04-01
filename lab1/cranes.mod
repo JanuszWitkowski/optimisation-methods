@@ -7,16 +7,16 @@ param redundant{Cranes, Cities}, integer, >= 0;
 param transport{Cranes}, >= 0;
 param can_replace{Cranes, Cranes}, integer, >= 0, <= 1;
 
-# solution of problem
+# solution for problem
 var solution{Cities, Cities, Cranes}, integer, >= 0;
 
 minimize cost_func: sum{crane in Cranes, from in Cities, to in Cities}(
     distances[from, to] * solution[from, to, crane] * transport[crane]
 );
 
-s.t. satisfy_deficiencies{to in Cities, needed in Cranes}: (sum{from in Cities, given in Cranes} (solution[from, to, given] * can_replace[given, needed])) >= deficient[needed, to];
+s.t. satisfy_deficiencies{to in Cities, needed in Cranes}: sum{from in Cities, given in Cranes}(solution[from, to, given] * can_replace[given, needed]) >= deficient[needed, to];
 
-s.t. take_no_more_than_excess{from in Cities, given in Cranes}: (sum{to in Cities} solution[from, to, given]) <= redundant[given, from];
+s.t. take_no_more_than_excess{from in Cities, given in Cranes}: sum{to in Cities}(solution[from, to, given]) <= redundant[given, from];
 
 solve;
 printf "\n";

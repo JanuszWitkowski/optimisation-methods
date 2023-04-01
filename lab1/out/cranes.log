@@ -25,40 +25,40 @@ Solving LP relaxation...
 GLPK Simplex Optimizer 5.0
 13 rows, 42 columns, 72 non-zeros
       0: obj =   8.040000000e+01 inf =   3.000e+01 (7)
-     15: obj =   3.424400000e+03 inf =   0.000e+00 (0)
-*    23: obj =   3.002800000e+03 inf =   0.000e+00 (0)
+     15: obj =   1.589200000e+03 inf =   0.000e+00 (0)
+*    25: obj =   1.274400000e+03 inf =   0.000e+00 (0)
 OPTIMAL LP SOLUTION FOUND
 Integer optimization begins...
 Long-step dual simplex will be used
-+    23: mip =     not found yet >=              -inf        (1; 0)
-+    23: >>>>>   3.002800000e+03 >=   3.002800000e+03   0.0% (1; 0)
-+    23: mip =   3.002800000e+03 >=     tree is empty   0.0% (0; 1)
++    25: mip =     not found yet >=              -inf        (1; 0)
++    25: >>>>>   1.274400000e+03 >=   1.274400000e+03   0.0% (1; 0)
++    25: mip =   1.274400000e+03 >=     tree is empty   0.0% (0; 1)
 INTEGER OPTIMAL SOLUTION FOUND
 Time used:   0.0 secs
 Memory used: 0.2 Mb (249907 bytes)
 
 TRANSPORT SCHEDULE
-Move 6 type1 cranes from Opole to Brzeg
-Move 1 type1 cranes from Opole to Kozle
-Move 1 type2 cranes from Brzeg to Kozle
-Move 1 type2 cranes from Nysa to Opole
-Move 4 type1 cranes from Nysa to Brzeg
-Move 1 type2 cranes from Nysa to Kozle
-Move 1 type2 cranes from Prudnik to Opole
-Move 4 type2 cranes from Prudnik to Prudnik
+Move 7 type1 cranes from Opole to Brzeg
+Move 1 type2 cranes from Brzeg to Brzeg
+Move 2 type2 cranes from Nysa to Opole
+Move 2 type1 cranes from Nysa to Brzeg
+Move 1 type1 cranes from Nysa to Prudnik
+Move 1 type1 cranes from Nysa to Kozle
+Move 3 type2 cranes from Prudnik to Prudnik
 Move 4 type2 cranes from Prudnik to StrzelceOpolskie
+Move 2 type2 cranes from Prudnik to Kozle
 Move 1 type2 cranes from Prudnik to Raciborz
 Move 5 type1 cranes from StrzelceOpolskie to Kozle
 
 DEFICIENT | REDUNDANT | STOCK STATUS | CITY
 0	| 0	| type1	| Opole
 0	| 0	| type2	| Opole
-0	| 0	| type1	| Brzeg
-0	| 0	| type2	| Brzeg
+1	| 0	| type1	| Brzeg
+-1	| 0	| type2	| Brzeg
 0	| 2	| type1	| Nysa
 0	| 0	| type2	| Nysa
-4	| 0	| type1	| Prudnik
--4	| 0	| type2	| Prudnik
+3	| 0	| type1	| Prudnik
+-3	| 0	| type2	| Prudnik
 0	| 0	| type1	| StrzelceOpolskie
 0	| 0	| type2	| StrzelceOpolskie
 2	| 0	| type1	| Kozle
@@ -66,7 +66,7 @@ DEFICIENT | REDUNDANT | STOCK STATUS | CITY
 0	| 0	| type1	| Raciborz
 0	| 0	| type2	| Raciborz
 
-TOTAL COST: 3002.800000
+TOTAL COST: 1274.400000
 
 Model has been successfully processed
 Writing MIP solution to 'out/cranes.txt'...

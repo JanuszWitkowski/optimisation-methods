@@ -3,11 +3,11 @@ Rows:       29
 Columns:    98 (98 integer, 0 binary)
 Non-zeros:  329
 Status:     INTEGER OPTIMAL
-Objective:  cost_func = 3002.8 (MINimum)
+Objective:  cost_func = 1274.4 (MINimum)
 
    No.   Row name        Activity     Lower bound   Upper bound
 ------ ------------    ------------- ------------- -------------
-     1 cost_func              3002.8                             
+     1 cost_func              1274.4                             
      2 satisfy_deficiencies[Opole,type1]
                                    2            -0               
      3 satisfy_deficiencies[Opole,type2]
@@ -15,7 +15,7 @@ Objective:  cost_func = 3002.8 (MINimum)
      4 satisfy_deficiencies[Brzeg,type1]
                                   10            10               
      5 satisfy_deficiencies[Brzeg,type2]
-                                   0            -0               
+                                   1            -0               
      6 satisfy_deficiencies[Nysa,type1]
                                    0            -0               
      7 satisfy_deficiencies[Nysa,type2]
@@ -23,7 +23,7 @@ Objective:  cost_func = 3002.8 (MINimum)
      8 satisfy_deficiencies[Prudnik,type1]
                                    4             4               
      9 satisfy_deficiencies[Prudnik,type2]
-                                   4            -0               
+                                   3            -0               
     10 satisfy_deficiencies[StrzelceOpolskie,type1]
                                    4            -0               
     11 satisfy_deficiencies[StrzelceOpolskie,type2]
@@ -70,7 +70,7 @@ Objective:  cost_func = 3002.8 (MINimum)
      1 solution[Opole,Opole,type1]
                     *              0             0               
      2 solution[Opole,Brzeg,type1]
-                    *              6             0               
+                    *              7             0               
      3 solution[Opole,Nysa,type1]
                     *              0             0               
      4 solution[Opole,Prudnik,type1]
@@ -78,7 +78,7 @@ Objective:  cost_func = 3002.8 (MINimum)
      5 solution[Opole,StrzelceOpolskie,type1]
                     *              0             0               
      6 solution[Opole,Kozle,type1]
-                    *              1             0               
+                    *              0             0               
      7 solution[Opole,Raciborz,type1]
                     *              0             0               
      8 solution[Brzeg,Opole,type1]
@@ -98,15 +98,15 @@ Objective:  cost_func = 3002.8 (MINimum)
     15 solution[Nysa,Opole,type1]
                     *              0             0               
     16 solution[Nysa,Brzeg,type1]
-                    *              4             0               
+                    *              2             0               
     17 solution[Nysa,Nysa,type1]
                     *              0             0               
     18 solution[Nysa,Prudnik,type1]
-                    *              0             0               
+                    *              1             0               
     19 solution[Nysa,StrzelceOpolskie,type1]
                     *              0             0               
     20 solution[Nysa,Kozle,type1]
-                    *              0             0               
+                    *              1             0               
     21 solution[Nysa,Raciborz,type1]
                     *              0             0               
     22 solution[Prudnik,Opole,type1]
@@ -182,7 +182,7 @@ Objective:  cost_func = 3002.8 (MINimum)
     57 solution[Brzeg,Opole,type2]
                     *              0             0               
     58 solution[Brzeg,Brzeg,type2]
-                    *              0             0               
+                    *              1             0               
     59 solution[Brzeg,Nysa,type2]
                     *              0             0               
     60 solution[Brzeg,Prudnik,type2]
@@ -190,11 +190,11 @@ Objective:  cost_func = 3002.8 (MINimum)
     61 solution[Brzeg,StrzelceOpolskie,type2]
                     *              0             0               
     62 solution[Brzeg,Kozle,type2]
-                    *              1             0               
+                    *              0             0               
     63 solution[Brzeg,Raciborz,type2]
                     *              0             0               
     64 solution[Nysa,Opole,type2]
-                    *              1             0               
+                    *              2             0               
     65 solution[Nysa,Brzeg,type2]
                     *              0             0               
     66 solution[Nysa,Nysa,type2]
@@ -204,21 +204,21 @@ Objective:  cost_func = 3002.8 (MINimum)
     68 solution[Nysa,StrzelceOpolskie,type2]
                     *              0             0               
     69 solution[Nysa,Kozle,type2]
-                    *              1             0               
+                    *              0             0               
     70 solution[Nysa,Raciborz,type2]
                     *              0             0               
     71 solution[Prudnik,Opole,type2]
-                    *              1             0               
+                    *              0             0               
     72 solution[Prudnik,Brzeg,type2]
                     *              0             0               
     73 solution[Prudnik,Nysa,type2]
                     *              0             0               
     74 solution[Prudnik,Prudnik,type2]
-                    *              4             0               
+                    *              3             0               
     75 solution[Prudnik,StrzelceOpolskie,type2]
                     *              4             0               
     76 solution[Prudnik,Kozle,type2]
-                    *              0             0               
+                    *              2             0               
     77 solution[Prudnik,Raciborz,type2]
                     *              1             0               
     78 solution[StrzelceOpolskie,Opole,type2]
