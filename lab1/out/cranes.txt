@@ -1,13 +1,13 @@
 Problem:    cranes
-Rows:       29
+Rows:       36
 Columns:    98 (98 integer, 0 binary)
-Non-zeros:  329
+Non-zeros:  427
 Status:     INTEGER OPTIMAL
-Objective:  cost_func = 1274.4 (MINimum)
+Objective:  cost_func = 1424.4 (MINimum)
 
    No.   Row name        Activity     Lower bound   Upper bound
 ------ ------------    ------------- ------------- -------------
-     1 cost_func              1274.4                             
+     1 cost_func              1424.4                             
      2 satisfy_deficiencies[Opole,type1]
                                    2            -0               
      3 satisfy_deficiencies[Opole,type2]
@@ -29,7 +29,7 @@ Objective:  cost_func = 1274.4 (MINimum)
     11 satisfy_deficiencies[StrzelceOpolskie,type2]
                                    4             4               
     12 satisfy_deficiencies[Kozle,type1]
-                                   8             8               
+                                  10             8               
     13 satisfy_deficiencies[Kozle,type2]
                                    2             2               
     14 satisfy_deficiencies[Raciborz,type1]
@@ -45,7 +45,7 @@ Objective:  cost_func = 1274.4 (MINimum)
     19 take_no_more_than_excess[Brzeg,type2]
                                    1                           1 
     20 take_no_more_than_excess[Nysa,type1]
-                                   4                           6 
+                                   6                           6 
     21 take_no_more_than_excess[Nysa,type2]
                                    2                           2 
     22 take_no_more_than_excess[Prudnik,type1]
@@ -64,6 +64,20 @@ Objective:  cost_func = 1274.4 (MINimum)
                                    0                          -0 
     29 take_no_more_than_excess[Raciborz,type2]
                                    0                          -0 
+    30 upper_bound_for_imported_cranes[Opole]
+                                   2             2               
+    31 upper_bound_for_imported_cranes[Brzeg]
+                                  10            10               
+    32 upper_bound_for_imported_cranes[Nysa]
+                                   0            -0               
+    33 upper_bound_for_imported_cranes[Prudnik]
+                                   4             4               
+    34 upper_bound_for_imported_cranes[StrzelceOpolskie]
+                                   4             4               
+    35 upper_bound_for_imported_cranes[Kozle]
+                                  10            10               
+    36 upper_bound_for_imported_cranes[Raciborz]
+                                   1             1               
 
    No. Column name       Activity     Lower bound   Upper bound
 ------ ------------    ------------- ------------- -------------
@@ -106,7 +120,7 @@ Objective:  cost_func = 1274.4 (MINimum)
     19 solution[Nysa,StrzelceOpolskie,type1]
                     *              0             0               
     20 solution[Nysa,Kozle,type1]
-                    *              1             0               
+                    *              3             0               
     21 solution[Nysa,Raciborz,type1]
                     *              0             0               
     22 solution[Prudnik,Opole,type1]

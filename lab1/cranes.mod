@@ -18,6 +18,8 @@ s.t. satisfy_deficiencies{to in Cities, needed in Cranes}: sum{from in Cities, g
 
 s.t. take_no_more_than_excess{from in Cities, given in Cranes}: sum{to in Cities}(solution[from, to, given]) <= redundant[given, from];
 
+s.t. upper_bound_for_imported_cranes{to in Cities}: sum{from in Cities, crane in Cranes}(solution[from, to, crane]) >= sum{crane in Cranes}(deficient[crane, to]);
+
 solve;
 printf "\n";
 

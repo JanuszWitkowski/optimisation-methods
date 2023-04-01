@@ -2,40 +2,41 @@ GLPSOL--GLPK LP/MIP Solver 5.0
 Parameter(s) specified in the command line:
  --model cranes.mod --data cranes.dat --output out/cranes.txt
 Reading model section from cranes.mod...
-47 lines were read
+49 lines were read
 Reading data section from cranes.dat...
 cranes.dat:28: warning: unexpected end of file; missing end statement inserted
 28 lines were read
 Generating cost_func...
 Generating satisfy_deficiencies...
 Generating take_no_more_than_excess...
+Generating upper_bound_for_imported_cranes...
 Model has been successfully generated
 GLPK Integer Optimizer 5.0
-29 rows, 98 columns, 329 non-zeros
+36 rows, 98 columns, 427 non-zeros
 98 integer variables, none of which are binary
 Preprocessing...
-13 rows, 42 columns, 72 non-zeros
+19 rows, 42 columns, 108 non-zeros
 42 integer variables, 7 of which are binary
 Scaling...
  A: min|aij| =  1.000e+00  max|aij| =  1.000e+00  ratio =  1.000e+00
 Problem data seem to be well scaled
 Constructing initial basis...
-Size of triangular part is 13
+Size of triangular part is 19
 Solving LP relaxation...
 GLPK Simplex Optimizer 5.0
-13 rows, 42 columns, 72 non-zeros
-      0: obj =   8.040000000e+01 inf =   3.000e+01 (7)
-     15: obj =   1.589200000e+03 inf =   0.000e+00 (0)
-*    25: obj =   1.274400000e+03 inf =   0.000e+00 (0)
+19 rows, 42 columns, 108 non-zeros
+      0: obj =   8.040000000e+01 inf =   6.000e+01 (13)
+     16: obj =   1.706800000e+03 inf =   0.000e+00 (0)
+*    24: obj =   1.424400000e+03 inf =   0.000e+00 (0)
 OPTIMAL LP SOLUTION FOUND
 Integer optimization begins...
 Long-step dual simplex will be used
-+    25: mip =     not found yet >=              -inf        (1; 0)
-+    25: >>>>>   1.274400000e+03 >=   1.274400000e+03   0.0% (1; 0)
-+    25: mip =   1.274400000e+03 >=     tree is empty   0.0% (0; 1)
++    24: mip =     not found yet >=              -inf        (1; 0)
++    24: >>>>>   1.424400000e+03 >=   1.424400000e+03   0.0% (1; 0)
++    24: mip =   1.424400000e+03 >=     tree is empty   0.0% (0; 1)
 INTEGER OPTIMAL SOLUTION FOUND
 Time used:   0.0 secs
-Memory used: 0.2 Mb (249907 bytes)
+Memory used: 0.2 Mb (261811 bytes)
 
 TRANSPORT SCHEDULE
 Move 7 type1 cranes from Opole to Brzeg
@@ -43,7 +44,7 @@ Move 1 type2 cranes from Brzeg to Brzeg
 Move 2 type2 cranes from Nysa to Opole
 Move 2 type1 cranes from Nysa to Brzeg
 Move 1 type1 cranes from Nysa to Prudnik
-Move 1 type1 cranes from Nysa to Kozle
+Move 3 type1 cranes from Nysa to Kozle
 Move 3 type2 cranes from Prudnik to Prudnik
 Move 4 type2 cranes from Prudnik to StrzelceOpolskie
 Move 2 type2 cranes from Prudnik to Kozle
@@ -55,18 +56,18 @@ DEFICIENT | REDUNDANT | STOCK STATUS | CITY
 0	| 0	| type2	| Opole
 1	| 0	| type1	| Brzeg
 -1	| 0	| type2	| Brzeg
-0	| 2	| type1	| Nysa
+0	| 0	| type1	| Nysa
 0	| 0	| type2	| Nysa
 3	| 0	| type1	| Prudnik
 -3	| 0	| type2	| Prudnik
 0	| 0	| type1	| StrzelceOpolskie
 0	| 0	| type2	| StrzelceOpolskie
-2	| 0	| type1	| Kozle
+0	| 0	| type1	| Kozle
 0	| 0	| type2	| Kozle
 0	| 0	| type1	| Raciborz
 0	| 0	| type2	| Raciborz
 
-TOTAL COST: 1274.400000
+TOTAL COST: 1424.400000
 
 Model has been successfully processed
 Writing MIP solution to 'out/cranes.txt'...
