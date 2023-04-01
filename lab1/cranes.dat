@@ -1,12 +1,28 @@
-set Cities := 'Opole' 'Brzeg' 'Nysa' 'Prudnik' 'StrzelceOpolskie' 'Kozle' 'Raciborz'
-set Cranes := 'type1' 'type2'
+set Cities := 'Opole' 'Brzeg' 'Nysa' 'Prudnik' 'StrzelceOpolskie' 'Kozle' 'Raciborz';
+set Cranes := 'type1' 'type2';
 
-param distances: Opole Brzeg Nysa Prudnik StrzelceOpolskie Kozle Raciborz
-    Opole 0
-    Brzeg 
-    Nysa 
-    Prudnik 
-    StrzelceOpolskie 
-    Kozle 
-    Raciborz 
+param distances: Opole Brzeg Nysa Prudnik StrzelceOpolskie Kozle Raciborz :=
+    Opole 0 43 58 50 39 242 78
+    Brzeg 43 0 53 80 102 247 128
+    Nysa 58 53 0 27 96 301 86
+    Prudnik 50 80 27 0 67 330 60
+    StrzelceOpolskie 39 102 96 67 0 222 61
+    Kozle 242 247 301 330 222 0 285
+    Raciborz 78 128 86 60 61 285 0;
+
+param deficient: Opole Brzeg Nysa Prudnik StrzelceOpolskie Kozle Raciborz :=
+    type1 0 10 0 4 0 8 0
+    type2 2 0 0 0 4 2 1;
+
+param redundant: Opole Brzeg Nysa Prudnik StrzelceOpolskie Kozle Raciborz :=
+    type1 7 0 6 0 5 0 0
+    type2 0 1 2 10 0 0 0;
+
+param transport :=
+    type1 1.0
+    type2 1.2;
+
+param can_replace: type1 type2 :=
+    type1 1 0
+    type2 1 1;
 

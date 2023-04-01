@@ -1,0 +1,277 @@
+Problem:    cranes
+Rows:       29
+Columns:    98 (98 integer, 0 binary)
+Non-zeros:  329
+Status:     INTEGER OPTIMAL
+Objective:  cost_func = 3002.8 (MINimum)
+
+   No.   Row name        Activity     Lower bound   Upper bound
+------ ------------    ------------- ------------- -------------
+     1 cost_func              3002.8                             
+     2 satisfy_deficiencies[Opole,type1]
+                                   2            -0               
+     3 satisfy_deficiencies[Opole,type2]
+                                   2             2               
+     4 satisfy_deficiencies[Brzeg,type1]
+                                  10            10               
+     5 satisfy_deficiencies[Brzeg,type2]
+                                   0            -0               
+     6 satisfy_deficiencies[Nysa,type1]
+                                   0            -0               
+     7 satisfy_deficiencies[Nysa,type2]
+                                   0            -0               
+     8 satisfy_deficiencies[Prudnik,type1]
+                                   4             4               
+     9 satisfy_deficiencies[Prudnik,type2]
+                                   4            -0               
+    10 satisfy_deficiencies[StrzelceOpolskie,type1]
+                                   4            -0               
+    11 satisfy_deficiencies[StrzelceOpolskie,type2]
+                                   4             4               
+    12 satisfy_deficiencies[Kozle,type1]
+                                   8             8               
+    13 satisfy_deficiencies[Kozle,type2]
+                                   2             2               
+    14 satisfy_deficiencies[Raciborz,type1]
+                                   1            -0               
+    15 satisfy_deficiencies[Raciborz,type2]
+                                   1             1               
+    16 take_no_more_than_excess[Opole,type1]
+                                   7                           7 
+    17 take_no_more_than_excess[Opole,type2]
+                                   0                          -0 
+    18 take_no_more_than_excess[Brzeg,type1]
+                                   0                          -0 
+    19 take_no_more_than_excess[Brzeg,type2]
+                                   1                           1 
+    20 take_no_more_than_excess[Nysa,type1]
+                                   4                           6 
+    21 take_no_more_than_excess[Nysa,type2]
+                                   2                           2 
+    22 take_no_more_than_excess[Prudnik,type1]
+                                   0                          -0 
+    23 take_no_more_than_excess[Prudnik,type2]
+                                  10                          10 
+    24 take_no_more_than_excess[StrzelceOpolskie,type1]
+                                   5                           5 
+    25 take_no_more_than_excess[StrzelceOpolskie,type2]
+                                   0                          -0 
+    26 take_no_more_than_excess[Kozle,type1]
+                                   0                          -0 
+    27 take_no_more_than_excess[Kozle,type2]
+                                   0                          -0 
+    28 take_no_more_than_excess[Raciborz,type1]
+                                   0                          -0 
+    29 take_no_more_than_excess[Raciborz,type2]
+                                   0                          -0 
+
+   No. Column name       Activity     Lower bound   Upper bound
+------ ------------    ------------- ------------- -------------
+     1 solution[Opole,Opole,type1]
+                    *              0             0               
+     2 solution[Opole,Brzeg,type1]
+                    *              6             0               
+     3 solution[Opole,Nysa,type1]
+                    *              0             0               
+     4 solution[Opole,Prudnik,type1]
+                    *              0             0               
+     5 solution[Opole,StrzelceOpolskie,type1]
+                    *              0             0               
+     6 solution[Opole,Kozle,type1]
+                    *              1             0               
+     7 solution[Opole,Raciborz,type1]
+                    *              0             0               
+     8 solution[Brzeg,Opole,type1]
+                    *              0             0               
+     9 solution[Brzeg,Brzeg,type1]
+                    *              0             0               
+    10 solution[Brzeg,Nysa,type1]
+                    *              0             0               
+    11 solution[Brzeg,Prudnik,type1]
+                    *              0             0               
+    12 solution[Brzeg,StrzelceOpolskie,type1]
+                    *              0             0               
+    13 solution[Brzeg,Kozle,type1]
+                    *              0             0               
+    14 solution[Brzeg,Raciborz,type1]
+                    *              0             0               
+    15 solution[Nysa,Opole,type1]
+                    *              0             0               
+    16 solution[Nysa,Brzeg,type1]
+                    *              4             0               
+    17 solution[Nysa,Nysa,type1]
+                    *              0             0               
+    18 solution[Nysa,Prudnik,type1]
+                    *              0             0               
+    19 solution[Nysa,StrzelceOpolskie,type1]
+                    *              0             0               
+    20 solution[Nysa,Kozle,type1]
+                    *              0             0               
+    21 solution[Nysa,Raciborz,type1]
+                    *              0             0               
+    22 solution[Prudnik,Opole,type1]
+                    *              0             0               
+    23 solution[Prudnik,Brzeg,type1]
+                    *              0             0               
+    24 solution[Prudnik,Nysa,type1]
+                    *              0             0               
+    25 solution[Prudnik,Prudnik,type1]
+                    *              0             0               
+    26 solution[Prudnik,StrzelceOpolskie,type1]
+                    *              0             0               
+    27 solution[Prudnik,Kozle,type1]
+                    *              0             0               
+    28 solution[Prudnik,Raciborz,type1]
+                    *              0             0               
+    29 solution[StrzelceOpolskie,Opole,type1]
+                    *              0             0               
+    30 solution[StrzelceOpolskie,Brzeg,type1]
+                    *              0             0               
+    31 solution[StrzelceOpolskie,Nysa,type1]
+                    *              0             0               
+    32 solution[StrzelceOpolskie,Prudnik,type1]
+                    *              0             0               
+    33 solution[StrzelceOpolskie,StrzelceOpolskie,type1]
+                    *              0             0               
+    34 solution[StrzelceOpolskie,Kozle,type1]
+                    *              5             0               
+    35 solution[StrzelceOpolskie,Raciborz,type1]
+                    *              0             0               
+    36 solution[Kozle,Opole,type1]
+                    *              0             0               
+    37 solution[Kozle,Brzeg,type1]
+                    *              0             0               
+    38 solution[Kozle,Nysa,type1]
+                    *              0             0               
+    39 solution[Kozle,Prudnik,type1]
+                    *              0             0               
+    40 solution[Kozle,StrzelceOpolskie,type1]
+                    *              0             0               
+    41 solution[Kozle,Kozle,type1]
+                    *              0             0               
+    42 solution[Kozle,Raciborz,type1]
+                    *              0             0               
+    43 solution[Raciborz,Opole,type1]
+                    *              0             0               
+    44 solution[Raciborz,Brzeg,type1]
+                    *              0             0               
+    45 solution[Raciborz,Nysa,type1]
+                    *              0             0               
+    46 solution[Raciborz,Prudnik,type1]
+                    *              0             0               
+    47 solution[Raciborz,StrzelceOpolskie,type1]
+                    *              0             0               
+    48 solution[Raciborz,Kozle,type1]
+                    *              0             0               
+    49 solution[Raciborz,Raciborz,type1]
+                    *              0             0               
+    50 solution[Opole,Opole,type2]
+                    *              0             0               
+    51 solution[Opole,Brzeg,type2]
+                    *              0             0               
+    52 solution[Opole,Nysa,type2]
+                    *              0             0               
+    53 solution[Opole,Prudnik,type2]
+                    *              0             0               
+    54 solution[Opole,StrzelceOpolskie,type2]
+                    *              0             0               
+    55 solution[Opole,Kozle,type2]
+                    *              0             0               
+    56 solution[Opole,Raciborz,type2]
+                    *              0             0               
+    57 solution[Brzeg,Opole,type2]
+                    *              0             0               
+    58 solution[Brzeg,Brzeg,type2]
+                    *              0             0               
+    59 solution[Brzeg,Nysa,type2]
+                    *              0             0               
+    60 solution[Brzeg,Prudnik,type2]
+                    *              0             0               
+    61 solution[Brzeg,StrzelceOpolskie,type2]
+                    *              0             0               
+    62 solution[Brzeg,Kozle,type2]
+                    *              1             0               
+    63 solution[Brzeg,Raciborz,type2]
+                    *              0             0               
+    64 solution[Nysa,Opole,type2]
+                    *              1             0               
+    65 solution[Nysa,Brzeg,type2]
+                    *              0             0               
+    66 solution[Nysa,Nysa,type2]
+                    *              0             0               
+    67 solution[Nysa,Prudnik,type2]
+                    *              0             0               
+    68 solution[Nysa,StrzelceOpolskie,type2]
+                    *              0             0               
+    69 solution[Nysa,Kozle,type2]
+                    *              1             0               
+    70 solution[Nysa,Raciborz,type2]
+                    *              0             0               
+    71 solution[Prudnik,Opole,type2]
+                    *              1             0               
+    72 solution[Prudnik,Brzeg,type2]
+                    *              0             0               
+    73 solution[Prudnik,Nysa,type2]
+                    *              0             0               
+    74 solution[Prudnik,Prudnik,type2]
+                    *              4             0               
+    75 solution[Prudnik,StrzelceOpolskie,type2]
+                    *              4             0               
+    76 solution[Prudnik,Kozle,type2]
+                    *              0             0               
+    77 solution[Prudnik,Raciborz,type2]
+                    *              1             0               
+    78 solution[StrzelceOpolskie,Opole,type2]
+                    *              0             0               
+    79 solution[StrzelceOpolskie,Brzeg,type2]
+                    *              0             0               
+    80 solution[StrzelceOpolskie,Nysa,type2]
+                    *              0             0               
+    81 solution[StrzelceOpolskie,Prudnik,type2]
+                    *              0             0               
+    82 solution[StrzelceOpolskie,StrzelceOpolskie,type2]
+                    *              0             0               
+    83 solution[StrzelceOpolskie,Kozle,type2]
+                    *              0             0               
+    84 solution[StrzelceOpolskie,Raciborz,type2]
+                    *              0             0               
+    85 solution[Kozle,Opole,type2]
+                    *              0             0               
+    86 solution[Kozle,Brzeg,type2]
+                    *              0             0               
+    87 solution[Kozle,Nysa,type2]
+                    *              0             0               
+    88 solution[Kozle,Prudnik,type2]
+                    *              0             0               
+    89 solution[Kozle,StrzelceOpolskie,type2]
+                    *              0             0               
+    90 solution[Kozle,Kozle,type2]
+                    *              0             0               
+    91 solution[Kozle,Raciborz,type2]
+                    *              0             0               
+    92 solution[Raciborz,Opole,type2]
+                    *              0             0               
+    93 solution[Raciborz,Brzeg,type2]
+                    *              0             0               
+    94 solution[Raciborz,Nysa,type2]
+                    *              0             0               
+    95 solution[Raciborz,Prudnik,type2]
+                    *              0             0               
+    96 solution[Raciborz,StrzelceOpolskie,type2]
+                    *              0             0               
+    97 solution[Raciborz,Kozle,type2]
+                    *              0             0               
+    98 solution[Raciborz,Raciborz,type2]
+                    *              0             0               
+
+Integer feasibility conditions:
+
+KKT.PE: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+KKT.PB: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+End of output
