@@ -1,0 +1,38 @@
+data;
+
+set Processes := 'Destilation', 'Cracking';
+set Oils := 'B1', 'B2';
+set Fuels := 'Silnikowe', 'Domowe', 'Ciezkie';
+set Products := 'Benzyna', 'Olej', 'Destylat', 'Resztki';
+set CrackingProducts := 'Benzyna', 'Olej', 'Resztki';
+set IsCracked := 'Yes', 'No';
+
+param DestilationEfficiency : B1    B2 :=
+        Benzyna    0.15  0.1
+        Olej       0.4   0.35
+        Destylat   0.15  0.2
+        Resztki    0.15  0.25;
+
+param CrackingEfficency :=
+        Benzyna   0.5 
+        Olej      0.2
+        Resztki   0.06;
+
+param OilsCosts :=
+        B1       1300
+        B2       1500;
+
+param ProcessesCosts :=
+    Destilation  10
+    Cracking     20;
+
+param Demands := 
+    Silnikowe    200000
+    Domowe       400000
+    Ciezkie      250000;
+
+param SulfurContamination :  B1       B2     :=
+                Destilation  0.002    0.012
+                Cracking     0.003    0.025;
+
+end;
