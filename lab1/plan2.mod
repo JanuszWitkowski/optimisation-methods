@@ -38,7 +38,8 @@ s.t. def_time_table{d in Days, h in {1..48}}:
         if h >= 15*2 then 0 else 1
     );
 
-s.t. one_group_per_course{c in Courses}:
+# MODYFIKACJE 4.2
+s.t. one_group_per_course_and_grades_over_five{c in Courses}:
     (sum{g in Groups}(Enroll[g, c])) = 1;
 
 s.t. max_four_hours_per_day{d in Days}:
@@ -55,7 +56,7 @@ printf "\n";
 
 printf "ZAPISANO NA KURSY\n";
 for{c in Courses, g in Groups}{
-    printf (if Enroll[g, c] > 0 then "%s: %s [(%s) %f-%f]\n" else ""), c, g, OnDays[g, c], Begins[g, c]/2, Ends[g, c]/2;
+    printf (if Enroll[g, c] > 0 then "%s: %s [(%s) %f-%f] <%s>\n" else ""), c, g, OnDays[g, c], Begins[g, c]/2, Ends[g, c]/2, Grades[g, c];
 }
 printf "\n";
 
@@ -90,17 +91,18 @@ param DaysToInts :=
     Cz 4
     Pt 5;
 
+# MODYFIKACJE DLA ZADANIA 4.2
 param Begins: Algebra Analiza Fizyka Mineraly Organiczna :=
-    I 26 26 16 16 18
-    II 20 20 20 16 21
-    III 20 22 30 26 22
-    IV 22 16 34 26 26;
+    I 26 24 24 16 24
+    II 24 24 20 16 21
+    III 24 24 30 26 24
+    IV 24 16 34 24 24;
 
 param Ends: Algebra Analiza Fizyka Mineraly Organiczna :=
-    I 30 30 22 20 21
-    II 24 24 26 20 24
-    III 24 26 36 30 25
-    IV 26 20 40 30 29;
+    I 30 28 28 20 28
+    II 28 28 26 20 24
+    III 28 28 36 30 28
+    IV 28 20 40 28 28;
 
 
 end;

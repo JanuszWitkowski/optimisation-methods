@@ -1,13 +1,13 @@
-Problem:    plan
+Problem:    plan2
 Rows:       257
 Columns:    263 (263 integer, 263 binary)
-Non-zeros:  638
+Non-zeros:  639
 Status:     INTEGER OPTIMAL
-Objective:  satisfaction = 37 (MAXimum)
+Objective:  satisfaction = 28 (MAXimum)
 
    No.   Row name        Activity     Lower bound   Upper bound
 ------ ------------    ------------- ------------- -------------
-     1 satisfaction               37                             
+     1 satisfaction               28                             
      2 at_least_one_sport
                                    1             1               
      3 def_time_table[Pn,1]
@@ -490,75 +490,75 @@ Objective:  satisfaction = 37 (MAXimum)
                                    0            -0             = 
    242 def_time_table[Pt,48]
                                    0            -0             = 
-   243 one_group_per_course[Algebra]
+   243 one_group_per_course_and_grades_over_five[Algebra]
                                    1             1             = 
-   244 one_group_per_course[Analiza]
+   244 one_group_per_course_and_grades_over_five[Analiza]
                                    1             1             = 
-   245 one_group_per_course[Fizyka]
+   245 one_group_per_course_and_grades_over_five[Fizyka]
                                    1             1             = 
-   246 one_group_per_course[Mineraly]
+   246 one_group_per_course_and_grades_over_five[Mineraly]
                                    1             1             = 
-   247 one_group_per_course[Organiczna]
+   247 one_group_per_course_and_grades_over_five[Organiczna]
                                    1             1             = 
    248 max_four_hours_per_day[Pn]
                                    7                           8 
    249 max_four_hours_per_day[Wt]
-                                   4                           8 
-   250 max_four_hours_per_day[Sr]
-                                   8                           8 
-   251 max_four_hours_per_day[Cz]
                                    6                           8 
+   250 max_four_hours_per_day[Sr]
+                                   4                           8 
+   251 max_four_hours_per_day[Cz]
+                                   8                           8 
    252 max_four_hours_per_day[Pt]
                                    0                           8 
    253 lunch_break[Pn]
-                                   0                           2 
+                                   2                           2 
    254 lunch_break[Wt]
-                                   0                           2 
+                                   2                           2 
    255 lunch_break[Sr]
                                    2                           2 
    256 lunch_break[Cz]
-                                   0                           2 
+                                   2                           2 
    257 lunch_break[Pt]
                                    0                           2 
 
    No. Column name       Activity     Lower bound   Upper bound
 ------ ------------    ------------- ------------- -------------
      1 Enroll[I,Algebra]
-                    *              0             0             1 
+                    *              1             0             1 
      2 Enroll[I,Analiza]
                     *              0             0             1 
      3 Enroll[I,Fizyka]
                     *              0             0             1 
      4 Enroll[I,Mineraly]
-                    *              1             0             1 
+                    *              0             0             1 
      5 Enroll[I,Organiczna]
                     *              0             0             1 
      6 Enroll[II,Algebra]
                     *              0             0             1 
      7 Enroll[II,Analiza]
-                    *              1             0             1 
-     8 Enroll[II,Fizyka]
                     *              0             0             1 
+     8 Enroll[II,Fizyka]
+                    *              1             0             1 
      9 Enroll[II,Mineraly]
                     *              0             0             1 
     10 Enroll[II,Organiczna]
                     *              1             0             1 
     11 Enroll[III,Algebra]
-                    *              1             0             1 
+                    *              0             0             1 
     12 Enroll[III,Analiza]
                     *              0             0             1 
     13 Enroll[III,Fizyka]
                     *              0             0             1 
     14 Enroll[III,Mineraly]
-                    *              0             0             1 
+                    *              1             0             1 
     15 Enroll[III,Organiczna]
                     *              0             0             1 
     16 Enroll[IV,Algebra]
                     *              0             0             1 
     17 Enroll[IV,Analiza]
-                    *              0             0             1 
-    18 Enroll[IV,Fizyka]
                     *              1             0             1 
+    18 Enroll[IV,Fizyka]
+                    *              0             0             1 
     19 Enroll[IV,Mineraly]
                     *              0             0             1 
     20 Enroll[IV,Organiczna]
@@ -594,13 +594,13 @@ Objective:  satisfaction = 37 (MAXimum)
     35 TimeTable[Pn,15]
                     *              0             0             1 
     36 TimeTable[Pn,16]
-                    *              1             0             1 
+                    *              0             0             1 
     37 TimeTable[Pn,17]
-                    *              1             0             1 
+                    *              0             0             1 
     38 TimeTable[Pn,18]
-                    *              1             0             1 
+                    *              0             0             1 
     39 TimeTable[Pn,19]
-                    *              1             0             1 
+                    *              0             0             1 
     40 TimeTable[Pn,20]
                     *              0             0             1 
     41 TimeTable[Pn,21]
@@ -614,13 +614,13 @@ Objective:  satisfaction = 37 (MAXimum)
     45 TimeTable[Pn,25]
                     *              0             0             1 
     46 TimeTable[Pn,26]
-                    *              0             0             1 
+                    *              1             0             1 
     47 TimeTable[Pn,27]
-                    *              0             0             1 
+                    *              1             0             1 
     48 TimeTable[Pn,28]
-                    *              0             0             1 
+                    *              1             0             1 
     49 TimeTable[Pn,29]
-                    *              0             0             1 
+                    *              1             0             1 
     50 TimeTable[Pn,30]
                     *              0             0             1 
     51 TimeTable[Pn,31]
@@ -706,9 +706,9 @@ Objective:  satisfaction = 37 (MAXimum)
     91 TimeTable[Wt,23]
                     *              1             0             1 
     92 TimeTable[Wt,24]
-                    *              0             0             1 
+                    *              1             0             1 
     93 TimeTable[Wt,25]
-                    *              0             0             1 
+                    *              1             0             1 
     94 TimeTable[Wt,26]
                     *              0             0             1 
     95 TimeTable[Wt,27]
@@ -794,25 +794,25 @@ Objective:  satisfaction = 37 (MAXimum)
    135 TimeTable[Sr,19]
                     *              0             0             1 
    136 TimeTable[Sr,20]
-                    *              1             0             1 
+                    *              0             0             1 
    137 TimeTable[Sr,21]
-                    *              1             0             1 
+                    *              0             0             1 
    138 TimeTable[Sr,22]
                     *              1             0             1 
    139 TimeTable[Sr,23]
                     *              1             0             1 
    140 TimeTable[Sr,24]
-                    *              0             0             1 
+                    *              1             0             1 
    141 TimeTable[Sr,25]
-                    *              0             0             1 
+                    *              1             0             1 
    142 TimeTable[Sr,26]
-                    *              1             0             1 
+                    *              0             0             1 
    143 TimeTable[Sr,27]
-                    *              1             0             1 
+                    *              0             0             1 
    144 TimeTable[Sr,28]
-                    *              1             0             1 
+                    *              0             0             1 
    145 TimeTable[Sr,29]
-                    *              1             0             1 
+                    *              0             0             1 
    146 TimeTable[Sr,30]
                     *              0             0             1 
    147 TimeTable[Sr,31]
@@ -882,13 +882,13 @@ Objective:  satisfaction = 37 (MAXimum)
    179 TimeTable[Cz,15]
                     *              0             0             1 
    180 TimeTable[Cz,16]
-                    *              0             0             1 
+                    *              1             0             1 
    181 TimeTable[Cz,17]
-                    *              0             0             1 
+                    *              1             0             1 
    182 TimeTable[Cz,18]
-                    *              0             0             1 
+                    *              1             0             1 
    183 TimeTable[Cz,19]
-                    *              0             0             1 
+                    *              1             0             1 
    184 TimeTable[Cz,20]
                     *              0             0             1 
    185 TimeTable[Cz,21]
@@ -902,13 +902,13 @@ Objective:  satisfaction = 37 (MAXimum)
    189 TimeTable[Cz,25]
                     *              0             0             1 
    190 TimeTable[Cz,26]
-                    *              0             0             1 
+                    *              1             0             1 
    191 TimeTable[Cz,27]
-                    *              0             0             1 
+                    *              1             0             1 
    192 TimeTable[Cz,28]
-                    *              0             0             1 
+                    *              1             0             1 
    193 TimeTable[Cz,29]
-                    *              0             0             1 
+                    *              1             0             1 
    194 TimeTable[Cz,30]
                     *              0             0             1 
    195 TimeTable[Cz,31]
@@ -918,17 +918,17 @@ Objective:  satisfaction = 37 (MAXimum)
    197 TimeTable[Cz,33]
                     *              0             0             1 
    198 TimeTable[Cz,34]
-                    *              1             0             1 
+                    *              0             0             1 
    199 TimeTable[Cz,35]
-                    *              1             0             1 
+                    *              0             0             1 
    200 TimeTable[Cz,36]
-                    *              1             0             1 
+                    *              0             0             1 
    201 TimeTable[Cz,37]
-                    *              1             0             1 
+                    *              0             0             1 
    202 TimeTable[Cz,38]
-                    *              1             0             1 
+                    *              0             0             1 
    203 TimeTable[Cz,39]
-                    *              1             0             1 
+                    *              0             0             1 
    204 TimeTable[Cz,40]
                     *              0             0             1 
    205 TimeTable[Cz,41]
@@ -1044,8 +1044,8 @@ Objective:  satisfaction = 37 (MAXimum)
    260 TimeTable[Pt,48]
                     *              0             0             1 
    261 Sports[1]    *              0             0             1 
-   262 Sports[2]    *              0             0             1 
-   263 Sports[3]    *              1             0             1 
+   262 Sports[2]    *              1             0             1 
+   263 Sports[3]    *              0             0             1 
 
 Integer feasibility conditions:
 
