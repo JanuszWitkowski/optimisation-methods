@@ -1,7 +1,7 @@
 Problem:    plan2
-Rows:       257
+Rows:       260
 Columns:    263 (263 integer, 263 binary)
-Non-zeros:  639
+Non-zeros:  651
 Status:     INTEGER OPTIMAL
 Objective:  satisfaction = 28 (MAXimum)
 
@@ -490,15 +490,15 @@ Objective:  satisfaction = 28 (MAXimum)
                                    0            -0             = 
    242 def_time_table[Pt,48]
                                    0            -0             = 
-   243 one_group_per_course_and_grades_over_five[Algebra]
+   243 one_group_per_course[Algebra]
                                    1             1             = 
-   244 one_group_per_course_and_grades_over_five[Analiza]
+   244 one_group_per_course[Analiza]
                                    1             1             = 
-   245 one_group_per_course_and_grades_over_five[Fizyka]
+   245 one_group_per_course[Fizyka]
                                    1             1             = 
-   246 one_group_per_course_and_grades_over_five[Mineraly]
+   246 one_group_per_course[Mineraly]
                                    1             1             = 
-   247 one_group_per_course_and_grades_over_five[Organiczna]
+   247 one_group_per_course[Organiczna]
                                    1             1             = 
    248 max_four_hours_per_day[Pn]
                                    7                           8 
@@ -520,6 +520,12 @@ Objective:  satisfaction = 28 (MAXimum)
                                    2                           2 
    257 lunch_break[Pt]
                                    0                           2 
+   258 no_plans_for_sr_pt[3]
+                                   0            -0             = 
+   259 no_plans_for_sr_pt[5]
+                                   0            -0             = 
+   260 no_course_with_rating_below_five
+                                   0            -0             = 
 
    No. Column name       Activity     Lower bound   Upper bound
 ------ ------------    ------------- ------------- -------------

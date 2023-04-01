@@ -3,7 +3,7 @@ Parameter(s) specified in the command line:
  --model plan.mod --output out/plan.txt
 Reading model section from plan.mod...
 Reading data section from plan.mod...
-106 lines were read
+117 lines were read
 Generating satisfaction...
 Generating at_least_one_sport...
 Generating def_time_table...
@@ -37,7 +37,7 @@ Solution found by heuristic: 37
 +    15: mip =   3.700000000e+01 <=     tree is empty   0.0% (0; 5)
 INTEGER OPTIMAL SOLUTION FOUND
 Time used:   0.0 secs
-Memory used: 0.5 Mb (503819 bytes)
+Memory used: 0.5 Mb (511851 bytes)
 
 FUNKCJA CELU: 37
 

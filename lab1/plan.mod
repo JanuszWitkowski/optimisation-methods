@@ -1,23 +1,31 @@
-set Groups;
-set Courses;
-set Days;
+/* OPTIMIZATION METHODS
+ex 1.4.1 - Schedule Problem
+Author: Janusz Witkowski 254663
+*/
 
-param Grades{Groups, Courses}, integer, >= 0, <= 10;
-param OnDays{Groups, Courses}, integer, >= 1, <= 5;
-param DaysToInts{Days}, integer, >= 1, <= 5;
-param Begins{Groups, Courses}, integer, >= 1, <= 48;
-param Ends{Groups, Courses}, integer, >= 1, <= 48;
+set Groups;     # Groups of courses
+set Courses;    # Different courses
+set Days;       # Days in school week
 
-var Enroll{Groups, Courses}, integer, >= 0, <= 1;
-var TimeTable{Days, {1..48}}, integer, >= 0, <= 1;
-var Sports{{1..3}}, integer, >= 0, <= 1;
+param Rates{Groups, Courses}, integer, >= 0, <= 10;     # Groups of courses are rated
+param OnDays{Groups, Courses}, integer, >= 1, <= 5;     # On which day of the week does a course group take place
+param DaysToInts{Days}, integer, >= 1, <= 5;            # Helper param
+param Begins{Groups, Courses}, integer, >= 1, <= 24*2;  # Starting hours of courses [in half-hours]
+param Ends{Groups, Courses}, integer, >= 1, <= 24*2;    # Ending hours of courses [in half-hours]
+
+var Enroll{Groups, Courses}, integer, >= 0, <= 1;       # Main objective - a chart of course group the student enrolled to
+var TimeTable{Days, {1..48}}, integer, >= 0, <= 1;      # Which half-hours are taken by courses and activities (does not allow for overlaps)
+var Sports{{1..3}}, integer, >= 0, <= 1;                # Which sport group does the student want to attend to
 
 
-maximize satisfaction: sum{g in Groups, c in Courses}(Enroll[g, c] * Grades[g, c]);
+# We want to enroll to best possible course groups
+maximize satisfaction: sum{g in Groups, c in Courses}(Enroll[g, c] * Rates[g, c]);
 
+# Constraint - You should have time for at least one sports activity
 s.t. at_least_one_sport:
     sum{s in {1..3}}(Sports[s]) >= 1;
 
+# Definition - A Time Table consists of half-hours taken by Student's activities
 s.t. def_time_table{d in Days, h in {1..48}}:
     TimeTable[d, h] = sum{g in Groups, c in Courses}(
         Enroll[g, c] * (if OnDays[g, c] = DaysToInts[d] then 1 else 0) * (
@@ -38,12 +46,15 @@ s.t. def_time_table{d in Days, h in {1..48}}:
         if h >= 15*2 then 0 else 1
     );
 
+# Constraint - You must enroll for exactly one group for each course
 s.t. one_group_per_course{c in Courses}:
     (sum{g in Groups}(Enroll[g, c])) = 1;
 
+# Constraint - You don't want to have more than four hours (eigth half-hours) of obligatory courses per day
 s.t. max_four_hours_per_day{d in Days}:
     (sum{h in {1..48}}(TimeTable[d, h])) <= 4*2;
 
+# Constraint - Find at least 1 hours (2 half-hours) between 12:00 and 14:00 to get a snack
 s.t. lunch_break{d in Days}:
     sum{h in {12*2..((14*2)-1)}}(TimeTable[d, h]) <= 1*2;
 
@@ -71,7 +82,7 @@ set Groups := 'I' 'II' 'III' 'IV';
 set Courses := 'Algebra' 'Analiza' 'Fizyka' 'Mineraly' 'Organiczna';
 set Days := 'Pn' 'Wt' 'Sr' 'Cz' 'Pt';
 
-param Grades: Algebra Analiza Fizyka Mineraly Organiczna :=
+param Rates: Algebra Analiza Fizyka Mineraly Organiczna :=
     I 5 4 3 10 0
     II 4 4 5 10 5
     III 10 5 7 7 3

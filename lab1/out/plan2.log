@@ -3,40 +3,43 @@ Parameter(s) specified in the command line:
  --model plan2.mod --output out/plan2.txt
 Reading model section from plan2.mod...
 Reading data section from plan2.mod...
-108 lines were read
+129 lines were read
 Generating satisfaction...
 Generating at_least_one_sport...
 Generating def_time_table...
-Generating one_group_per_course_and_grades_over_five...
+Generating one_group_per_course...
 Generating max_four_hours_per_day...
 Generating lunch_break...
+Generating no_plans_for_sr_pt...
+Generating no_course_with_rating_below_five...
 Model has been successfully generated
 GLPK Integer Optimizer 5.0
-257 rows, 263 columns, 639 non-zeros
+260 rows, 263 columns, 651 non-zeros
 263 integer variables, all of which are binary
 Preprocessing...
-63 rows, 74 columns, 218 non-zeros
-74 integer variables, all of which are binary
+1 hidden packing inequaliti(es) were detected
+38 rows, 40 columns, 100 non-zeros
+40 integer variables, all of which are binary
 Scaling...
  A: min|aij| =  1.000e+00  max|aij| =  1.000e+00  ratio =  1.000e+00
 Problem data seem to be well scaled
 Constructing initial basis...
-Size of triangular part is 63
+Size of triangular part is 38
 Solving LP relaxation...
 GLPK Simplex Optimizer 5.0
-63 rows, 74 columns, 218 non-zeros
-      0: obj =   2.400000000e+01 inf =   7.000e+00 (4)
-      7: obj =   2.775000000e+01 inf =   0.000e+00 (0)
-*    14: obj =   3.187500000e+01 inf =   0.000e+00 (0)
+38 rows, 40 columns, 100 non-zeros
+      0: obj =   3.100000000e+01 inf =   7.000e+00 (2)
+      2: obj =   2.800000000e+01 inf =   0.000e+00 (0)
+*     4: obj =   2.925000000e+01 inf =   0.000e+00 (0)
 OPTIMAL LP SOLUTION FOUND
 Integer optimization begins...
 Long-step dual simplex will be used
-+    14: mip =     not found yet <=              +inf        (1; 0)
-+    21: >>>>>   2.800000000e+01 <=   2.800000000e+01   0.0% (1; 0)
-+    21: mip =   2.800000000e+01 <=     tree is empty   0.0% (0; 1)
++     4: mip =     not found yet <=              +inf        (1; 0)
+Solution found by heuristic: 28
++     5: mip =   2.800000000e+01 <=     tree is empty   0.0% (0; 1)
 INTEGER OPTIMAL SOLUTION FOUND
 Time used:   0.0 secs
-Memory used: 0.5 Mb (506638 bytes)
+Memory used: 0.5 Mb (498330 bytes)
 
 FUNKCJA CELU: 28
 

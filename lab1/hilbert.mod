@@ -1,17 +1,29 @@
+/* OPTIMIZATION METHODS
+ex 1.1 - Hilbert's Matrix
+Author: Janusz Witkowski 254663
+*/
 
+param n, integer, > 0;  # Size of the matrix; we'll be toying with it to see how errors grow
+set N := {1..n};        # Solution vector
 
-param n, integer, > 0;
-/* rozmiar macierzy Hilberta */
+param A{i in N, j in N} := 1/(i + j - 1);   # Hilbert's Matrix
+param B{i in N} := sum{j in N}(A[i,j]);     # Constraints vector
+param C{i in N} := B[i];
 
-param A{i in {1..n}, j in {1..n}} := 1/(i + j - 1);
-param b{i in {1..n}} := sum{j in {1..n}}(1/(i + j - 1));
-param c{i in {1..n}} := b[i];
+var X{j in N} >= 0;     # Decision variable; will be useful in error showcase
 
-var x{i in {1..n}}, >= 0;
+# Objective function, given in Hilbert's Matrix task
+minimize objective_function: sum{i in N} C[i] * X[i];
 
-minimize cost: sum{i in {1..n}} x[i] * c[i];
-
-subject to solution{i in {1..n}}: sum{j in {1..n}} x[i] * A[i, j] = b[i];
+# Constraint, given in Hilbert's Martix task
+s.t. equality{i in N}: sum{j in N}(A[i, j] * X[j]) = B[i];
 
 solve;
 
+# Printing results
+display X;
+printf "\n";
+printf "n = %d\n", n;
+printf "error = %f\n", sqrt(sum{i in N}(1 - X[i])*(1-X[i])) / sqrt(sum{i in N}(1));
+
+end;

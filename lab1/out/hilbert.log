@@ -1,0 +1,39 @@
+GLPSOL--GLPK LP/MIP Solver 5.0
+Parameter(s) specified in the command line:
+ --model hilbert.mod --data hilbert.dat --output out/hilbert.txt
+Reading model section from hilbert.mod...
+28 lines were read
+Reading data section from hilbert.dat...
+hilbert.dat:2: warning: unexpected end of file; missing end statement inserted
+2 lines were read
+Generating objective_function...
+Generating equality...
+Model has been successfully generated
+GLPK Simplex Optimizer 5.0
+8 rows, 7 columns, 56 non-zeros
+Preprocessing...
+7 rows, 7 columns, 49 non-zeros
+Scaling...
+ A: min|aij| =  7.692e-02  max|aij| =  1.000e+00  ratio =  1.300e+01
+GM: min|aij| =  7.177e-01  max|aij| =  1.393e+00  ratio =  1.941e+00
+EQ: min|aij| =  5.151e-01  max|aij| =  1.000e+00  ratio =  1.941e+00
+Constructing initial basis...
+Size of triangular part is 1
+      0: obj =   6.930238905e+00 inf =   8.573e+00 (6)
+      8: obj =   9.221872572e+00 inf =   0.000e+00 (0) 1
+OPTIMAL LP SOLUTION FOUND
+Time used:   0.0 secs
+Memory used: 0.1 Mb (129473 bytes)
+Display statement at line 23
+X[1].val = 0.999999999989076
+X[2].val = 1.00000000043793
+X[3].val = 0.999999995766327
+X[4].val = 1.00000001650268
+X[5].val = 0.999999969682999
+X[6].val = 1.00000002624072
+X[7].val = 0.999999991372198
+
+n = 7
+error = 0.000000
+Model has been successfully processed
+Writing basic solution to 'out/hilbert.txt'...

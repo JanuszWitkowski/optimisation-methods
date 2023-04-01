@@ -1,6 +1,2 @@
-/* The separated file with the data */
-data;
-
-param n := 25; /* rozmiar macierzy Hilberta */
-
-end;
+param n := 7;
+# Dla n = 1,...,7 jest jeszcze OK, ale dla n = 8,... już są poważne błędy.

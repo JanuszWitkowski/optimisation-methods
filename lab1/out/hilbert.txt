@@ -1,0 +1,48 @@
+Problem:    hilbert
+Rows:       8
+Columns:    7
+Non-zeros:  56
+Status:     OPTIMAL
+Objective:  objective_function = 9.221872572 (MINimum)
+
+   No.   Row name   St   Activity     Lower bound   Upper bound    Marginal
+------ ------------ -- ------------- ------------- ------------- -------------
+     1 objective_function
+                    B        9.22187                             
+     2 equality[1]  NS       2.59286       2.59286             =             1 
+     3 equality[2]  NS       1.71786       1.71786             =             1 
+     4 equality[3]  NS       1.32897       1.32897             =             1 
+     5 equality[4]  NS       1.09563       1.09563             =             1 
+     6 equality[5]  NS      0.936544      0.936544             =             1 
+     7 equality[6]  NS      0.819877      0.819877             =             1 
+     8 equality[7]  NS      0.730134      0.730134             =             1 
+
+   No. Column name  St   Activity     Lower bound   Upper bound    Marginal
+------ ------------ -- ------------- ------------- ------------- -------------
+     1 X[1]         B              1             0               
+     2 X[2]         B              1             0               
+     3 X[3]         B              1             0               
+     4 X[4]         B              1             0               
+     5 X[5]         B              1             0               
+     6 X[6]         B              1             0               
+     7 X[7]         B              1             0               
+
+Karush-Kuhn-Tucker optimality conditions:
+
+KKT.PE: max.abs.err = 8.88e-16 on row 2
+        max.rel.err = 1.44e-16 on row 2
+        High quality
+
+KKT.PB: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+KKT.DE: max.abs.err = 3.33e-16 on column 7
+        max.rel.err = 1.35e-16 on column 7
+        High quality
+
+KKT.DB: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+End of output
