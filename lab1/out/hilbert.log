@@ -2,7 +2,7 @@ GLPSOL--GLPK LP/MIP Solver 5.0
 Parameter(s) specified in the command line:
  --model hilbert.mod --data hilbert.dat --output out/hilbert.txt
 Reading model section from hilbert.mod...
-28 lines were read
+29 lines were read
 Reading data section from hilbert.dat...
 hilbert.dat:2: warning: unexpected end of file; missing end statement inserted
 2 lines were read
@@ -24,7 +24,7 @@ Size of triangular part is 1
 OPTIMAL LP SOLUTION FOUND
 Time used:   0.0 secs
 Memory used: 0.1 Mb (129473 bytes)
-Display statement at line 23
+Display statement at line 24
 X[1].val = 0.999999999989076
 X[2].val = 1.00000000043793
 X[3].val = 0.999999995766327
