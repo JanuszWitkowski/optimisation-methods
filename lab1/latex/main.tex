@@ -242,6 +242,99 @@ Student chce zmaksymalizować sumę punktów priorytetowych z każdych zajęć n
 \[ max {\sum_{g \in [n]}{\sum_{c \in [m]}{x_{gc}\cdot r_{gc}}}} \]
 
 \subsection{Wyniki}
+Znaleziony podstawowy grafik ma wartość funkcji celu równą 37 i wygląda następująco:
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|} \hline
+		Kurs & Grupa \\\hline
+        Algebra & III \\\hline
+        Analiza & II \\\hline
+        Fizyka & IV \\\hline
+        Minerały & I \\\hline
+        Organiczna & II \\\hline
+	\end{tabular}
+\end{table}
 
+Możemy zobaczyć jak wygląda ten grafik godzinowo:
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c|c|c|c|c|c}
+		& Pn. & Wt. & Śr. & Cz. & Pt.\\\hline
+		8:00 & x & & & & \\\hline
+		8:30 & x & & & & \\\hline
+		9:00 & x & & & & \\\hline
+		9:30 & x & & & & \\\hline
+		10:00 & & x & x & & \\\hline
+		10:30 & x & x & x & & \\\hline
+		11:00 & x & x & x & & \\\hline
+		11:30 & x & x & x & & \\\hline
+		12:00 & & & & & \\\hline
+		12:30 & & & & & \\\hline
+		13:00 & & & & & \\\hline
+		13:30 & & & & & \\\hline
+		14:00 & & & & & \\\hline
+		14:30 & & & & & \\\hline
+		15:00 & & & & & \\\hline
+		15:30 & & & & & \\\hline
+		16:00 & & & & & \\\hline
+		16:30 & & & & & \\\hline
+		17:00 & & & & x & \\\hline
+		17:30 & & & & x & \\\hline
+		18:00 & & & & x & \\\hline
+		18:30 & & & & x & \\\hline
+		19:00 & & & & x & \\\hline
+		19:30 & & & & x & \\\hline
+        20:00 & & & & & \\\hline
+	\end{tabular}
+\end{table}
+
+Widać, że Student nie ma więcej niż 4 godzin ćwiczeń dziennie, ma możliwe przerwy na lunch, oraz że może uprawiać sport w co najmniej jednej grupie (tj. Pn 13:00-15:00).
+
+Po wczytaniu modelu dla wariantu rozszerzonego, udało się odnaleźć takie oto rozwiązanie z wartością funkcji celu równą 28:
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|} \hline
+		Kurs & Grupa \\\hline
+        Algebra & I \\\hline
+        Analiza & IV \\\hline
+        Fizyka & II \\\hline
+        Minerały & III \\\hline
+        Organiczna & II \\\hline
+	\end{tabular}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c|c|c|c|c|c}
+		& Pn. & Wt. & Śr. & Cz. & Pt.\\\hline
+		8:00 & & & & x & \\\hline
+		8:30 & & & & x & \\\hline
+		9:00 & & & & x & \\\hline
+		9:30 & & & & x & \\\hline
+		10:00 & & x & & & \\\hline
+		10:30 & x & x & & & \\\hline
+		11:00 & x & x & & & \\\hline
+		11:30 & x & x & & & \\\hline
+		12:00 & & x & & & \\\hline
+		12:30 & & x & & & \\\hline
+		13:00 & x & & & x & \\\hline
+		13:30 & x & & & x & \\\hline
+		14:00 & x & & & x & \\\hline
+		14:30 & x & & & x & \\\hline
+		15:00 & & & & & \\\hline
+		15:30 & & & & & \\\hline
+		16:00 & & & & & \\\hline
+		16:30 & & & & & \\\hline
+		17:00 & & & & & \\\hline
+		17:30 & & & & & \\\hline
+		18:00 & & & & & \\\hline
+		18:30 & & & & & \\\hline
+		19:00 & & & & & \\\hline
+		19:30 & & & & & \\\hline
+        20:00 & & & & & \\\hline
+	\end{tabular}
+\end{table}
+
+Tutaj Student również ma swobodę w lunchu i w uprawianiu sportu (np. grupa Śr 11:00-13:00).
 
 \end{document}
