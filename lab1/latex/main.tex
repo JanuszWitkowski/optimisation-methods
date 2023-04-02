@@ -1,0 +1,212 @@
+%%%% Uniwersalny Szablon Infy WPPT v4.2 (02.02.2018) %%%%
+
+% uklad dokumentu
+	\documentclass{article}
+	\usepackage{xparse}
+	\usepackage[margin=2cm]{geometry}
+	\usepackage{enumerate} 
+	\frenchspacing
+	\linespread{1.2}
+ 	\setlength{\parindent}{0pt}
+
+% pakiety matematyczne
+	\usepackage{amssymb}   
+	\usepackage{amsthm}
+	\usepackage{amsmath}
+	\usepackage{amsfonts}
+	\usepackage{tikz}
+
+% jezyk polski
+	\usepackage[polish]{babel}
+	\usepackage[utf8]{inputenc}
+	\usepackage{polski}
+	\usepackage[T1]{fontenc}
+ 
+% hiperlacza
+	\usepackage{hyperref}
+	\hypersetup{
+		colorlinks,
+		citecolor=black,
+		filecolor=black,
+		linkcolor=black,
+		urlcolor=black
+	}
+
+% wstawianie zdjec
+	\usepackage{graphicx} 
+
+% deklaracja zadania
+	\theoremstyle{definition}
+	\newtheorem{zadanie}{Zadanie}[subsection]
+	\renewcommand{\thezadanie}{\arabic{zadanie}}
+
+% deklaracja metody
+	\theoremstyle{remark}
+	\newtheorem*{metoda}{Metoda}
+	\theoremstyle{plain}
+	
+% deklaracja rozwiazania
+	\theoremstyle{remark}
+	\newtheorem*{rozwiazanie}{Rozwiązanie}
+	\theoremstyle{plain}
+	
+% zestaw - mpis
+	\newcommand{\EE}{\mathbb{E}}
+	\newcommand{\PP}{\mathbb{P}}
+	\newcommand{\Var}{\mathrm{Var}}
+	\newcommand{\DD}{\mathbb{D}}
+	\newcommand{\red}[1]{\textcolor{red}{#1}}
+
+% zestaw - programowanie
+	\usepackage{listings} 
+	\usepackage{minibox}
+	% \usepackage{minted}
+	% \usemintedstyle{borland}
+
+% zestaw - akiso
+	%\usepackage{karnaugh-map} %%% nie ma w bazie overleaf
+	\usepackage{karnaughmap}
+	\usepackage{circuitikz}
+	
+	\usepackage{tikz}
+    \usetikzlibrary{automata,positioning}
+    
+% zestaw - dyskretna
+	\newcommand{\stirf}[2]{\genfrac{[}{]}{0pt}{}{#1}{#2}}
+	\newcommand{\stirs}[2]{\genfrac{\{}{\}}{0pt}{}{#1}{#2}}
+	
+% zestaw - jftt
+	\newcommand{\oor}{\mathop{|}}
+	\DeclareMathOperator{\Lead}{Leading}
+	\DeclareMathOperator{\Trail}{Trailing}
+	\DeclareMathOperator{\fst}{First}
+	\DeclareMathOperator{\fol}{Follow}
+	
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{float}
+\title{Metody Optymalizacji - Lista 1}
+\author{Janusz Witkowski 254663}
+\date{2 kwietnia 2023}
+
+\begin{document}
+
+\maketitle
+
+\section{Zadanie 1}
+\subsection{Model}
+\subsubsection{Zmienne decyzyjne}
+Użyta została tylko jedna zmienna decyzyjna $\textbf{\textit{X}}$, która jest wektorem spełniającym warunek $\textbf{\textit{X}} \geq \textbf{0}$.
+Teoretycznym rozwiązaniem problemu będącego zagadnieniem tego zadania jest wektor $\textbf{\textit{Y}} \textbf{ = 1} $.
+Będziemy mogli później porównać wynikowy wektor $\textbf{\textit{X}}$ z $\textbf{\textit{Y}}$, aby przekonać się o precyzji GNU MathProg.
+
+\subsubsection{Ograniczenia}
+Za ograniczenia przyjmujemy równania liniowe podane w treści zadania:
+\[A\textbf{\textit{x}}=\textbf{\textit{b}}\]
+
+przy warunkach
+
+\[a_{ij} = \frac{1}{i+j-1}, i,j \in 1,...,n\]
+\[c_i = b_i = \sum_{j=1}^n{\frac{1}{i+j-1}}, i \in 1,...,n\]
+
+Macierz $A$ jest tzw. macierzą Hilberta, powodującą złe uwarunkowanie zagadnienia.
+
+\subsubsection{Funkcja celu}
+Funkcja celu ma postać podaną w treści polecenia 
+
+\[ min {\textit{{\textbf{ c}}}}^T \textbf{\textit{x}} \]
+
+\subsection{Wyniki}
+    
+        
+\section{Zadanie 2}
+\subsection{Model}
+\subsubsection{Zmienne decyzyjne}
+Chcemy w pewien sposób zamodelować rozkład jazdy dźwigów różnego typu z jednych miast do innych.
+Na razie przyjmijmy, że dźwigów nie da się podzielić, żebyśmy obracali się w programowaniu całkowitoliczbowym.
+Zdefiniujmy następującą zmienną decyzyjną:
+
+\[ x \in \mathbb{Z}^{n\times n\times 2}, x \geq 0 \]
+
+Przez $x_{abt}$ będziemy rozumieć ile dźwigów typu $t$ należy przetransportować z miasta $a$ do miasta $b$.
+
+\subsubsection{Parametry}
+Wprowadźmy pewne parametry, ściśle związane z problemem.
+
+\[ d \in \mathbb{Z}^{2\times n}, d \geq 0 \]
+\[ r \in \mathbb{Z}^{2\times n}, r \geq 0 \]
+\[ z \in \{0,1\}^{2\times 2} \]
+\[ l \in \mathbb{R}^{n\times n}, l \geq 0 \]
+\[ k \in \mathbb{R}^{2}, k \geq 0 \]
+
+Niech $d_{ta}$ oznacza ile dźwigów typu $t$ brakuje w mieście $a$.
+Niech $r_{ta}$ oznacza nadmiar dźwigów typu $t$ w mieście $a$.
+Niech $z_{ts}$ oznacza czy dźwig typu $t$ może zastąpić dźwig typu $s$.
+Niech $l_{ab}$ oznacza dystans w kilometrach między miastem $a$ a miastem $b$.
+Niech $k_t$ oznacza koszt transportu dźwigu typu $t$ za każdy przebyty kilometr.
+
+\subsubsection{Ograniczenia}
+Aby zagwarantować dopuszczalność potencjalnych rozkładów transportu, zdefiniujmy trzy ograniczenia:
+\begin{enumerate}
+    \item \textbf{Nasyć popyt na różne typy} - każde miasto powinno otrzymać takie dźwigi aby mogło funkcjonować (dźwigi typu II mogą zastąpić dźwigi typu I)
+    % \[ (\forall a \in \{1,\dots,n\}, t \in \{I,II\}) \left(\sum_{b=1}^{n-1}{x_{abt} \leq d_{ak}}\right) \]
+    \[ (\forall a \in \{1,\dots,n\}, t \in \{I,II\}) \left(\sum_{b=1}^{n}{\sum_{s \in \{I,II\}}{x_{abs} \cdot z_{st}}} \geq d_{ta} \right) \]
+
+    \item \textbf{Z pustego nawet Salomon nie naleje} - miasto nie może oddać więcej dźwigów niż samo posiada
+    \[ (\forall a \in \{1,\dots,n\}, t \in \{I,II\}) \left(\sum_{b=1}^{n}{x_{abt}} \leq r_{ta} \right) \]
+
+    \item \textbf{Nie zgub żadnego dźwigu po drodze} - potrzebujące miasta powinny dostać łącznie tyle dźwigów by zaspokoić swoje niedobory
+    \[ (\forall a \in \{1,\dots,n\}) \left(\sum_{b=1}^{n}{\sum_{t \in \{I,II\}}{x_{abs}}} \geq \sum_{s \in \{I, II\}}{d_{sa}} \right) \]
+\end{enumerate}
+
+\subsubsection{Funkcja celu}
+Chcemy zminimalizować koszty transportu dźwigów między miastami. Zaproponujmy następującą funkcję celu:
+
+\[ min {\sum_{t \in \{I,II\}}{\sum_{a=1}^{n}{\sum_{b=1}^{n}{l_{ab} \cdot x_{abt} \cdot k_t}}}} \]
+
+\subsection{Wyniki}
+    
+
+\section{Zadanie 3}
+\subsection{Model}
+\subsubsection{Zmienne decyzyjne}
+\subsubsection{Ograniczenia}
+\subsubsection{Funkcja celu}
+
+\subsection{Wyniki}
+
+    
+\section{Zadanie 4}
+\subsection{Model}
+\subsubsection{Zmienne decyzyjne}
+W modelu wykorzystano następujące zmienne decyzyjne:
+
+\[ x \in \{0,1\}^{n\times m} \]
+\[ t \in \{0,1\}^{\{1,\ldots,5\}\times \{1,\ldots,48\}} \]
+\[ s \in \{0,1\}^{\{1,2,3\}} \]
+
+$x_{gc}$ oznacza zapis Studenta na kurs $c$ do grupy $g$. 
+$t_{dh}$ indykuje czy Student jest zajęty w dniu $d$ o godzinie $h/2$.
+$s_k$ mówi czy Student zapisał się na zajęcia sportowe $k$.
+
+\subsubsection{Parametry}
+W modelu wykorzystano następujące parametry, ściśle powiązane z problemem:
+
+\[ r \in \mathbb{Z}^{n\times m}, 0 \leq r \leq 10 \]
+\[ w \in \mathbb{Z}^{n\times m}, 1 \leq w \leq 5 \]
+\[ b \in \mathbb{Z}^{n\times m}, 1 \leq b \leq 48 \]
+\[ e \in \mathbb{Z}^{n\times m}, 1 \leq e \leq 48 \]
+
+$r_{gc}$ jest oceną (priorytetem) grupy, ustawioną przez Studenta. 
+$w_{gc}$ mówi w którym dniu tygodnia odbywają się zajęcia grupy $g$ kursu $c$.
+$b_{gc}$ oznacza o której pół-godzinie zajęcia się zaczynają.
+$e_{gc}$ oznacza o której pół-godzinie zajęcia się kończą.
+
+\subsubsection{Ograniczenia}
+\subsubsection{Funkcja celu}
+Student chce zmaksymalizować sumę punktów priorytetowych z każdych zajęć na które się zapisze.
+
+\subsection{Wyniki}
+
+
+\end{document}
