@@ -52,7 +52,11 @@ s.t. one_group_per_course{c in Courses}:
 
 # Constraint - You don't want to have more than four hours (eigth half-hours) of obligatory courses per day
 s.t. max_four_hours_per_day{d in Days}:
-    (sum{h in {1..48}}(TimeTable[d, h])) <= 4*2;
+    sum{g in Groups, c in Courses}(
+        Enroll[g, c] *
+        (if OnDays[g, c] = DaysToInts[d] then Ends[g, c] - Begins[g, c] else 0)
+    ) <= 4*2;
+    # (sum{h in {1..48}}(TimeTable[d, h])) <= 4*2;
 
 # Constraint - Find at least 1 hours (2 half-hours) between 12:00 and 14:00 to get a snack
 s.t. lunch_break{d in Days}:
@@ -127,4 +131,4 @@ param Ends: Algebra Analiza Fizyka Mineraly Organiczna :=
 
 
 end;
-# glpsol --model plan2.mod --output out/plan2.txt | tee plan2.log
+# glpsol --model plan2.mod --output out/plan2.txt | tee out/plan2.log

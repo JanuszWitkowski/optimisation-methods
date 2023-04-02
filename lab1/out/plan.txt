@@ -1,7 +1,7 @@
 Problem:    plan
 Rows:       257
 Columns:    263 (263 integer, 263 binary)
-Non-zeros:  638
+Non-zeros:  418
 Status:     INTEGER OPTIMAL
 Objective:  satisfaction = 37 (MAXimum)
 
@@ -505,17 +505,17 @@ Objective:  satisfaction = 37 (MAXimum)
    249 max_four_hours_per_day[Wt]
                                    4                           8 
    250 max_four_hours_per_day[Sr]
-                                   8                           8 
+                                   4                           8 
    251 max_four_hours_per_day[Cz]
                                    6                           8 
    252 max_four_hours_per_day[Pt]
                                    0                           8 
    253 lunch_break[Pn]
-                                   0                           2 
+                                   2                           2 
    254 lunch_break[Wt]
                                    0                           2 
    255 lunch_break[Sr]
-                                   2                           2 
+                                   0                           2 
    256 lunch_break[Cz]
                                    0                           2 
    257 lunch_break[Pt]
@@ -614,13 +614,13 @@ Objective:  satisfaction = 37 (MAXimum)
     45 TimeTable[Pn,25]
                     *              0             0             1 
     46 TimeTable[Pn,26]
-                    *              0             0             1 
+                    *              1             0             1 
     47 TimeTable[Pn,27]
-                    *              0             0             1 
+                    *              1             0             1 
     48 TimeTable[Pn,28]
-                    *              0             0             1 
+                    *              1             0             1 
     49 TimeTable[Pn,29]
-                    *              0             0             1 
+                    *              1             0             1 
     50 TimeTable[Pn,30]
                     *              0             0             1 
     51 TimeTable[Pn,31]
@@ -806,13 +806,13 @@ Objective:  satisfaction = 37 (MAXimum)
    141 TimeTable[Sr,25]
                     *              0             0             1 
    142 TimeTable[Sr,26]
-                    *              1             0             1 
+                    *              0             0             1 
    143 TimeTable[Sr,27]
-                    *              1             0             1 
+                    *              0             0             1 
    144 TimeTable[Sr,28]
-                    *              1             0             1 
+                    *              0             0             1 
    145 TimeTable[Sr,29]
-                    *              1             0             1 
+                    *              0             0             1 
    146 TimeTable[Sr,30]
                     *              0             0             1 
    147 TimeTable[Sr,31]
@@ -1043,9 +1043,9 @@ Objective:  satisfaction = 37 (MAXimum)
                     *              0             0             1 
    260 TimeTable[Pt,48]
                     *              0             0             1 
-   261 Sports[1]    *              0             0             1 
+   261 Sports[1]    *              1             0             1 
    262 Sports[2]    *              0             0             1 
-   263 Sports[3]    *              1             0             1 
+   263 Sports[3]    *              0             0             1 
 
 Integer feasibility conditions:
 

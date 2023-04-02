@@ -1,7 +1,7 @@
 Problem:    plan2
 Rows:       260
 Columns:    263 (263 integer, 263 binary)
-Non-zeros:  651
+Non-zeros:  431
 Status:     INTEGER OPTIMAL
 Objective:  satisfaction = 28 (MAXimum)
 
@@ -505,7 +505,7 @@ Objective:  satisfaction = 28 (MAXimum)
    249 max_four_hours_per_day[Wt]
                                    6                           8 
    250 max_four_hours_per_day[Sr]
-                                   4                           8 
+                                   0                           8 
    251 max_four_hours_per_day[Cz]
                                    8                           8 
    252 max_four_hours_per_day[Pt]
