@@ -13,9 +13,9 @@ param DaysToInts{Days}, integer, >= 1, <= 5;            # Helper param
 param Begins{Groups, Courses}, integer, >= 1, <= 24*2;  # Starting hours of courses [in half-hours]
 param Ends{Groups, Courses}, integer, >= 1, <= 24*2;    # Ending hours of courses [in half-hours]
 
-var Enroll{Groups, Courses}, integer, >= 0, <= 1;       # Main objective - a chart of course group the student enrolled to
-var TimeTable{Days, {1..48}}, integer, >= 0, <= 1;      # Which half-hours are taken by courses and activities (does not allow for overlaps)
-var Sports{{1..3}}, integer, >= 0, <= 1;                # Which sport group does the student want to attend to
+var Enroll{Groups, Courses}, binary;       # Main objective - a chart of course group the student enrolled to
+var TimeTable{Days, {1..48}}, binary;      # Which half-hours are taken by courses and activities (does not allow for overlaps)
+var Sports{{1..3}}, binary;                # Which sport group does the student want to attend to
 
 
 # We want to enroll to best possible course groups
@@ -127,3 +127,4 @@ param Ends: Algebra Analiza Fizyka Mineraly Organiczna :=
 
 
 end;
+# glpsol --model plan2.mod --output out/plan2.txt | tee plan2.log
