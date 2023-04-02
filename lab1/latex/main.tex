@@ -203,8 +203,30 @@ $b_{gc}$ oznacza o której pół-godzinie zajęcia się zaczynają.
 $e_{gc}$ oznacza o której pół-godzinie zajęcia się kończą.
 
 \subsubsection{Ograniczenia}
+Musimy rozpisać kilka ograniczeń do określenia modelu, zarówno dla podstawowego wariantu zadania, jak i rozszerzonego.
+\begin{enumerate}
+    \item \textbf{Realizacja programu studiów} - Student musi zapisać się do dokładnie jednej grupy zajęciowej dla każdego kursu
+
+    \item \textbf{Sport to zdrowie} - Student chce zapisać się na co najmniej jedną z trzech możliwych grup z zajęć sportowych
+    % \[ (\forall a \in \{1,\dots,n\}, t \in \{I,II\}) \left(\sum_{b=1}^{n}{\sum_{s \in \{I,II\}}{x_{abs} \cdot z_{st}}} \geq d_{ta} \right) \]
+
+    \item \textbf{Nie żyjemy w kwantowej superpozycji} - zajęcia nie mogą się na siebie nakładać
+    % \[ (\forall a \in \{1,\dots,n\}, t \in \{I,II\}) \left(\sum_{b=1}^{n}{x_{abt}} \leq r_{ta} \right) \]
+
+    \item \textbf{Nie przemęczaj się} - maksymalnie 4 godziny zajęć obowiązkowych w dniu
+    % \[ (\forall a \in \{1,\dots,n\}) \left(\sum_{b=1}^{n}{\sum_{t \in \{I,II\}}{x_{abs}}} \geq \sum_{s \in \{I, II\}}{d_{sa}} \right) \]
+
+    \item \textbf{Przez żołądek do mózgu} - każdego dnia znajdź co najmniej 1 godzinę przerwy między 12:00 a 14:00
+
+    \item \textit{[Rozszerzenie]} \textbf{Napięty grafik tygodnia} - środy i piątki mają być wolne od zajęć obowiązkowych
+
+    \item \textit{[Rozszerzenie]} \textbf{Ponadprzeciętna satysfakcja} - wybieraj kursy o ocenie równej co najmniej 5
+\end{enumerate}
+
 \subsubsection{Funkcja celu}
 Student chce zmaksymalizować sumę punktów priorytetowych z każdych zajęć na które się zapisze.
+
+\[ max {\sum_{g \in [n]}{\sum_{c \in [m]}{x_{gc}\cdot r_{gc}}}} \]
 
 \subsection{Wyniki}
 
