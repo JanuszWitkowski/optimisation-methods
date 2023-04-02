@@ -196,31 +196,44 @@ W modelu wykorzystano następujące parametry, ściśle powiązane z problemem:
 \[ w \in \mathbb{Z}^{n\times m}, 1 \leq w \leq 5 \]
 \[ b \in \mathbb{Z}^{n\times m}, 1 \leq b \leq 48 \]
 \[ e \in \mathbb{Z}^{n\times m}, 1 \leq e \leq 48 \]
+\[ sw \in \mathbb{Z}^{[3]}, 1 \leq sw \leq 5 \]
+\[ sb \in \mathbb{Z}^{[3]}, 1 \leq sb \leq 48 \]
+\[ se \in \mathbb{Z}^{[3]}, 1 \leq se \leq 48 \]
 
 $r_{gc}$ jest oceną (priorytetem) grupy, ustawioną przez Studenta. 
 $w_{gc}$ mówi w którym dniu tygodnia odbywają się zajęcia grupy $g$ kursu $c$.
 $b_{gc}$ oznacza o której pół-godzinie zajęcia się zaczynają.
 $e_{gc}$ oznacza o której pół-godzinie zajęcia się kończą.
+Analogicznie dla $sw$, $sb$, $se$ dla zajęć sportowych.
 
 \subsubsection{Ograniczenia}
 Musimy rozpisać kilka ograniczeń do określenia modelu, zarówno dla podstawowego wariantu zadania, jak i rozszerzonego.
 \begin{enumerate}
     \item \textbf{Realizacja programu studiów} - Student musi zapisać się do dokładnie jednej grupy zajęciowej dla każdego kursu
+    \[ (\forall c \in [m]) \left(\sum_{g \in [n]}{x_{gc}}\right) = 1 \]
 
     \item \textbf{Sport to zdrowie} - Student chce zapisać się na co najmniej jedną z trzech możliwych grup z zajęć sportowych
-    % \[ (\forall a \in \{1,\dots,n\}, t \in \{I,II\}) \left(\sum_{b=1}^{n}{\sum_{s \in \{I,II\}}{x_{abs} \cdot z_{st}}} \geq d_{ta} \right) \]
+    \[ \sum_{i \in [3]}{s_{i}} \geq 1 \]
 
-    \item \textbf{Nie żyjemy w kwantowej superpozycji} - zajęcia nie mogą się na siebie nakładać
+    \item \textbf{Nie żyjemy w kwantowej superpozycji} - zajęcia nie mogą się na siebie nakładać (zapiszemy tu od razu terminy )
+    {\footnotesize
+    \[ (\forall d \in [5], h \in [24*2]) t_{dh} = \left(\sum_{g \in [n]}{\sum_{c \in [m]}{x_{gc}\cdot (\textbf{if } d_{gc} = d \textbf{ then } 1 \textbf{ else } 0)\cdot (\textbf{if } h < b_{gc} \textbf{ then } 0 \textbf{ else } (\textbf{if } h \geq e_{gc} \textbf{ then } 0 \textbf{ else } 1))}} \right) + \]
+    \[ \left(\sum_{i \in [3]}{(\textbf{if } sw_i \neq d \textbf{ then } 0 \textbf{ else } (\textbf{if } h < sb_i \textbf{ then } 0 \textbf{ else } (\textbf{if } h \geq se_i \textbf{ then } 0 \textbf{ else } 1)))} \right) \]
+    }
     % \[ (\forall a \in \{1,\dots,n\}, t \in \{I,II\}) \left(\sum_{b=1}^{n}{x_{abt}} \leq r_{ta} \right) \]
 
     \item \textbf{Nie przemęczaj się} - maksymalnie 4 godziny zajęć obowiązkowych w dniu
+    \[ (\forall d \in [5]) \left(\sum_{g \in [n]}{\sum_{c \in [m]}{x_{gc}\cdot (\textbf{if } d_{gc} = d \textbf{ then } b_{gc} - e_{gc} \textbf{ else } 0)}} \right) \]
     % \[ (\forall a \in \{1,\dots,n\}) \left(\sum_{b=1}^{n}{\sum_{t \in \{I,II\}}{x_{abs}}} \geq \sum_{s \in \{I, II\}}{d_{sa}} \right) \]
 
-    \item \textbf{Przez żołądek do mózgu} - każdego dnia znajdź co najmniej 1 godzinę przerwy między 12:00 a 14:00
+    \item \textbf{Przez żołądek do mózgu} - każdego dnia znajdź co najmniej 1 godzinę przerwy między 12:00 a 14:00 (tj. nie zajmuj w tym okresie więcej niż 1 godziny zajęciami)
+    \[ (\forall d \in [5]) \left(\sum_{h \in \{12\cdot 2,\ldots,14\cdot 2 - 1\}}{t_{dh}}\right) <= 1\cdot 2 \]
 
     \item \textit{[Rozszerzenie]} \textbf{Napięty grafik tygodnia} - środy i piątki mają być wolne od zajęć obowiązkowych
+    \[ (\forall d \in \{3,5\}) \left(\sum_{g \in [n]}{\sum_{c \in [m]}{x_{gc}\cdot (\textbf{if } w_{gc} = d \textbf{ then } 1 \textbf{ else } 0)}} \right) = 0 \]
 
     \item \textit{[Rozszerzenie]} \textbf{Ponadprzeciętna satysfakcja} - wybieraj kursy o ocenie równej co najmniej 5
+    \[ \left(\sum_{g \in [n]}{\sum_{c \in [m]}{x_{gc}\cdot (\textbf{if } r_{gc} < 5 \textbf{ then } 1 \textbf{ else } 0)}} \right) = 0 \]
 \end{enumerate}
 
 \subsubsection{Funkcja celu}
