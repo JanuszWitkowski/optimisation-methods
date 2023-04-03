@@ -24,6 +24,6 @@ solve;
 display X;
 printf "\n";
 printf "n = %d\n", n;
-printf "error = %f\n", sqrt(sum{i in N}(1 - X[i])*(1 - X[i])) / sqrt(n);
+printf "error = %.20f\n", sqrt(sum{i in N}(1 - X[i])*(1 - X[i])) / sqrt(n);
 
 end;

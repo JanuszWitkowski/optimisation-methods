@@ -10,30 +10,35 @@ Generating objective_function...
 Generating equality...
 Model has been successfully generated
 GLPK Simplex Optimizer 5.0
-8 rows, 7 columns, 56 non-zeros
+13 rows, 12 columns, 156 non-zeros
 Preprocessing...
-7 rows, 7 columns, 49 non-zeros
+12 rows, 12 columns, 144 non-zeros
 Scaling...
- A: min|aij| =  7.692e-02  max|aij| =  1.000e+00  ratio =  1.300e+01
-GM: min|aij| =  7.177e-01  max|aij| =  1.393e+00  ratio =  1.941e+00
-EQ: min|aij| =  5.151e-01  max|aij| =  1.000e+00  ratio =  1.941e+00
+ A: min|aij| =  4.348e-02  max|aij| =  1.000e+00  ratio =  2.300e+01
+GM: min|aij| =  6.322e-01  max|aij| =  1.582e+00  ratio =  2.502e+00
+EQ: min|aij| =  3.997e-01  max|aij| =  1.000e+00  ratio =  2.502e+00
 Constructing initial basis...
 Size of triangular part is 1
-      0: obj =   6.930238905e+00 inf =   8.573e+00 (6)
-      8: obj =   9.221872572e+00 inf =   0.000e+00 (0) 1
+      0: obj =   1.343952029e+01 inf =   1.547e+01 (11)
+      7: obj =   1.614593998e+01 inf =   1.832e-07 (0) 1
 OPTIMAL LP SOLUTION FOUND
 Time used:   0.0 secs
-Memory used: 0.1 Mb (129473 bytes)
+Memory used: 0.2 Mb (159149 bytes)
 Display statement at line 24
-X[1].val = 0.999999999989076
-X[2].val = 1.00000000043793
-X[3].val = 0.999999995766327
-X[4].val = 1.00000001650268
-X[5].val = 0.999999969682999
-X[6].val = 1.00000002624072
-X[7].val = 0.999999991372198
+X[1].val = 0.999612053437038
+X[2].val = 1.01719727058072
+X[3].val = 0.821541633624169
+X[4].val = 1.67575774646996
+X[5].val = 0.216792833115434
+X[6].val = 0
+X[7].val = 3.81203235493425
+X[8].val = 0
+X[9].val = 0
+X[10].val = 0
+X[11].val = 3.45706596762733
+X[12].val = 0
 
-n = 7
-error = 0.000000
+n = 12
+error = 1.29250739578124163032
 Model has been successfully processed
 Writing basic solution to 'out/hilbert.txt'...

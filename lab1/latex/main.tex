@@ -117,7 +117,30 @@ Funkcja celu ma postać podaną w treści polecenia
 \[ min {\textit{{\textbf{ c}}}}^T \textbf{\textit{x}} \]
 
 \subsection{Wyniki}
-    
+Rozważmy rozwiązania modelu dla $n \in 1,\ldots,12$.
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|}\hline
+    n & Błąd względny \\\hline
+    1 & $0$\\\hline
+    2 & $1.05325\cdot 10^{-15}$\\\hline
+    3 & $3.67158\cdot 10^{-15}$\\\hline
+    4 & $3.2701639\cdot 10^{-13}$\\\hline
+    5 & $3.35139917\cdot 10^{-12}$\\\hline
+    6 & $6.833357907\cdot 10^{-11}$\\\hline
+    7 & $1.678685421923\cdot 10^{-8}$\\\hline
+    8 & 0.51405897217726825854\\\hline
+    9 & 0.68291133808772241931\\\hline
+    10 & 0.99038757480308581282\\\hline
+    11 & 0.95219663921467334600\\\hline
+    12 & 1.29250739578124163032\\\hline
+    \end{tabular}
+\end{table}
+
+
+Zauważmy przeskok błędu z $n = 7$ na $n = 8$. Od tego momentu rozwiązania problemu
+nie da się już wyznaczyć z precyzją do dwóch cyfr. Wzrost błędu względnego jest 
+oczywiście spowodowany złym uwarunkowaniem zadania macierzy Hilberta.
         
 \section{Zadanie 2}
 \subsection{Model}
@@ -140,9 +163,14 @@ Wprowadźmy pewne parametry, ściśle związane z problemem.
 \[ k \in \mathbb{R}^{2}, k \geq 0 \]
 
 Niech $d_{ta}$ oznacza ile dźwigów typu $t$ brakuje w mieście $a$.
+
 Niech $r_{ta}$ oznacza nadmiar dźwigów typu $t$ w mieście $a$.
+
 Niech $z_{ts}$ oznacza czy dźwig typu $t$ może zastąpić dźwig typu $s$.
+
 Niech $l_{ab}$ oznacza dystans w kilometrach między miastem $a$ a miastem $b$.
+Dystanse te wyciągnięto za pomocą API do GoogleMaps.
+
 Niech $k_t$ oznacza koszt transportu dźwigu typu $t$ za każdy przebyty kilometr.
 
 \subsubsection{Ograniczenia}
@@ -165,7 +193,29 @@ Chcemy zminimalizować koszty transportu dźwigów między miastami. Zaproponujm
 \[ min {\sum_{t \in \{I,II\}}{\sum_{a=1}^{n}{\sum_{b=1}^{n}{l_{ab} \cdot x_{abt} \cdot k_t}}}} \]
 
 \subsection{Wyniki}
-    
+Koszt znalezionego rozwiązania optymalnego wyniósł 1424.4 (zakładając, że za przewóz dźwigu typu I płaci się 1).
+Poniższa tabelka ilustruje wynikowy rozkład jazdy. Lewa kolumna wskazuje na eksportera, górny wiersz na importera,
+natomiast każda komórka na to ile przewozi się dźwigów typu I | typu II.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|c|c|c|c|c|c|c|} \hline
+     & Opole & Brzeg & Nysa & Prudnik & Strzelce & Koźle & Racibórz\\\hline
+    Opole & -|- & 7|- & -|- & -|- & -|- & -|- & -|-\\\hline
+    Brzeg & -|- & -|1 & -|- & -|- & -|- & -|- & -|-\\\hline
+    Nysa & -|2 & 2|- & -|- & 1|- & -|- & 3|- & -|-\\\hline
+    Prudnik & -|- & -|- & -|- & -|3 & -|4 & -|2 & -|1\\\hline
+    Strzelce & -|- & -|- & -|- & -|- & -|- & 5|- & -|-\\\hline
+    Koźle & -|- & -|- & -|- & -|- & -|- & -|- & -|-\\\hline
+    Racibórz & -|- & -|- & -|- & -|- & -|- & -|- & -|-\\\hline
+    \end{tabular}
+\end{table}
+
+Niektóre miasta przesyłają same sobie dźwigi typu II, co na pierwszy rzut oka może wydać się dziwne.
+Można to potraktować jako sygnał że dźwigi te zastępują dźwigi typu I w obrębie danego miasta.
+Taka tranzakcja niczego nie zmienia w kwestii funkcji celu, ponieważ założyliśmy że odległość z miasta do tego samego miasta wynosi 0.
+
+Założenie całkowitoliczbowości nic nie daje w tym przypadku - wyniki są identyczne w przypadku zamiany na zmienne ciągłe.
 
 \section{Zadanie 3}
 \subsection{Model}

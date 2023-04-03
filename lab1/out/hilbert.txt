@@ -1,48 +1,58 @@
 Problem:    hilbert
-Rows:       8
-Columns:    7
-Non-zeros:  56
+Rows:       13
+Columns:    12
+Non-zeros:  156
 Status:     OPTIMAL
-Objective:  objective_function = 9.221872572 (MINimum)
+Objective:  objective_function = 16.14593998 (MINimum)
 
    No.   Row name   St   Activity     Lower bound   Upper bound    Marginal
 ------ ------------ -- ------------- ------------- ------------- -------------
      1 objective_function
-                    B        9.22187                             
-     2 equality[1]  NS       2.59286       2.59286             =             1 
-     3 equality[2]  NS       1.71786       1.71786             =             1 
-     4 equality[3]  NS       1.32897       1.32897             =             1 
-     5 equality[4]  NS       1.09563       1.09563             =             1 
-     6 equality[5]  NS      0.936544      0.936544             =             1 
-     7 equality[6]  NS      0.819877      0.819877             =             1 
-     8 equality[7]  NS      0.730134      0.730134             =             1 
+                    B        16.1459                             
+     2 equality[1]  NS       3.10321       3.10321             =      0.999574 
+     3 equality[2]  NS       2.18013       2.18013             =       1.01991 
+     4 equality[3]  NS       1.75156       1.75156             =      0.786808 
+     5 equality[4]  NS        1.4849        1.4849             =       1.82315 
+     6 equality[5]  B         1.2974        1.2974             = 
+     7 equality[6]  B        1.15622       1.15622             = 
+     8 equality[7]  NS       1.04511       1.04511             =       3.98246 
+     9 equality[8]  B       0.954883      0.954883             = 
+    10 equality[9]  B       0.879883      0.879883             = 
+    11 equality[10] B        0.81639       0.81639             = 
+    12 equality[11] NS      0.761845      0.761845             =       3.21197 
+    13 equality[12] NS      0.714414      0.714414             =      0.176442 
 
    No. Column name  St   Activity     Lower bound   Upper bound    Marginal
 ------ ------------ -- ------------- ------------- ------------- -------------
-     1 X[1]         B              1             0               
-     2 X[2]         B              1             0               
-     3 X[3]         B              1             0               
-     4 X[4]         B              1             0               
-     5 X[5]         B              1             0               
-     6 X[6]         B              1             0               
-     7 X[7]         B              1             0               
+     1 X[1]         B       0.999612             0               
+     2 X[2]         B         1.0172             0               
+     3 X[3]         B       0.821542             0               
+     4 X[4]         B        1.67576             0               
+     5 X[5]         B       0.216793             0               
+     6 X[6]         NL             0             0                -3.42543e-09 
+     7 X[7]         B        3.81203             0               
+     8 X[8]         NL             0             0                 8.86514e-09 
+     9 X[9]         NL             0             0                 1.59136e-08 
+    10 X[10]        NL             0             0                 1.43305e-08 
+    11 X[11]        B        3.45707             0               
+    12 X[12]        NL             0             0                -2.85087e-08 
 
 Karush-Kuhn-Tucker optimality conditions:
 
-KKT.PE: max.abs.err = 8.88e-16 on row 2
-        max.rel.err = 1.44e-16 on row 2
+KKT.PE: max.abs.err = 2.22e-16 on row 5
+        max.rel.err = 5.59e-17 on row 5
         High quality
 
-KKT.PB: max.abs.err = 0.00e+00 on row 0
-        max.rel.err = 0.00e+00 on row 0
+KKT.PB: max.abs.err = 8.97e-09 on row 6
+        max.rel.err = 3.91e-09 on row 6
+        Medium quality
+
+KKT.DE: max.abs.err = 4.44e-16 on column 1
+        max.rel.err = 7.63e-17 on column 8
         High quality
 
-KKT.DE: max.abs.err = 3.33e-16 on column 7
-        max.rel.err = 1.35e-16 on column 7
-        High quality
-
-KKT.DB: max.abs.err = 0.00e+00 on row 0
-        max.rel.err = 0.00e+00 on row 0
-        High quality
+KKT.DB: max.abs.err = 2.85e-08 on column 12
+        max.rel.err = 2.85e-08 on column 12
+        Medium quality
 
 End of output
