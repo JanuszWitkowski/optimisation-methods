@@ -220,12 +220,69 @@ Założenie całkowitoliczbowości nic nie daje w tym przypadku - wyniki są ide
 \section{Zadanie 3}
 \subsection{Model}
 \subsubsection{Zmienne decyzyjne}
+Model do tego zadania będzie trochę bardziej skomplikowany.
+Będziemy się tu posługiwać zbiorami: typów ropy $Ropy$, typów paliw wynikowych $Paliwa$ oraz typów produktów $Produkty$ i $ProduktyKrakowane$.
+Będziemy się też posługiwać zbiorem procesów (destylacja, krakowanie) o nazwie $Procesy$.
+
+Zdefiniujmy 3 zmienne decyzyjne.
+
+\[ x \in \mathbb{R}^{Ropy}, x \geq 0 \]
+\[ rdest \in \mathbb{R}^{Ropy\times {0,1}}, rdest \geq 0 \]
+\[ rolej \in \mathbb{R}^{Ropy\times Paliwa}, rolej \geq 0 \]
+
+$x_{ropa}$ to ilość potrzebnej do kupienia ropy typu $ropa$ [w tonach].
+
+$rdest_{ropa, b}$ oznacza ile destylatu z ropy typu $ropa$ idzie na krakowanie ($b=1$), a ile do dalszej produkcji ($b=0$).
+
+$rolej_{ropa, paliwo}$ wskazuje ile oleju przydzielimy do danego paliwa $paliwo$ (tak naprawdę liczą się tylko Domowe i Ciężkie).
+
+\subsubsection{Parametry}
+Zdefiniujmy takie parametry, ściśle zależne od problemu.
+
+\[ wdes \in \mathbb{R}^{Produkty\times Ropy}, 0 \leq wdes \leq 1 \]
+\[ wkra \in \mathbb{R}^{ProduktyKrakowane}, 0 \leq wdes \leq 1 \]
+\[ kropy \in \mathbb{R}^{Ropy}, kropy \geq 0 \]
+\[ kproc \in \mathbb{R}^{Procesy}, kproc \geq 0 \]
+\[ w \in \mathbb{R}^{Paliwa}, w \geq 0 \]
+\[ szaw \in \mathbb{R}^{Procesy\times Ropy}, 0 \leq szaw \leq 1 \]
+\[ smax \in \mathbb{R}, 0 \leq smax \leq 1 \]
+
+gdzie
+\begin{itemize}
+    \item $wdes_{produkt, ropa}$ - wydajność destylacji,
+    \item $wkra_{produkt}$ - wydajność krakowania,
+    \item $kropy_{ropa}$ - koszt kopy na tonę,
+    \item $kproc_{proces}$ - koszt procesu na tonę przetworzonego składnika,
+    \item $w_{paliwo}$ - wymagana produkcja danego paliwa,
+    \item $szaw_{proces, ropa}$ - zawartość siarki w oleju pochodzenia danej ropy z danego procesu,
+    \item $smax$ - maksymalna dozwolona zawartość siarki w paliwie domowym.
+\end{itemize}
+
 \subsubsection{Ograniczenia}
+
+
 \subsubsection{Funkcja celu}
+Chcemy zminimalizować wszystkie koszta jakie rafineria może ponieść, czyli zarówno te od kupna ropy,
+jak i te z procesów. Zaproponujmy następującą funkcję celu.
+
+\[ \sum_{r \in Ropy}{(kropy_r + kproc_{Destylacja})\cdot x_r + rdest_{r,1}\cdot kproc_{Krakowanie}} \]
+
 
 \subsection{Wyniki}
+Całkowite koszta poniesione przez rafinerię, według rozwiązania z solvera, nie powinny przekroczyć \$1345943600.867679 dolarów.
+Poniżej przedstawione są poszczególne zakupione ropy:
+\begin{table}[H]
+    \centering
+        \begin{tabular}{|c|c|}
+            \hline
+            Ropa & Ilość [t]           \\ \hline
+            B1   & 1026030.368764 \\ \hline
+            B2   & 0.0          \\ \hline
+        \end{tabular}
+\end{table}
 
-    
+Najwyraźniej kupowanie jakichkolwiek ilości ropy B2 nie jest postrzegane jako optymalne - zupełnie wystarczającą jest ropa B1.
+
 \section{Zadanie 4}
 \subsection{Model}
 \subsubsection{Zmienne decyzyjne}

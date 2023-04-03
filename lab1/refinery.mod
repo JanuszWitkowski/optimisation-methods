@@ -15,7 +15,7 @@ param wydajnosc_krakowania{ProduktyKrakowane}, >= 0, <= 1;  # Efficiency for cra
 param koszty_ropy_na_tone{Ropy}, >= 0;                      # Costs of each oil in $/t
 param koszty_procesow{Procesy}, >= 0;                       # Costs of possible processes in $/t
 param wymagana_produkcja{Paliwa}, >= 0;                     # Demand for each fuel in t
-param zawartosc_siarki{Procesy, Ropy}, >= 0;                # Sulfur contamination of produced oil
+param zawartosc_siarki{Procesy, Ropy}, >= 0, <= 1;          # Sulfur contamination of produced oil
 param maksymalne_stezenie_siarki, >= 0, <= 1;               # Limit for sulfur in HouseFuels
 
 var kupno_ropy{Ropy}, >= 0;                     # We need to buy this much oil of each type
