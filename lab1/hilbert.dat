@@ -1,2 +1,6 @@
+/*
+Janusz Witkowski
+*/
+
 param n := 12;
 # Dla n = 1,...,7 jest jeszcze OK, ale dla n = 8,... już są poważne błędy.

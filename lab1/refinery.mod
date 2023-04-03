@@ -1,143 +1,145 @@
-set Ropy;
-set Produkty;
-set Paliwa;
-
-param koszt_ropy_za_tone{Ropy}, >= 0;
-param koszt_destylacji_za_tone, >= 0;
-param koszt_krakowania_za_tone, >= 0;
-param wydajnosc_destylacji{Ropy, Produkty}, >= 0.0, <= 1.0;
-param wydajnosc_krakowania{Produkty}, >= 0.0, <= 1.0;
-param krakowany_produkt symbolic in Produkty;
-param sklad_paliw{Paliwa, Produkty}, integer, >= 0, <= 1;
-param wymagana_produkcja{Paliwa}, >= 0;
-param dozwolona_siarka{Paliwa}, >= 0.0, <= 1.0;
-param zawartosc_siarki{Ropy, Produkty}, >= 0.0, <= 1.0;
-
-# Zmienne do rozwiazania
-var kupione_tony_ropy{Ropy}, >= 0.0;
-# var do_krakowania{Ropy}, >= 0.0, <= 1.0;
-var tony_ropy_do_krakowania{Ropy}, >= 0.0;
-var produkty_na_paliwa{Produkty, Paliwa}, >= 0.0, <= 1.0;
-
-# Zmienne pomocnicze
-var produkcja_paliw{Paliwa}, >= 0.0;
-var siarka_w_paliwach{Paliwa}, >= 0.0;
+/* OPTIMIZATION METHODS
+ex 1.3 - Refinery
+Author: Janusz Witkowski 254663
+*/
 
 
-minimize laczne_koszta: sum{ropa in Ropy}(
-    kupione_tony_ropy[ropa] * (
-        koszt_ropy_za_tone[ropa] + koszt_destylacji_za_tone
-        # + (wydajnosc_destylacji[ropa, krakowany_produkt] * do_krakowania[ropa] * koszt_krakowania_za_tone)
-    ) + tony_ropy_do_krakowania[ropa] * wydajnosc_destylacji[ropa, krakowany_produkt] * koszt_krakowania_za_tone
+set Ropy;               # Type of oils that refinery can buy
+set Paliwa;              # Type of fuels that are produced in refinery
+set Produkty;           # Products that are created during oil processing
+set ProduktyKrakowane;   # Products that are created during destilate processing
+set Krakowalne;          # Boolean for cracking
+set Procesy;          # Operations that can be performed during in refinery 
+
+param wydajnosc_destylacji{Produkty, Ropy}, >= 0, <= 1;    # Production of each product using each oil in [0,1]
+param wydajnosc_krakowania{ProduktyKrakowane}, >= 0, <= 1;      # Production of each product during destilate cracking in [0,1]
+param koszty_ropy_na_tone{Ropy}, >= 0;                                # Costs of each oil in $/t
+param koszty_procesow{Procesy}, >= 0;                      # Costs of possible processes in $/t
+param wymagana_produkcja{Paliwa}, >= 0;                                 # Demand for each fuel, that refinery needs to satisfy in t
+param zawartosc_siarki{Procesy, Ropy}, >= 0;           # Sulfur contamination of oil created by processes for each oil, {sulfur}/{mas}
+
+var kupno_ropy{Ropy}, >= 0;                          # How much oil of each type will be bought
+var rozdzial_destylatu{Ropy, Krakowalne}, >= 0;   # How much destilate of each oil will be cracked 
+var rozdzial_oleju{Ropy, Paliwa}, >= 0;     # How much produced oil of each type will be split beetween House and Heavy Paliwa
+
+# Goal is to minimize cost of processing and oil purchase
+minimize calkowity_koszt: sum{ropa in Ropy}(
+    (koszty_ropy_na_tone[ropa] + koszty_procesow['Destylacja']) * kupno_ropy[ropa] + 
+    rozdzial_destylatu[ropa, 'Tak'] * koszty_procesow['Krakowanie']
 );
 
-s.t. def_produkcja_paliw{paliwo in Paliwa}:
-    produkcja_paliw[paliwo] = sum{ropa in Ropy, produkt in Produkty}(
-        sklad_paliw[paliwo, produkt] * (
-            (if produkt != krakowany_produkt then kupione_tony_ropy[ropa] else (kupione_tony_ropy[ropa] - tony_ropy_do_krakowania[ropa])) *
-            wydajnosc_destylacji[ropa, produkt] +
-            tony_ropy_do_krakowania[ropa] * wydajnosc_destylacji[ropa, krakowany_produkt] * wydajnosc_krakowania[produkt]
-        )
-    );
+# Constraint - Create enough petrol to satisfy Engine Paliwa demand
+s.t. wyprodukuj_co_najmniej_tyle_benzyny: 
+    sum{ropa in Ropy}(
+        wydajnosc_destylacji['Benzyna', ropa] * kupno_ropy[ropa] +
+        wydajnosc_krakowania['Benzyna'] * rozdzial_destylatu[ropa, 'Tak'] 
+) >= wymagana_produkcja['Silnikowe'];
 
-s.t. def_siarka_w_paliwach{paliwo in Paliwa}:
-    siarka_w_paliwach[paliwo] = sum{ropa in Ropy, produkt in Produkty}(
-        zawartosc_siarki[ropa, produkt] * sklad_paliw[paliwo, produkt] * (
-            (if produkt != krakowany_produkt then kupione_tony_ropy[ropa] else (kupione_tony_ropy[ropa] - tony_ropy_do_krakowania[ropa])) *
-            wydajnosc_destylacji[ropa, produkt] +
-            tony_ropy_do_krakowania[ropa] * wydajnosc_destylacji[ropa, krakowany_produkt] * wydajnosc_krakowania[produkt]
-        )
-    );
+# Constraint - Create enough oils to satisfy House Paliwa demand
+s.t. wyprodukuj_co_najmniej_tyle_domowych:
+    sum{ropa in Ropy}(
+        rozdzial_oleju[ropa, 'Domowe'] +
+        wydajnosc_krakowania['Olej'] * rozdzial_destylatu[ropa, 'Tak'] 
+) >= wymagana_produkcja['Domowe'];
 
-s.t. odpowiedni_podzial{produkt in Produkty}:
-    sum{paliwo in Paliwa}(produkty_na_paliwa[produkt, paliwo]) <= 1.0;
+# Constraint - Create enough Destilate, Oil and Misc to satisfy Heavy Fuel demand
+s.t. wyprodukuj_co_najmniej_tyle_ciezkich:
+    sum{ropa in Ropy}(
+        wydajnosc_destylacji['Resztki', ropa] * kupno_ropy[ropa] +
+        rozdzial_destylatu[ropa, 'Nie'] + 
+        rozdzial_oleju[ropa, 'Ciezkie'] +
+        wydajnosc_krakowania['Resztki'] * rozdzial_destylatu[ropa, 'Tak']
+) >= wymagana_produkcja['Ciezkie'];
 
-s.t. odpowiedni_przedzial_ropy_do_krakowania{ropa in Ropy}:
-    tony_ropy_do_krakowania[ropa] <= kupione_tony_ropy[ropa];
+# Constraint - Destilate cracked and uncracked must be equal to destilate created
+s.t. dobry_podzial_destylatu{ropa in Ropy}: 
+    sum{cracked in Krakowalne}(
+        rozdzial_destylatu[ropa, cracked]
+) = kupno_ropy[ropa] * wydajnosc_destylacji['Destylat', ropa];
 
-s.t. wyprodukuj_co_najmniej{paliwo in Paliwa}: 
-    produkcja_paliw[paliwo] >= wymagana_produkcja[paliwo];
+# Constraint - Oil distributed to Heavy and House fuels must be equal to oil created
+s.t. dobry_podzial_oleju{ropa in Ropy}:
+    sum{dest in Paliwa}(
+        rozdzial_oleju[ropa, dest]
+) = kupno_ropy[ropa] * wydajnosc_destylacji['Olej', ropa];     
 
-s.t. uwazaj_na_siarke{paliwo in Paliwa}:
-    siarka_w_paliwach[paliwo] <= dozwolona_siarka[paliwo] * produkcja_paliw[paliwo];
+# Constraint - Sulfur contamination in House Paliwa cannot be higher than 0.5%
+s.t. ograniczenie_na_siarke:
+    sum{ropa in Ropy}(
+        rozdzial_oleju[ropa, 'Domowe'] * zawartosc_siarki['Destylacja', ropa] +
+        rozdzial_destylatu[ropa, 'Tak'] * wydajnosc_krakowania['Olej'] * zawartosc_siarki['Krakowanie', ropa]
+) <= wymagana_produkcja['Domowe'] * 0.005;
 
 solve;
 
-
-printf "\nOPTYMALNY KOSZT: %f\n", laczne_koszta;
+printf "\n";
+printf "KOSZT: %f\n", calkowity_koszt;
 printf "\n";
 
-printf "ZAKUP ROPY\n";
+printf "KUPIONA ROPA\n";
 for{ropa in Ropy} {
-    printf "%s %f\n", ropa, kupione_tony_ropy[ropa];
+    printf ("%s: %f\n"), ropa, kupno_ropy[ropa];
 }
 printf "\n";
 
-printf "DO KRAKOWANIA\n";
+printf "WYPRODUKOWANE\n";
+printf "Ropa\t| Benzyna\t| Olej\t\t| Destylat\t| Resztki\n";
 for{ropa in Ropy} {
-    printf "%s %f\n", ropa, tony_ropy_do_krakowania[ropa];
+    printf ("%s\t| %f\t| %f\t| %f\t| %f\n"), ropa, kupno_ropy[ropa] *  wydajnosc_destylacji['Benzyna', ropa], kupno_ropy[ropa] *  wydajnosc_destylacji['Olej', ropa],  kupno_ropy[ropa] *  wydajnosc_destylacji['Destylat', ropa],  kupno_ropy[ropa] *  wydajnosc_destylacji['Resztki', ropa];
 }
 printf "\n";
 
-printf "OSTATECZNA PRODUKCJA PALIW\n";
-for{paliwo in Paliwa} {
-    printf "%s %f\n", paliwo, produkcja_paliw[paliwo];
+printf "ROZDZIAL DESTYLATU\n";
+printf "Ropa\t| Destylacja\t| Krakowany\t| Czysty\n";
+for{ropa in Ropy} {
+    printf ("%s\t| %f\t| %f\t| %f\n"), ropa, rozdzial_destylatu[ropa, 'Tak'] + rozdzial_destylatu[ropa, 'Nie'], rozdzial_destylatu[ropa, 'Tak'], rozdzial_destylatu[ropa, 'Nie'];
 }
 printf "\n";
 
-printf "SIARKA W PALIWACH\n";
-for{paliwo in Paliwa} {
-    printf "%s %f (%f)\n", paliwo, siarka_w_paliwach[paliwo] / produkcja_paliw[paliwo], dozwolona_siarka[paliwo];
+printf "ROZDZIAL OLEJU\n";
+printf "Ropa\t| Destylacja\t| Ciezkie\t| Domowe\n";
+for{ropa in Ropy} {
+    printf ("%s\t| %f\t| %f\t| %f\n"), ropa, rozdzial_oleju[ropa, 'Ciezkie'] + rozdzial_oleju[ropa, 'Domowe'], rozdzial_oleju[ropa, 'Ciezkie'], rozdzial_oleju[ropa, 'Domowe'];
 }
 printf "\n";
 
 
 data;
 
-set Ropy := 'B1' 'B2';
-set Produkty := 'Benzyna' 'Olej' 'Destylat' 'Resztki' 'BenzynaKrakowana' 'OlejKrakowany' 'ResztkiKrakowane';
-set Paliwa := 'Silnikowe' 'Domowe' 'Ciezkie';
+set Ropy := 'B1', 'B2';
+set Paliwa := 'Silnikowe', 'Domowe', 'Ciezkie';
+set Produkty := 'Benzyna', 'Olej', 'Destylat', 'Resztki';
+set ProduktyKrakowane := 'Benzyna', 'Olej', 'Resztki';
+set Krakowalne := 'Tak', 'Nie';
+set Procesy := 'Destylacja', 'Krakowanie';
 
-param koszt_ropy_za_tone := 
-    B1 1300
-    B2 1500;
-
-param koszt_destylacji_za_tone := 10;
-param koszt_krakowania_za_tone := 20;
-
-param wydajnosc_destylacji: Benzyna Olej Destylat Resztki BenzynaKrakowana OlejKrakowany ResztkiKrakowane :=
-    B1 0.15 0.40 0.15 0.15 0.0 0.0 0.0
-    B2 0.10 0.35 0.20 0.25 0.0 0.0 0.0;
+param wydajnosc_destylacji: B1 B2 :=
+    Benzyna    0.15  0.1
+    Olej       0.4   0.35
+    Destylat   0.15  0.2
+    Resztki    0.15  0.25;
 
 param wydajnosc_krakowania :=
-    Benzyna 0.0
-    Olej 0.0
-    Destylat 0.0
-    Resztki 0.0
-    BenzynaKrakowana 0.50
-    OlejKrakowany 0.20
-    ResztkiKrakowane 0.06;
+    Benzyna   0.5 
+    Olej      0.2
+    Resztki   0.06;
 
-param krakowany_produkt := Destylat;
+param koszty_ropy_na_tone :=
+    B1       1300
+    B2       1500;
 
-param sklad_paliw: Benzyna Olej Destylat Resztki BenzynaKrakowana OlejKrakowany ResztkiKrakowane :=
-    Silnikowe 1 0 0 0 1 0 0
-    Domowe 0 1 0 0 0 1 0
-    Ciezkie 0 1 1 1 0 0 1;
+param koszty_procesow :=
+    Destylacja  10
+    Krakowanie     20;
 
-param wymagana_produkcja :=
-    Silnikowe 200000
-    Domowe 400000
-    Ciezkie 250000;
+param wymagana_produkcja := 
+    Silnikowe    200000
+    Domowe       400000
+    Ciezkie      250000;
 
-param dozwolona_siarka :=
-    Silnikowe 1.0
-    Domowe 0.005
-    Ciezkie 1.0;
-
-param zawartosc_siarki: Benzyna Olej Destylat Resztki BenzynaKrakowana OlejKrakowany ResztkiKrakowane :=
-    B1 0.0 0.002 0.0 0.0 0.0 0.003 0.0
-    B2 0.0 0.012 0.0 0.0 0.0 0.025 0.0;
+param zawartosc_siarki: B1 B2 :=
+    Destylacja  0.002    0.012
+    Krakowanie     0.003    0.025;
 
 
 end;

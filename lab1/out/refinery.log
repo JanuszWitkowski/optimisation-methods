@@ -1,0 +1,55 @@
+GLPSOL--GLPK LP/MIP Solver 5.0
+Parameter(s) specified in the command line:
+ --model refinery.mod --output out/refinery.txt
+Reading model section from refinery.mod...
+Reading data section from refinery.mod...
+refinery.mod:145: warning: final NL missing before end of file
+145 lines were read
+Generating calkowity_koszt...
+Generating wyprodukuj_co_najmniej_tyle_benzyny...
+Generating wyprodukuj_co_najmniej_tyle_domowych...
+Generating wyprodukuj_co_najmniej_tyle_ciezkich...
+Generating dobry_podzial_destylatu...
+Generating dobry_podzial_oleju...
+Generating ograniczenie_na_siarke...
+Model has been successfully generated
+GLPK Simplex Optimizer 5.0
+9 rows, 12 columns, 38 non-zeros
+Preprocessing...
+8 rows, 10 columns, 32 non-zeros
+Scaling...
+ A: min|aij| =  6.000e-04  max|aij| =  1.000e+00  ratio =  1.667e+03
+GM: min|aij| =  4.157e-01  max|aij| =  2.406e+00  ratio =  5.788e+00
+EQ: min|aij| =  1.741e-01  max|aij| =  1.000e+00  ratio =  5.745e+00
+Constructing initial basis...
+Size of triangular part is 8
+      0: obj =   0.000000000e+00 inf =   1.500e+06 (3)
+      4: obj =   1.410584192e+09 inf =   0.000e+00 (0)
+*     6: obj =   1.345943601e+09 inf =   0.000e+00 (0)
+OPTIMAL LP SOLUTION FOUND
+Time used:   0.0 secs
+Memory used: 0.1 Mb (144564 bytes)
+
+KOSZT: 1345943600.867679
+
+KUPIONA ROPA
+B1: 1026030.368764
+B2: 0.000000
+
+WYPRODUKOWANE
+Ropa	| Benzyna	| Olej		| Destylat	| Resztki
+B1	| 153904.555315	| 410412.147505	| 153904.555315	| 153904.555315
+B2	| 0.000000	| 0.000000	| 0.000000	| 0.000000
+
+ROZDZIAL DESTYLATU
+Ropa	| Destylacja	| Krakowany	| Czysty
+B1	| 153904.555315	| 92190.889371	| 61713.665944
+B2	| 0.000000	| 0.000000	| 0.000000
+
+ROZDZIAL OLEJU
+Ropa	| Destylacja	| Ciezkie	| Domowe
+B1	| 410412.147505	| 28850.325380	| 381561.822126
+B2	| 0.000000	| 0.000000	| 0.000000
+
+Model has been successfully processed
+Writing basic solution to 'out/refinery.txt'...

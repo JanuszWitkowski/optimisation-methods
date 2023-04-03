@@ -1,0 +1,74 @@
+Problem:    refinery
+Rows:       9
+Columns:    12
+Non-zeros:  38
+Status:     OPTIMAL
+Objective:  calkowity_koszt = 1345943601 (MINimum)
+
+   No.   Row name   St   Activity     Lower bound   Upper bound    Marginal
+------ ------------ -- ------------- ------------- ------------- -------------
+     1 calkowity_koszt
+                    B    1.34594e+09                             
+     2 wyprodukuj_co_najmniej_tyle_benzyny
+                    NL        200000        200000                     2133.19 
+     3 wyprodukuj_co_najmniej_tyle_domowych
+                    NL        400000        400000                     1414.32 
+     4 wyprodukuj_co_najmniej_tyle_ciezkich
+                    NL        250000        250000                     1414.32 
+     5 dobry_podzial_destylatu[B1]
+                    NS             0            -0             =      -1414.32 
+     6 dobry_podzial_destylatu[B2]
+                    NS             0            -0             =      -1414.32 
+     7 dobry_podzial_oleju[B1]
+                    NS             0            -0             =      -1414.32 
+     8 dobry_podzial_oleju[B2]
+                    NS             0            -0             =      -1414.32 
+     9 ograniczenie_na_siarke
+                    B        818.438                        2000 
+
+   No. Column name  St   Activity     Lower bound   Upper bound    Marginal
+------ ------------ -- ------------- ------------- ------------- -------------
+     1 kupno_ropy[B1]
+                    B    1.02603e+06             0               
+     2 kupno_ropy[B2]
+                    NL             0             0                     165.228 
+     3 rozdzial_destylatu[B1,Tak]
+                    B        92190.9             0               
+     4 rozdzial_destylatu[B2,Tak]
+                    NL             0             0                       < eps
+     5 rozdzial_destylatu[B1,Nie]
+                    B        61713.7             0               
+     6 rozdzial_destylatu[B2,Nie]
+                    B              0             0               
+     7 rozdzial_oleju[B1,Domowe]
+                    B         381562             0               
+     8 rozdzial_oleju[B2,Domowe]
+                    NL             0             0                       < eps
+     9 rozdzial_oleju[B1,Ciezkie]
+                    B        28850.3             0               
+    10 rozdzial_oleju[B2,Ciezkie]
+                    B              0             0               
+    11 rozdzial_oleju[B1,Silnikowe]
+                    NL             0             0                     1414.32 
+    12 rozdzial_oleju[B2,Silnikowe]
+                    NL             0             0                     1414.32 
+
+Karush-Kuhn-Tucker optimality conditions:
+
+KKT.PE: max.abs.err = 5.82e-11 on row 3
+        max.rel.err = 1.16e-16 on row 4
+        High quality
+
+KKT.PB: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+KKT.DE: max.abs.err = 4.55e-13 on column 3
+        max.rel.err = 1.61e-16 on column 6
+        High quality
+
+KKT.DB: max.abs.err = 4.55e-13 on column 8
+        max.rel.err = 4.55e-13 on column 8
+        High quality
+
+End of output

@@ -1,3 +1,7 @@
+/*
+Janusz Witkowski
+*/
+
 set Cities := 'Opole' 'Brzeg' 'Nysa' 'Prudnik' 'StrzelceOpolskie' 'Kozle' 'Raciborz';
 set Cranes := 'type1' 'type2';
 
