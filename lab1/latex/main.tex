@@ -261,9 +261,9 @@ gdzie
 \subsubsection{Ograniczenia}
 \begin{enumerate}
     \item \textbf{Mad Max Fury Roads} - wyprodukuj co najmniej tyle benzyny, paliw domowych i paliw ciężkich ile ci każą
-    
-
-
+    \[ \left(\sum_{r \in Ropy}{wdest_{Benzyna, r}\cdot kropy_r + wkra_{Benzyna}\cdot rdest_{r,1}} \right) \geq w_{Silnikowe} \]
+    \[ \left(\sum_{r \in Ropy}{rolej_{r, Domowe} + wkra_{Olej}\cdot rdest_{r,1}} \right) \geq w_{Domowe} \]
+    \[ \left(\sum_{r \in Ropy}{wdes_{Resztki, r}\cdot kropy_r + rdest_{r,0} + rolej_{r, Ciężkie} + wkra_{Resztki}\cdot rdest_{r,1}} \right) \geq w_{Ciezkie} \]
     \item \textbf{Aż zbierze się miarka} - suma rozdzielonego na krakowanie i produkcję destylatu powinna być równa destylatowi sprzed procesu; tak samo suma oleju w różnych paliwach powinna być równa olejowi w trakcie produkcji
     \[ (\forall r \in Ropy) \left(\sum_{kr \in {0,1}}{rdest_{r, kr}} \right) = kropy_{r} * wdes_{Destylat, r} \]
     \[ (\forall r \in Ropy) \left(\sum_{p \in Paliwa}{rolej_{r, p}} \right) = kropy_{r} * wdes_{Olej, r} \]
@@ -275,7 +275,7 @@ gdzie
 Chcemy zminimalizować wszystkie koszta jakie rafineria może ponieść, czyli zarówno te od kupna ropy,
 jak i te z procesów. Zaproponujmy następującą funkcję celu.
 
-\[ \sum_{r \in Ropy}{(kropy_r + kproc_{Destylacja})\cdot x_r + rdest_{r,1}\cdot kproc_{Krakowanie}} \]
+\[ min \sum_{r \in Ropy}{(kropy_r + kproc_{Destylacja})\cdot x_r + rdest_{r,1}\cdot kproc_{Krakowanie}} \]
 
 
 \subsection{Wyniki}
