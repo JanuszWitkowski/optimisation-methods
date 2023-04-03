@@ -178,13 +178,13 @@ Aby zagwarantować dopuszczalność potencjalnych rozkładów transportu, zdefin
 \begin{enumerate}
     \item \textbf{Nasyć popyt na różne typy} - każde miasto powinno otrzymać takie dźwigi aby mogło funkcjonować (dźwigi typu II mogą zastąpić dźwigi typu I)
     % \[ (\forall a \in \{1,\dots,n\}, t \in \{I,II\}) \left(\sum_{b=1}^{n-1}{x_{abt} \leq d_{ak}}\right) \]
-    \[ (\forall a \in \{1,\dots,n\}, t \in \{I,II\}) \left(\sum_{b=1}^{n}{\sum_{s \in \{I,II\}}{x_{abs} \cdot z_{st}}} \geq d_{ta} \right) \]
+    \[ (\forall a \in \{1,\dots,n\}, t \in \{I,II\}) \left(\sum_{b=1}^{n}{\sum_{s \in \{I,II\}}{x_{abs} \cdot z_{st}}} \right) \geq d_{ta} \]
 
     \item \textbf{Z pustego nawet Salomon nie naleje} - miasto nie może oddać więcej dźwigów niż samo posiada
-    \[ (\forall a \in \{1,\dots,n\}, t \in \{I,II\}) \left(\sum_{b=1}^{n}{x_{abt}} \leq r_{ta} \right) \]
+    \[ (\forall a \in \{1,\dots,n\}, t \in \{I,II\}) \left(\sum_{b=1}^{n}{x_{abt}} \right) \leq r_{ta} \]
 
     \item \textbf{Nie zgub żadnego dźwigu po drodze} - potrzebujące miasta powinny dostać łącznie tyle dźwigów by zaspokoić swoje niedobory
-    \[ (\forall a \in \{1,\dots,n\}) \left(\sum_{b=1}^{n}{\sum_{t \in \{I,II\}}{x_{abs}}} \geq \sum_{s \in \{I, II\}}{d_{sa}} \right) \]
+    \[ (\forall a \in \{1,\dots,n\}) \left(\sum_{b=1}^{n}{\sum_{t \in \{I,II\}}{x_{abs}}} \right) \geq \sum_{s \in \{I, II\}}{d_{sa}} \]
 \end{enumerate}
 
 \subsubsection{Funkcja celu}
@@ -259,7 +259,17 @@ gdzie
 \end{itemize}
 
 \subsubsection{Ograniczenia}
+\begin{enumerate}
+    \item \textbf{Mad Max Fury Roads} - wyprodukuj co najmniej tyle benzyny, paliw domowych i paliw ciężkich ile ci każą
+    
 
+
+    \item \textbf{Aż zbierze się miarka} - suma rozdzielonego na krakowanie i produkcję destylatu powinna być równa destylatowi sprzed procesu; tak samo suma oleju w różnych paliwach powinna być równa olejowi w trakcie produkcji
+    \[ (\forall r \in Ropy) \left(\sum_{kr \in {0,1}}{rdest_{r, kr}} \right) = kropy_{r} * wdes_{Destylat, r} \]
+    \[ (\forall r \in Ropy) \left(\sum_{p \in Paliwa}{rolej_{r, p}} \right) = kropy_{r} * wdes_{Olej, r} \]
+    \item \textbf{Trucie siarką wzbronione} - zadbaj o to, by zawartość siarki w paliwach domowych nie przekroczyła zadanego pułapu
+    \[ (\forall r \in Ropy) rolej_{r, Domowe}\cdot szaw_{Destylacja, r} + rdest_{r, 1}\cdot wkra_{Olej}\cdot szaw_{Krakowanie, r} = w_{Domowe}\cdot smax \]
+\end{enumerate}
 
 \subsubsection{Funkcja celu}
 Chcemy zminimalizować wszystkie koszta jakie rafineria może ponieść, czyli zarówno te od kupna ropy,
@@ -330,7 +340,7 @@ Musimy rozpisać kilka ograniczeń do określenia modelu, zarówno dla podstawow
     % \[ (\forall a \in \{1,\dots,n\}, t \in \{I,II\}) \left(\sum_{b=1}^{n}{x_{abt}} \leq r_{ta} \right) \]
 
     \item \textbf{Nie przemęczaj się} - maksymalnie 4 godziny zajęć obowiązkowych w dniu
-    \[ (\forall d \in [5]) \left(\sum_{g \in [n]}{\sum_{c \in [m]}{x_{gc}\cdot (\textbf{if } d_{gc} = d \textbf{ then } b_{gc} - e_{gc} \textbf{ else } 0)}} \right) \]
+    \[ (\forall d \in [5]) \left(\sum_{g \in [n]}{\sum_{c \in [m]}{x_{gc}\cdot (\textbf{if } d_{gc} = d \textbf{ then } b_{gc} - e_{gc} \textbf{ else } 0)}} \right) \leq 4\cdot 2 \]
     % \[ (\forall a \in \{1,\dots,n\}) \left(\sum_{b=1}^{n}{\sum_{t \in \{I,II\}}{x_{abs}}} \geq \sum_{s \in \{I, II\}}{d_{sa}} \right) \]
 
     \item \textbf{Przez żołądek do mózgu} - każdego dnia znajdź co najmniej 1 godzinę przerwy między 12:00 a 14:00 (tj. nie zajmuj w tym okresie więcej niż 1 godziny zajęciami)
