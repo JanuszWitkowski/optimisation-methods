@@ -114,7 +114,7 @@ Macierz $A$ jest tzw. macierzą Hilberta, powodującą złe uwarunkowanie zagadn
 \subsubsection{Funkcja celu}
 Funkcja celu ma postać podaną w treści polecenia 
 
-\[ min {\textit{{\textbf{ c}}}}^T \textbf{\textit{x}} \]
+\[ \min {\textit{{\textbf{ c}}}}^T \textbf{\textit{x}} \]
 
 \subsection{Wyniki}
 Rozważmy rozwiązania modelu dla $n \in 1,\ldots,12$.
@@ -190,7 +190,7 @@ Aby zagwarantować dopuszczalność potencjalnych rozkładów transportu, zdefin
 \subsubsection{Funkcja celu}
 Chcemy zminimalizować koszty transportu dźwigów między miastami. Zaproponujmy następującą funkcję celu:
 
-\[ min {\sum_{t \in \{I,II\}}{\sum_{a=1}^{n}{\sum_{b=1}^{n}{l_{ab} \cdot x_{abt} \cdot k_t}}}} \]
+\[ \min {\sum_{t \in \{I,II\}}{\sum_{a=1}^{n}{\sum_{b=1}^{n}{l_{ab} \cdot x_{abt} \cdot k_t}}}} \]
 
 \subsection{Wyniki}
 Koszt znalezionego rozwiązania optymalnego wyniósł 1424.4 (zakładając, że za przewóz dźwigu typu I płaci się 1).
@@ -275,7 +275,7 @@ gdzie
 Chcemy zminimalizować wszystkie koszta jakie rafineria może ponieść, czyli zarówno te od kupna ropy,
 jak i te z procesów. Zaproponujmy następującą funkcję celu.
 
-\[ min \sum_{r \in Ropy}{(kropy_r + kproc_{Destylacja})\cdot x_r + rdest_{r,1}\cdot kproc_{Krakowanie}} \]
+\[ \min \sum_{r \in Ropy}{(kropy_r + kproc_{Destylacja})\cdot x_r + rdest_{r,1}\cdot kproc_{Krakowanie}} \]
 
 
 \subsection{Wyniki}
@@ -356,7 +356,7 @@ Musimy rozpisać kilka ograniczeń do określenia modelu, zarówno dla podstawow
 \subsubsection{Funkcja celu}
 Student chce zmaksymalizować sumę punktów priorytetowych z każdych zajęć na które się zapisze.
 
-\[ max {\sum_{g \in [n]}{\sum_{c \in [m]}{x_{gc}\cdot r_{gc}}}} \]
+\[ \max {\sum_{g \in [n]}{\sum_{c \in [m]}{x_{gc}\cdot r_{gc}}}} \]
 
 \subsection{Wyniki}
 Znaleziony podstawowy grafik ma wartość funkcji celu równą 37 i wygląda następująco:
