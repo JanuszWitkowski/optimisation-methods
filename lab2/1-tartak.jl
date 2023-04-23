@@ -37,11 +37,14 @@ end
 main_width = 22
 widths = [7 5 3]
 demand = [110 120 80]
+# main_width = 12
+# widths = [4 5]
+# demand = [20 100]
 
 # PARAMETERS CALCULATED
 n_of_widths = length(widths)
 cuts = []
-calc_cuts!(cuts, [0, 0, 0], main_width, widths, n_of_widths)
+calc_cuts!(cuts, [0 for _ in 1:n_of_widths], main_width, widths, n_of_widths)
 cuts = unique(cuts)
 n_of_cuts = length(cuts)
 cuts = mapreduce(permutedims, vcat, cuts)
