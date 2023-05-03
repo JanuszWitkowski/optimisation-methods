@@ -61,3 +61,9 @@ function print_job_solution(index, jobs, durations, c)
     end
     println()
 end
+
+function print_machines(machines, jobs, durations, c)
+    for i in machines
+        print_job_solution(i, jobs, durations, c)
+    end
+end
