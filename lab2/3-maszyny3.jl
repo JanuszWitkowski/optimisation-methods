@@ -20,6 +20,7 @@ function job_flow(n::Int, m::Int,
     Jobs = 1:n
     Machines = 1:m
     Horizon = 1:T
+    BigValue = 10 * T
     Precedence = [if (i1,i2) in preceding 1 else 0 end for i1 in Jobs, i2 in Jobs]
     # println(Precedence)
 
@@ -58,6 +59,8 @@ function job_flow(n::Int, m::Int,
     @constraint(model, [i in Jobs], sum((t) * C[i,j,t] for j in Machines, t in Horizon) >= 0)
     # Jobs cannot overlap (while on the same machine).
     @constraint(model, [j in Machines, t in Horizon], sum(C[i,j,s] for i in Jobs, s in max(1, t - durations[i]+1):t) <= 1)
+    # Do not let any job start before required jobs finish.
+    @constraint(model, [i1 in Jobs, i2 in Jobs], Precedence[i1,i2] * (sum((t) * C[i2,j,t] for j in Machines, t in Horizon) - sum((t + durations[i1]) * C[i1,j,t] for j in Machines, t in Horizon)) >= 0)
 
 
     print(model) # drukuj model

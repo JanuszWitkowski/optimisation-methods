@@ -34,7 +34,7 @@ function job_flow(n::Int,
     # # Each job can be finished only once.
     # @constraint(model, [j in Jobs], sum(C[j,t] for t in Horizon) == 1)
     # # Do not start the job if it's not ready.
-    # @constraint(model, [j in Jobs], sum((t-1) * C[j,t] for t in Horizon) - durations[j] >= ready[j])
+    # @constraint(model, [j in Jobs], sum((t-1 - durations[j]) * C[j,t] for t in Horizon) >= ready[j])
     # # Jobs cannot overlap.
     # @constraint(model, [t in Horizon], sum(C[j,s] for j in Jobs, s in max(1, t - durations[j] + 1):t) <= 1)
 
@@ -99,7 +99,8 @@ w=[ 1.0; 1.0; 1.0; 1.0; 1.0 ]
 if status == MOI.OPTIMAL
     println("funkcja celu: ", fcelu)
     println("momenty rozpoczecia zadan: ", table)
-    moments = start_times_to_finish_times(horizon_to_moments(table), p)
+    moments = horizon_to_moments(table)
+    moments = start_times_to_finish_times(moments, p)
     for i in 1:n
         println(i, ":\t[", moments[i] - p[i], "\t- ", moments[i], "]")
         # println(i, ":\t[", moments[i] + 1, "\t- ", moments[i] + p[i] + 1, "]")
