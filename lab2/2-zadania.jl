@@ -1,6 +1,6 @@
 using JuMP
-using GLPK
-# using Cbc
+# using GLPK
+using Cbc
 # using CPLEX
 include("job_printing.jl")
 
@@ -10,8 +10,8 @@ function job_flow(m, durations, weights, ready)
     Precedence = [(i, k) for i in Jobs, k in Jobs if i < k]
     BigValue = 10 * sum(durations)
 
-    model = Model(GLPK.Optimizer)
-    # model = Model(Cbc.Optimizer)
+    # model = Model(GLPK.Optimizer)
+    model = Model(Cbc.Optimizer)
     # model = Model(CPLEX.Optimizer)
 
     # Main decision variable - finish times for each job.
@@ -41,10 +41,10 @@ function job_flow(m, durations, weights, ready)
 end
 
 
-m = 3
-durations = [24 36 13]
-weights = [17 18 19]
-ready = [12 23 13]
+m = 5
+durations = [3 2 4 5 1]
+weights = [1.0 1.0 1.0 1.0 1.0]
+ready = [2 1 3 1 0]
 
 job_flow(m, durations, weights, ready)
 

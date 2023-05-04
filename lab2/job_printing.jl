@@ -1,3 +1,17 @@
+function horizon_to_moments(horizon)
+    (n,m) = size(horizon)
+    C = [0 for _ in 1:n]
+    for i in 1:n
+        for j in 1:m
+            if horizon[i,j] == 1.0
+                C[i] = j-1
+                break
+            end
+        end
+    end
+    return C
+end
+
 function end_begin_str(job, jobs, durations, c, is_begin)
     if is_begin
         for j in jobs
