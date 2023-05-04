@@ -56,7 +56,7 @@ function job_flow(n::Int,
     # jeden na raz
     @constraint(model, [t in Horizon], sum(C[j, s] for j in Jobs, s in max(1, t-durations[j]+1):t) <= 1)
     # nie zaczynamy wczesniej niz mozna
-    @constraint(model, [j in Jobs], sum(t * C[j, t] for  t in 1:T-durations[j]+1) >= ready[j])
+    @constraint(model, [j in Jobs], sum(t * C[j, t] for  t in 1:T) >= ready[j])
     @objective(model, Min, sum(weights[j] * (t + durations[j]) * C[j, t] for j in Jobs, t in Horizon)) 
 
 
