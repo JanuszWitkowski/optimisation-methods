@@ -7,17 +7,21 @@ include("job_printing.jl")
 
 function job_flow(n::Int, m::Int,
                     durations::Vector{Int},
+                    preceding,
 					verbose = true)
 
     #  n - liczba zadan
     #  m - liczba maszyn
     #  durations - wektor czasow wykonania zadan
+    # preceding - graf relacji poprzedzania
     # verbose - true, to kominikaty solvera na konsole 		
 
     T = sum(durations) + 1 # dlugosc horyzontu czasowego
     Jobs = 1:n
     Machines = 1:m
     Horizon = 1:T
+    Precedence = [if (i1,i2) in preceding 1 else 0 end for i1 in Jobs, i2 in Jobs]
+    # println(Precedence)
 
     # wybor solvera
     # model = Model(CPLEX.Optimizer) # CPLEX		
@@ -25,22 +29,36 @@ function job_flow(n::Int, m::Int,
     model = Model(Cbc.Optimizer) # Cbc the solver for mixed integer programming
 
 
+    # # Finish schedule for jobs.
+    # @variable(model, C[Jobs,Machines,Horizon], Bin) 
+    # # Helper variable - maximum of C
+    # @variable(model, C_max >= 0, Int)
+    # # Minimize the sum of delays.
+    # @objective(model, Min, C_max) 
+    # # C_max is the maximum of all moments in C.
+    # @constraint(model, [i in Jobs], sum((t-1) * C[i,j,t] for j in Machines, t in Horizon) <= C_max)
+    # # Each job can be finished only once.
+    # @constraint(model, [i in Jobs], sum(C[i,j,t] for j in Machines, t in Horizon) == 1)
+    # # Do not start the job before time=0.
+    # @constraint(model, [i in Jobs], sum((t-1) * C[i,j,t] for j in Machines, t in Horizon) - durations[i] >= 0)
+    # # Jobs cannot overlap (while on the same machine).
+    # @constraint(model, [j in Machines, t in Horizon], sum(C[i,j,s] for i in Jobs, s in max(1, t - durations[i]):t) <= 1)
+
     # Finish schedule for jobs.
     @variable(model, C[Jobs,Machines,Horizon], Bin) 
     # Helper variable - maximum of C
     @variable(model, C_max >= 0, Int)
-
     # Minimize the sum of delays.
     @objective(model, Min, C_max) 
-
     # C_max is the maximum of all moments in C.
-    @constraint(model, [i in Jobs], sum((t-1) * C[i,j,t] for j in Machines, t in Horizon) <= C_max)
-    # Each job can be finished only once.
+    @constraint(model, [i in Jobs], sum(((t-1) + durations[i]) * C[i,j,t] for j in Machines, t in Horizon) <= C_max)
+    # Each job can be started only once.
     @constraint(model, [i in Jobs], sum(C[i,j,t] for j in Machines, t in Horizon) == 1)
     # Do not start the job before time=0.
-    @constraint(model, [i in Jobs], sum((t-1) * C[i,j,t] for j in Machines, t in Horizon) - durations[i] >= 0)
+    @constraint(model, [i in Jobs], sum((t) * C[i,j,t] for j in Machines, t in Horizon) >= 0)
     # Jobs cannot overlap (while on the same machine).
-    @constraint(model, [j in Machines, t in Horizon], sum(C[i,j,s] for i in Jobs, s in max(1, t - durations[i]):t) <= 1)
+    @constraint(model, [j in Machines, t in Horizon], sum(C[i,j,s] for i in Jobs, s in max(1, t - durations[i]+1):t) <= 1)
+
 
     print(model) # drukuj model
     # rozwiaz egzemplarz
@@ -53,7 +71,7 @@ function job_flow(n::Int, m::Int,
     end
 
     status=termination_status(model)
-    println("T=", T)
+    # println("T=", T)
 
     if status== MOI.OPTIMAL
             return status, objective_value(model), value.(C_max), value.(C)
@@ -75,14 +93,16 @@ end # job_flow
 n = 9
 m = 3
 p = [1; 2; 1; 2; 1; 1; 3; 6; 2]
+# Preceding relations
+r = [(1,4) (2,4) (2,5) (3,4) (3,5) (4,6) (4,7) (5,7) (5,8) (6,9) (7,9)]
 
 
-(status, fcelu, c_max, table) = job_flow(n,m,p)
+(status, fcelu, c_max, table) = job_flow(n,m,p,r)
 
 if status == MOI.OPTIMAL
     println("funkcja celu: ", fcelu)
     # println("momenty rozpoczecia zadan: ", table)
-    moments = multiple_horizons_to_moments(table)
+    moments = multiple_start_times_to_finish_times(multiple_horizons_to_moments(table), p)
     println(moments)
     for j in 1:m
         for i in 1:n

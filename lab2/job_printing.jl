@@ -2,6 +2,19 @@ function start_times_to_finish_times(times, durations)
     return [times[i] + durations[i] for i in eachindex(times)]
 end
 
+function multiple_start_times_to_finish_times(times, durations)
+    C = copy(times)
+    (n,m) = size(times)
+    for i in 1:n
+        for j in 1:m
+            if C[i,j] > -1
+                C[i,j] += durations[i]
+            end
+        end
+    end
+    return C
+end
+
 function horizon_to_moments(horizon)
     (n,m) = size(horizon)
     C = [0 for _ in 1:n]
@@ -25,7 +38,7 @@ function multiple_horizons_to_moments(horizons)
             for k in 1:h
                 # if horizons[i,j,k] == 1.0
                 if horizons[i,j,k] >= 0.9
-                    C[i,j] = k
+                    C[i,j] = k-1
                     break
                 end
             end

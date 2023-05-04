@@ -50,13 +50,13 @@ function job_flow(n::Int,
     # @constraint(model, [t in Horizon], sum(C[j,s] for j in Jobs, s in max(1, t - durations[j] + 1):t) <= 1)
 
     # 1 dla momentu rozpoczecia zadania
-    @variable(model, 0 <= C[Jobs, Horizon] <= 1, Bin)
+    @variable(model, C[Jobs, Horizon], Bin)
     # jeden moment rozpoczęcia
-    @constraint(model, [j in Jobs], sum(C[j, t] for t in 1:T) == 1)
+    @constraint(model, [j in Jobs], sum(C[j, t] for t in Horizon) == 1)
     # jeden na raz
     @constraint(model, [t in Horizon], sum(C[j, s] for j in Jobs, s in max(1, t-durations[j]+1):t) <= 1)
     # nie zaczynamy wczesniej niz mozna
-    @constraint(model, [j in Jobs], sum(t * C[j, t] for  t in 1:T) >= ready[j])
+    @constraint(model, [j in Jobs], sum(t * C[j, t] for  t in Horizon) >= ready[j])
     @objective(model, Min, sum(weights[j] * (t + durations[j]) * C[j, t] for j in Jobs, t in Horizon)) 
 
 
