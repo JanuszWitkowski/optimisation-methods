@@ -41,10 +41,14 @@ function job_flow(m, durations, weights, ready)
 end
 
 
-m = 5
-durations = [3 2 4 5 1]
-weights = [1.0 1.0 1.0 1.0 1.0]
-ready = [2 1 3 1 0]
+# n = 5
+# p = [3 2 4 5 1]
+# w = [1.0 1.0 1.0 1.0 1.0]
+# r = [2 1 3 1 0]
+n = 5
+r = [1 2 3 4 5]
+p = [2 3 4 5 6]
+w = [1 2 3 4 5]
 
-job_flow(m, durations, weights, ready)
+job_flow(n, p, w, r)
 

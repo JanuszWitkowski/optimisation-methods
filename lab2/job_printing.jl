@@ -1,11 +1,33 @@
+function start_times_to_finish_times(times, durations)
+    return [times[i] + durations[i] for i in eachindex(times)]
+end
+
 function horizon_to_moments(horizon)
     (n,m) = size(horizon)
     C = [0 for _ in 1:n]
     for i in 1:n
         for j in 1:m
-            if horizon[i,j] == 1.0
-                C[i] = j-1
+            # if horizon[i,j] == 1.0
+            if horizon[i,j] >= 0.9
+                C[i] = j
                 break
+            end
+        end
+    end
+    return C
+end
+
+function multiple_horizons_to_moments(horizons)
+    (n,m,h) = size(horizons)
+    C = [(-1) for _ in 1:n, _ in 1:m]
+    for i in 1:n
+        for j in 1:m
+            for k in 1:h
+                # if horizons[i,j,k] == 1.0
+                if horizons[i,j,k] >= 0.9
+                    C[i,j] = k
+                    break
+                end
             end
         end
     end
@@ -76,8 +98,8 @@ function print_job_solution(index, jobs, durations, c)
     println()
 end
 
-function print_machines(machines, jobs, durations, c)
+function print_machines(jobs, machines, durations, c)
     for i in machines
-        print_job_solution(i, jobs, durations, c)
+        print_job_solution(i, jobs, durations, c[:,i])
     end
 end
