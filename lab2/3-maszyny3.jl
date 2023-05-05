@@ -1,88 +1,57 @@
+#= OPTIMIZATION METHODS
+ex 2.3 - Job Shop
+Author: Janusz Witkowski 254663
+=#
+
 using JuMP
-#using CPLEX 
 # using GLPK
 using Cbc
+# using CPLEX 
 include("job_printing.jl")
 
 
-function job_flow(n::Int, m::Int,
-                    durations::Vector{Int},
-                    preceding,
-					verbose = true)
+function job_flow(n::Int,                   # Number of jobs.
+                    m::Int,                 # Number of machines.
+                    durations::Vector{Int}, # How much time does each job take.
+                    preceding,              # Edges from graph of job's order.
+    )
 
-    #  n - liczba zadan
-    #  m - liczba maszyn
-    #  durations - wektor czasow wykonania zadan
-    # preceding - graf relacji poprzedzania
-    # verbose - true, to kominikaty solvera na konsole 		
-
-    T = sum(durations) + 1 # dlugosc horyzontu czasowego
+    T = sum(durations) + 1  # Length of the time horizon.
     Jobs = 1:n
     Machines = 1:m
     Horizon = 1:T
-    BigValue = 10 * T
-    Precedence = [if (i1,i2) in preceding 1 else 0 end for i1 in Jobs, i2 in Jobs]
-    # println(Precedence)
+    Precedence = [if (i1,i2) in preceding 1 else 0 end for i1 in Jobs, i2 in Jobs]  # Full graph.
 
-    # wybor solvera
-    # model = Model(CPLEX.Optimizer) # CPLEX		
     # model = Model(GLPK.Optimizer) # GLPK
-    model = Model(Cbc.Optimizer) # Cbc the solver for mixed integer programming
+    model = Model(Cbc.Optimizer) # Cbc
+    # model = Model(CPLEX.Optimizer) # CPLEX
 
-
-    # # Finish schedule for jobs.
-    # @variable(model, C[Jobs,Machines,Horizon], Bin) 
-    # # Helper variable - maximum of C
-    # @variable(model, C_max >= 0, Int)
-    # # Minimize the sum of delays.
-    # @objective(model, Min, C_max) 
-    # # C_max is the maximum of all moments in C.
-    # @constraint(model, [i in Jobs], sum((t-1) * C[i,j,t] for j in Machines, t in Horizon) <= C_max)
-    # # Each job can be finished only once.
-    # @constraint(model, [i in Jobs], sum(C[i,j,t] for j in Machines, t in Horizon) == 1)
-    # # Do not start the job before time=0.
-    # @constraint(model, [i in Jobs], sum((t-1) * C[i,j,t] for j in Machines, t in Horizon) - durations[i] >= 0)
-    # # Jobs cannot overlap (while on the same machine).
-    # @constraint(model, [j in Machines, t in Horizon], sum(C[i,j,s] for i in Jobs, s in max(1, t - durations[i]):t) <= 1)
-
-    # Finish schedule for jobs.
-    @variable(model, C[Jobs,Machines,Horizon], Bin) 
-    # Helper variable - maximum of C
+    # Starting schedule for jobs.
+    @variable(model, S[Jobs,Machines,Horizon], Bin) 
+    # Helper variable - maximum of finish times.
     @variable(model, C_max >= 0, Int)
-    # Minimize the sum of delays.
+    # Minimize the maximum delay.
     @objective(model, Min, C_max) 
-    # C_max is the maximum of all moments in C.
-    @constraint(model, [i in Jobs], sum(((t-1) + durations[i]) * C[i,j,t] for j in Machines, t in Horizon) <= C_max)
-    # Each job can be started only once.
-    @constraint(model, [i in Jobs], sum(C[i,j,t] for j in Machines, t in Horizon) == 1)
-    # Do not start the job before time=0.
-    @constraint(model, [i in Jobs], sum((t) * C[i,j,t] for j in Machines, t in Horizon) >= 0)
+    # C_max is the maximum of all moments in C (= S + durations).
+    @constraint(model, [i in Jobs], sum(((t-1) + durations[i]) * S[i,j,t] for j in Machines, t in Horizon) <= C_max)
+    # Each job can only be started once.
+    @constraint(model, [i in Jobs], sum(S[i,j,t] for j in Machines, t in Horizon) == 1)
     # Jobs cannot overlap (while on the same machine).
-    @constraint(model, [j in Machines, t in Horizon], sum(C[i,j,s] for i in Jobs, s in max(1, t - durations[i]+1):t) <= 1)
+    @constraint(model, [j in Machines, t in Horizon], sum(S[i,j,s] for i in Jobs, s in max(1, t - durations[i]+1):t) <= 1)
     # Do not let any job start before required jobs finish.
-    @constraint(model, [i1 in Jobs, i2 in Jobs], Precedence[i1,i2] * (sum((t) * C[i2,j,t] for j in Machines, t in Horizon) - sum((t + durations[i1]) * C[i1,j,t] for j in Machines, t in Horizon)) >= 0)
+    @constraint(model, [i1 in Jobs, i2 in Jobs], Precedence[i1,i2] * (sum((t) * S[i2,j,t] for j in Machines, t in Horizon) - sum((t + durations[i1]) * S[i1,j,t] for j in Machines, t in Horizon)) >= 0)
 
-
-    print(model) # drukuj model
-    # rozwiaz egzemplarz
-    if verbose
-        optimize!(model)		
-    else
-        set_silent(model)
-        optimize!(model)
-        unset_silent(model)
-    end
+    print(model)
+    optimize!(model)
 
     status=termination_status(model)
-    # println("T=", T)
-
     if status== MOI.OPTIMAL
-            return status, objective_value(model), value.(C_max), value.(C)
-        else
-            return status, nothing, nothing, nothing
-        end
-        
+        return status, objective_value(model), value.(C_max), value.(S)
+    else
+        return status, nothing, nothing, nothing
+    end
 end # job_flow
+
 
 # # Number of jobs.
 # n = 5
