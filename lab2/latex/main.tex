@@ -1,0 +1,285 @@
+%%%% Uniwersalny Szablon Infy WPPT v4.2 (02.02.2018) %%%%
+
+% uklad dokumentu
+	\documentclass{article}
+	\usepackage{xparse}
+	\usepackage[margin=2cm]{geometry}
+	\usepackage{enumerate} 
+	\frenchspacing
+	\linespread{1.2}
+ 	\setlength{\parindent}{0pt}
+
+ % kolorowanie tabelek
+ \usepackage[table,xcdraw]{xcolor}
+
+% pakiety matematyczne
+	\usepackage{amssymb}   
+	\usepackage{amsthm}
+	\usepackage{amsmath}
+	\usepackage{amsfonts}
+	\usepackage{tikz}
+
+% jezyk polski
+	\usepackage[polish]{babel}
+	\usepackage[utf8]{inputenc}
+	\usepackage{polski}
+	\usepackage[T1]{fontenc}
+ 
+% hiperlacza
+	\usepackage{hyperref}
+	\hypersetup{
+		colorlinks,
+		citecolor=black,
+		filecolor=black,
+		linkcolor=black,
+		urlcolor=black
+	}
+
+% wstawianie zdjec
+	\usepackage{graphicx} 
+
+% deklaracja zadania
+	\theoremstyle{definition}
+	\newtheorem{zadanie}{Zadanie}[subsection]
+	\renewcommand{\thezadanie}{\arabic{zadanie}}
+
+% deklaracja metody
+	\theoremstyle{remark}
+	\newtheorem*{metoda}{Metoda}
+	\theoremstyle{plain}
+	
+% deklaracja rozwiazania
+	\theoremstyle{remark}
+	\newtheorem*{rozwiazanie}{Rozwiązanie}
+	\theoremstyle{plain}
+	
+% zestaw - mpis
+	\newcommand{\EE}{\mathbb{E}}
+	\newcommand{\PP}{\mathbb{P}}
+	\newcommand{\Var}{\mathrm{Var}}
+	\newcommand{\DD}{\mathbb{D}}
+	\newcommand{\red}[1]{\textcolor{red}{#1}}
+
+% zestaw - programowanie
+	\usepackage{listings} 
+	\usepackage{minibox}
+	% \usepackage{minted}
+	% \usemintedstyle{borland}
+
+% zestaw - akiso
+	%\usepackage{karnaugh-map} %%% nie ma w bazie overleaf
+	\usepackage{karnaughmap}
+	\usepackage{circuitikz}
+	
+	\usepackage{tikz}
+    \usetikzlibrary{automata,positioning}
+    
+% zestaw - dyskretna
+	\newcommand{\stirf}[2]{\genfrac{[}{]}{0pt}{}{#1}{#2}}
+	\newcommand{\stirs}[2]{\genfrac{\{}{\}}{0pt}{}{#1}{#2}}
+	
+% zestaw - jftt
+	\newcommand{\oor}{\mathop{|}}
+	\DeclareMathOperator{\Lead}{Leading}
+	\DeclareMathOperator{\Trail}{Trailing}
+	\DeclareMathOperator{\fst}{First}
+	\DeclareMathOperator{\fol}{Follow}
+
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{float}
+\title{Metody Optymalizacji - Lista 1}
+\author{Janusz Witkowski 254663}
+\date{2 kwietnia 2023}
+
+\begin{document}
+
+\maketitle
+
+\section{Zadanie 1}
+\subsection{Model}
+Mamy daną szerokość bazowej deski $b\in \mathbb{Z}_+$, żądane szerokości desek $w\in \mathbb{Z}^n_+$, oraz popyt na takowe deski $d\in \mathbb{Z}_+^n$.
+
+Z tych danych można wyznaczyć wszystkie sposoby pocięcia deski $c\in \mathbb{N}^{n\times m}$.
+\subsubsection{Zmienne decyzyjne}
+Należy wyznaczyć liczby bazowych desek przeznaczonych do poszczególnych cięć: $x\in \mathbb{N}^m$
+\subsubsection{Ograniczenia}
+Jeśli jesteśmy w stanie zagwarantować poprawność cięć $c$, wystarczy nam jedno ograniczenie:
+\begin{enumerate}
+    \item \textbf{Nasycić popyt} - wyprodukuj co najmniej tyle desek każdego typu ile wynosi podaż.
+    \[ (\forall i \in \{1,\dots,n\}) \left(\sum_{j=1}^{m}{c_{ij}\cdot x_j} \right) \geq d_i \]
+\end{enumerate}
+
+\subsubsection{Funkcja celu}
+Chcemy zminimalizować liczbę niewykorzystanych desek, jak i drewno które zostanie nam z nieidealnych cięć:
+\[ \min \left(\sum_{i=1}^{n}{\left(\sum_{j=1}^{m}{c_{ij}\cdot x_j}-d_i\right)\cdot w_i}\right) + \left(\sum_{j=1}^m{x_j\cdot\left(b-\sum_{i=1}^n{w_i\cdot c_{ij}} \right)} \right) \]
+
+\subsection{Wyniki}
+Dla $b=22$, $w=[7, 5, 3]$ oraz $d=[110,120,80]$ mamy następujące cięcia oraz rozwiązanie:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+\hline
+Nr          & 1     & 2     & 3     & 4     & 5     & 6     & 7     & 8     & 9     & 10    & 11    & 12    \\ \hline
+Cięcia      & 3/0/0 & 2/1/1 & 2/0/2 & 1/3/0 & 1/2/1 & 1/1/3 & 1/0/5 & 0/4/0 & 0/3/2 & 0/2/4 & 0/1/5 & 0/0/7 \\ \hline
+Rozwiązanie & 0     & 37    & 0     & 28    & 0     & 0     & 9     & 0     & 0     & 0     & 0     & 0     \\ \hline
+\end{tabular}
+\end{table}
+
+Stosując wskazane cięcia, uzyskamy wartość funkcji celu $18$ oraz następujące liczby desek:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+Deski szerokości 7 & Deski szerokości 5 & Deski szerokości 3 & Drewno z niewykorzystanych desek & Drewno z odpadków \\ \hline
+111                & 121                & 82                 & 18                               & 0                 \\ \hline
+\end{tabular}
+\end{table}
+
+\section{Zadanie 2}
+\subsection{Model}
+Mamy daną liczbę zadań $n\in\mathbb{N}$, czasy wykonywania zadań $p\in \mathbb{N}^n$, momenty gotowości zadań $r\in\mathbb{N}^n$ oraz wagi zadań $w\in \mathbb{R}^n$. Definiujemy dodatkowo tzw. \textit{horyzont} $T=1+\max{r}+\sum_{i=1}^n{p_i}$, który posłuży nam do ustalenia tabeli czasu w grafiku maszyny.
+
+\subsubsection{Zmienne decyzyjne}
+Definiujemy zmienną decyzyjną w postaci tabeli czasu: $C\in \{0,1\}^{n\times T}$. Jeżeli w momencie $t=1\ldots T$ rozpoczyna się zadanie $i=1\ldots n$, to $C_{it}=1$. W przeciwnym przypadku $C_{it}=0$. Zadbamy o poprawność tego grafiku w ograniczeniach.
+
+\subsubsection{Ograniczenia}
+\begin{enumerate}
+    \item \textbf{Nie powtarzaj się} - każde zadanie może zostać rozpoczęte wyłącznie raz.
+    \[ (\forall i \in \{1,\dots,n\}) \left(\sum_{t=1}^{T}{C_{it}} \right) = 1 \]
+    \item \textbf{Cierpliwość jest cnotą} - nie zaczynaj zadania jeśli nie jest gotowe.
+    \[ (\forall i \in \{1,\dots,n\}) \left(\sum_{t=1}^{T}{C_{it}\cdot t} \right) \geq r_i \]
+    \item \textbf{Skup się na jednym} - maszyna nie może przetwarzać naraz więcej niż jednego zadania.
+    \[ (\forall t \in \{1,\dots,T\}) \left(\sum_{i=1}^{n}{\sum_{s=\max(1,t-p_i+1)}^{t}{C_{is}}} \right) \leq 1 \]
+\end{enumerate}
+
+\subsubsection{Funkcja celu}
+Chcemy zminimalizować ważone opóźnienie wykonania wszystkich zadań:
+\[ \min \sum_{i=1}^n{\sum_{t=1}^T{w_i\cdot C_{it}\cdot (t+p_i)}} \]
+
+\subsection{Wyniki}
+Dla przykładowych danych $n=5$, $p=[3;2;4;5;1]$, $r=[2;1;3;1;0]$, $w=[5,1,5,6,1]$ mamy następujący grafik:
+
+% Please add the following required packages to your document preamble:
+% \usepackage[table,xcdraw]{xcolor}
+% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|cccccccccccccccc}
+\hline
+Czas & \multicolumn{1}{c|}{0-1}  & \multicolumn{1}{c|}{1-2} & \multicolumn{1}{c|}{2-3} & \multicolumn{1}{c|}{3-4} & \multicolumn{1}{c|}{4-5} & \multicolumn{1}{c|}{5-6} & \multicolumn{1}{c|}{6-7} & \multicolumn{1}{c|}{7-8} & \multicolumn{1}{c|}{8-9} & \multicolumn{1}{c|}{9-10} & \multicolumn{1}{c|}{10-11} & \multicolumn{1}{c|}{11-12} & \multicolumn{1}{c|}{12-13} & \multicolumn{1}{c|}{13-14} & \multicolumn{1}{c|}{14-15} & \multicolumn{1}{c|}{15-16} \\ \hline
+M1   & \cellcolor[HTML]{9698ED}5 & \multicolumn{5}{c}{\cellcolor[HTML]{DAE8FC}4}                                                                                        & \multicolumn{3}{c}{\cellcolor[HTML]{FD6864}1}                                  & \multicolumn{4}{c}{\cellcolor[HTML]{67FD9A}3}                                                                    & \multicolumn{2}{c}{\cellcolor[HTML]{FFFE65}2}           &                            \\ \cline{1-1}
+\end{tabular}
+\end{table}
+
+z funkcją celu o wartości $162$.
+% \pagebreak
+
+% # Number of jobs.
+% n = 5
+% # Durations of jobs.
+% p = [ 3; 2; 4; 5; 1 ]
+% # Ready moments of jobs.
+% r = [ 2; 1; 3; 1; 0 ]	
+% # Weights of jobs.	
+% w = [ 5.0; 1.0; 5.0; 6.0; 1.0 ]	
+
+\section{Zadanie 3}
+\subsection{Model}
+Mamy daną liczbę zadań $n\in\mathbb{Z}_+$, liczbę maszyn $m\in\mathbb{Z}_+$, czasy wykonywania zadań $p\in\mathbb{N}^n$, oraz macierz reprezentującą graf relacji poprzedzania się zadań $r\in\{0,1\}^{n\times n}$, gdzie $r_{ij}=1$ wtedy i tylko wtedy, gdy zadanie $i$ musi się zakończyć przed rozpoczęciem zadania $j$. Ponadto, jak w poprzednim zadaniu użyjemy \textit{horyzontu}, czyli $T=1+\sum_{i-1}^n{p_i}$.
+
+\subsubsection{Zmienne decyzyjne}
+Główną zmienną decyzyjną będzie tabela czasu rozpoczęć zadań na poszczególnych maszynach $S\in\{0,1\}^{n\times m\times T}$. Użyjemy również zmiennej pomocniczej $c\in\mathbb{N}$, która pomoże w wyznaczeniu maksymalnego opóźnienia.
+
+\subsubsection{Ograniczenia}
+\begin{enumerate}
+    \item \textbf{Definicja maksimum} - zmienna pomocnicza jest ograniczeniem górnym opóźnienia na każdej maszynie.
+    \[ (\forall i \in \{1,\dots,n\}) \left(\sum_{j=1}^{m}{\sum_{t=1}^T{(t+p_i)\cdot S_{ijt}}} \right) \leq c \]
+    \item \textbf{Nie powtarzaj się} - każde zadanie może zostać rozpoczęte wyłącznie raz.
+    \[ (\forall i \in \{1,\dots,n\}) \left(\sum_{j=1}^{m}{\sum_{t=1}^T{S_{ijt}}} \right) = 1 \]
+    \item \textbf{Skup się na jednym} - żadna maszyna nie może przetwarzać naraz więcej niż jednego zadania.
+    \[ (\forall t \in \{1,\dots,T\}, j\in\{1,\dots,T\}) \left(\sum_{i=1}^{n}{\sum_{s=\max(1,t-p_i+1)}^{t}{S_{ijs}}} \right) \leq 1 \]
+    \item \textbf{Uszanuj pierwszeństwo} - zadania poprzedzające inne zadania muszą się wcześniej skończyć.
+    \[ (\forall i_1,i_2 \in \{1,\dots,n\}) r_{i_1i_2}\left(\sum_{j=1}^{m}{\sum_{t=1}^T{t\cdot S_{i_2jt} - (t + p_i)\cdot S_{i_1jt}}} \right) \geq 0 \]
+\end{enumerate}
+
+\subsubsection{Funkcja celu}
+Chcemy zminimalizować maksymalne opóźnienie reprezentowane przez $c$:
+\[ \min c \]
+
+\subsection{Wyniki}
+
+Dla danych $n=9$, $m=3$, $p=[1; 2; 1; 2; 1; 1; 3; 6; 2]$, $r=[(1,4);(2,4);(2,5);(3,4);(3,5);(4,6);(4,7);(5,7);(5,8);(6,9);(7,9)]$ program zwrócił wartość funkcji celu $c=9$ oraz następujący grafik:
+
+% Please add the following required packages to your document preamble:
+% \usepackage[table,xcdraw]{xcolor}
+% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|cccccllclc}
+\hline
+t  & \multicolumn{1}{l|}{0-1}    & \multicolumn{1}{l|}{1-2}    & \multicolumn{1}{l|}{2-3}    & \multicolumn{1}{l|}{3-4} & \multicolumn{1}{l|}{4-5}    & \multicolumn{1}{l|}{5-6} & \multicolumn{1}{l|}{6-7} & \multicolumn{1}{l|}{7-8} & \multicolumn{1}{l|}{8-9} & \multicolumn{1}{l|}{9-10} \\ \hline
+M1 & \cellcolor[HTML]{FD6864}1 & \cellcolor[HTML]{FFFE65}3 & \multicolumn{2}{c}{\cellcolor[HTML]{67FD9A}4}      & \multicolumn{3}{c}{\cellcolor[HTML]{9698ED}7}                               & \multicolumn{2}{c}{\cellcolor[HTML]{FCFF2F}9}   &                         \\ \cline{1-1}
+M2 & \multicolumn{2}{c}{\cellcolor[HTML]{FE996B}2}         &                           &                        & \cellcolor[HTML]{DAE8FC}6 & \multicolumn{1}{c}{}   & \multicolumn{1}{c}{}   &                        & \multicolumn{1}{c}{}   &                         \\ \cline{1-1}
+M3 &                           &                           & \cellcolor[HTML]{38FFF8}5 & \multicolumn{6}{c}{\cellcolor[HTML]{C0C0C0}8}                                                                                                          &                         \\ \cline{1-1}
+\end{tabular}
+\end{table}
+
+Grafik ten spełnia założenia relacji poprzedzania oraz, mimo innego układu zadań, ma to samo opóźnienie co przykład podany w poleceniu.
+
+\section{Zadanie 4}
+\subsection{Model}
+Mamy dane: liczbę odnawialnych zasobów $p\in\mathbb{N}$, limity przechowywania zasobów $N\in\mathbb{Z}_+$, liczbę czynności $n\in\mathbb{Z}_+$, czasy wykonywania czynności $t\in\mathbb{N}^n$, wektory zapotrzebowań czynności na zasoby $r\in\mathbb{N}^{n\times p}$, oraz macierz reprezentującą graf relacji poprzedzania czynności $g\in\{0,1\}^{n\times n}$, gdzie $g_{ij}=1$ wtedy i tylko wtedy, gdy zadanie $i$ musi się zakończyć przed rozpoczęciem zadania $j$. Tutaj znowu skorzystamy z \textit{horyzontu}: $T=1+\sum_{i-1}^n{t_i}$
+
+\subsubsection{Zmienne decyzyjne}
+Główną zmienną decyzyjną będzie tabela rozpoczęć czynności: $S\in \{0,1\}^{n\times T}$. Użyjemy również zmiennej pomocniczej $c\in\mathbb{N}$, która pomoże w wyznaczeniu maksymalnego opóźnienia.
+
+\subsubsection{Ograniczenia}
+\begin{enumerate}
+    \item \textbf{Definicja maksimum} - zmienna pomocnicza jest ograniczeniem górnym opóźnienia na każdej maszynie.
+    \[ (\forall i \in \{1,\dots,n\}) \left(\sum_{u=1}^T{(u-1+t_i)\cdot S_{iu}} \right) \leq c \]
+    \item \textbf{Nie powtarzaj się} - każde zadanie może zostać rozpoczęte wyłącznie raz.
+    \[ (\forall i \in \{1,\dots,n\}) \left(\sum_{u=1}^{T}{S_{iu}} \right) = 1 \]
+    \item \textbf{Uszanuj pierwszeństwo} - zadania poprzedzające inne zadania muszą się wcześniej skończyć.
+    \[ (\forall i_1,i_2 \in \{1,\dots,n\}) g_{i_1i_2}\left(\sum_{u=1}^T{(u-1)\cdot S_{i_2u} - (u-1 + t_i)\cdot S_{i_1u}} \right) \geq 0 \]
+    \item \textbf{Ograniczony budżet} - w danej chwili liczba wykorzystywanych zasobów nie może przekroczyć limitu.
+    \[ (\forall e \in \{1,\dots,p\}, u\in\{1,\dots,T\}) \left(\sum_{i=1}^{n}{\left(\sum_{s=\max(1,u-t_i+1)}^{u}{S_{is}}\right)\cdot r_{ie}} \right) \leq N_e \]
+\end{enumerate}
+
+\subsubsection{Funkcja celu}
+Chcemy zminimalizować maksymalne opóźnienie reprezentowane przez $c$: 
+\[ \min c \]
+
+\subsection{Wyniki}
+Dane z polecenia w zadaniu: $p=1$, $N=[30]$, $n=8$, $t=[50; 47; 55; 46; 32; 57; 15; 62]$, $r = [[9; 17; 11; 4; 13; 7; 7; 17]]$, $g = [(1,2);(1,3);(1,4);(2,5);(3,6);(4,6);(4,7);(5,8);(6,8);(7,8)]$.
+
+Wynikiem obliczeń dla tych danych jest poniżej przedstawiony grafik otrzymany w $24.4256$ sekund z wartością funkcji celu $237$:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+Czynność & Start & Finisz \\ \hline
+1        & 0     & 50     \\ \hline
+2        & 96    & 143    \\ \hline
+3        & 52    & 107    \\ \hline
+4        & 50    & 96     \\ \hline
+5        & 143   & 175    \\ \hline
+6        & 115   & 172    \\ \hline
+7        & 143   & 158    \\ \hline
+8        & 175   & 237    \\ \hline
+\end{tabular}
+\end{table}
+
+i rzeczywiście, w żadnej chwili nie ma przeciążenia zasobu ponad limit.
+
+% p = 1
+% N = [30]
+% n = 8
+% t = [50 47 55 46 32 57 15 62]
+% r = [9 17 11 4 13 7 7 17]
+% g = [(1,2),(1,3),(1,4),(2,5),(3,6),(4,6),(4,7),(5,8),(6,8),(7,8)]
+
+\end{document}
