@@ -9,12 +9,12 @@ using Cbc
 # using CPLEX
 
 
-function resource_management(n_of_resources,    # Number of resources.
-                                limits,         # Limits for each renewable resouce.
-                                n_of_jobs,      # Number of jobs.
-                                durations,      # How much time does each job take.
-                                demand,         # How much of each resource does each job require.
-                                precedence      # Edges from graph of job's order.
+function resource_management(n_of_resources::Int,       # Number of resources.
+                                limits::Vector{Int},    # Limits for each renewable resouce.
+                                n_of_jobs::Int,         # Number of jobs.
+                                durations::Matrix{Int}, # How much time does each job take.
+                                demand,                 # How much of each resource does each job require.
+                                precedence              # Edges from graph of job's order.
     )
 
     T = sum(durations) + 1  # Length of the time horizon.
