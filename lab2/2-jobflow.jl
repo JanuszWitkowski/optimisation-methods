@@ -29,11 +29,11 @@ function job_flow(n_of_jobs::Int,               # Number of jobs.
     # Minimize the sum of delays.
     @objective(model, Min, sum(weights[j] * ((t-1) + durations[j]) * C[j, t] for j in Jobs, t in Horizon)) 
     # Each job can only be started once.
-    @constraint(model, [j in Jobs], sum(C[j, t] for t in Horizon) == 1)
+    start_once = @constraint(model, [j in Jobs], sum(C[j, t] for t in Horizon) == 1)
     # Do not start the job if it's not ready.
-    @constraint(model, [j in Jobs], sum((t-1) * C[j, t] for t in Horizon) >= ready[j])
+    jobs_ready = @constraint(model, [j in Jobs], sum((t-1) * C[j, t] for t in Horizon) >= ready[j])
     # Jobs cannot overlap.
-    @constraint(model, [t in Horizon], sum(C[j, s] for j in Jobs, s in max(1, t - durations[j] + 1):t) <= 1)
+    no_overlap = @constraint(model, [t in Horizon], sum(C[j, s] for j in Jobs, s in max(1, t - durations[j] + 1):t) <= 1)
 
     print(model)
     optimize!(model)

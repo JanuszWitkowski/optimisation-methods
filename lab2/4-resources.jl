@@ -33,14 +33,14 @@ function resource_management(n_of_resources,    # Number of resources.
     # Minimize the maximum delay.
     @objective(model, Min, C_max)
     # C_max is the maximum of all moments in C (= S + durations).
-    @constraint(model, [i in Jobs], sum((t-1) * S[i,t] for t in Horizon) + durations[i] <= C_max)
+    max_delay = @constraint(model, [i in Jobs], sum((t-1) * S[i,t] for t in Horizon) + durations[i] <= C_max)
     # Each job can only be started once.
-    @constraint(model, [i in Jobs], sum(S[i,t] for t in Horizon) == 1)
+    start_once = @constraint(model, [i in Jobs], sum(S[i,t] for t in Horizon) == 1)
     # Do not let any job start before required jobs finish.
-    @constraint(model, [(i1,i2) in precedence], sum((t-1) * S[i2,t] for t in Horizon) - sum((t-1+durations[i1]) * S[i1,t] for t in Horizon) >= 0)
-    # @constraint(model, [(i1,i2) in precedence], sum((t-1) * S[i2,t] - (t-1+durations[i1]) * S[i1,t] for t in Horizon) >= 0)
+    job_precede = @constraint(model, [(i1,i2) in precedence], sum((t-1) * S[i2,t] for t in Horizon) - sum((t-1+durations[i1]) * S[i1,t] for t in Horizon) >= 0)
+    # job_precede = @constraint(model, [(i1,i2) in precedence], sum((t-1) * S[i2,t] - (t-1+durations[i1]) * S[i1,t] for t in Horizon) >= 0)
     # Don't exceed limits of a resource during the process.
-    @constraint(model, [e in Resources, t in Horizon], sum(sum(S[i,s] for s in max(1, t - durations[i] + 1):t) * demand[e,i] for i in Jobs) <= limits[e])
+    resouce_limitations = @constraint(model, [e in Resources, t in Horizon], sum(sum(S[i,s] for s in max(1, t - durations[i] + 1):t) * demand[e,i] for i in Jobs) <= limits[e])
 
     print(model)
     optimize!(model)

@@ -33,13 +33,13 @@ function job_shop(n_of_jobs::Int,           # Number of jobs.
     # Minimize the maximum delay.
     @objective(model, Min, C_max) 
     # C_max is the maximum of all moments in C (= S + durations).
-    @constraint(model, [i in Jobs], sum(((t-1) + durations[i]) * S[i,j,t] for j in Machines, t in Horizon) <= C_max)
+    max_delay = @constraint(model, [i in Jobs], sum(((t-1) + durations[i]) * S[i,j,t] for j in Machines, t in Horizon) <= C_max)
     # Each job can only be started once.
-    @constraint(model, [i in Jobs], sum(S[i,j,t] for j in Machines, t in Horizon) == 1)
+    start_once = @constraint(model, [i in Jobs], sum(S[i,j,t] for j in Machines, t in Horizon) == 1)
     # Jobs cannot overlap (while on the same machine).
-    @constraint(model, [j in Machines, t in Horizon], sum(S[i,j,s] for i in Jobs, s in max(1, t - durations[i]+1):t) <= 1)
+    no_overlap = @constraint(model, [j in Machines, t in Horizon], sum(S[i,j,s] for i in Jobs, s in max(1, t - durations[i]+1):t) <= 1)
     # Do not let any job start before required jobs finish.
-    @constraint(model, [i1 in Jobs, i2 in Jobs], Precedence[i1,i2] * (sum((t) * S[i2,j,t] for j in Machines, t in Horizon) - sum((t + durations[i1]) * S[i1,j,t] for j in Machines, t in Horizon)) >= 0)
+    job_precede = @constraint(model, [i1 in Jobs, i2 in Jobs], Precedence[i1,i2] * (sum((t) * S[i2,j,t] for j in Machines, t in Horizon) - sum((t + durations[i1]) * S[i1,j,t] for j in Machines, t in Horizon)) >= 0)
 
     print(model)
     optimize!(model)
@@ -52,15 +52,6 @@ function job_shop(n_of_jobs::Int,           # Number of jobs.
     end
 end # job_shop
 
-
-# # Number of jobs.
-# n = 5
-# # Durations of jobs.
-# p = [ 3; 2; 4; 5; 1 ]
-# # Ready moments of jobs.
-# r = [ 2; 1; 3; 1; 0 ]	
-# # Weights of jobs.	
-# w = [ 1.0; 1.0; 1.0; 1.0; 1.0 ]
 
 n = 9
 m = 3
@@ -83,7 +74,23 @@ if status == MOI.OPTIMAL
             end
         end
     end
-    print_machines(1:n, 1:m, p, moments)
+    # print_machines(1:n, 1:m, p, moments)
+    for j in 1:m
+        print("M", j, "\t|")
+        for t in 0:trunc(Int, c_max)
+            counter = 0
+            for i in 1:n
+                if t < moments[i,j] && t >= moments[i,j] - p[i]
+                    counter += 1
+                    print(i)
+                end
+            end
+            if counter == 0
+                print("-")
+            end
+        end
+        println()
+    end
 else
     println("Status: ", status)
 end
