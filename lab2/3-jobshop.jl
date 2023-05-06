@@ -10,15 +10,15 @@ using Cbc
 include("job_printing.jl")
 
 
-function job_flow(n::Int,                   # Number of jobs.
-                    m::Int,                 # Number of machines.
+function job_shop(n_of_jobs::Int,           # Number of jobs.
+                    n_of_machines::Int,     # Number of machines.
                     durations::Vector{Int}, # How much time does each job take.
                     preceding,              # Edges from graph of job's order.
     )
 
     T = sum(durations) + 1  # Length of the time horizon.
-    Jobs = 1:n
-    Machines = 1:m
+    Jobs = 1:n_of_jobs
+    Machines = 1:n_of_machines
     Horizon = 1:T
     Precedence = [if (i1,i2) in preceding 1 else 0 end for i1 in Jobs, i2 in Jobs]  # Full graph.
 
@@ -44,23 +44,23 @@ function job_flow(n::Int,                   # Number of jobs.
     print(model)
     optimize!(model)
 
-    status=termination_status(model)
-    if status== MOI.OPTIMAL
+    status = termination_status(model)
+    if status == MOI.OPTIMAL
         return status, objective_value(model), value.(C_max), value.(S)
     else
         return status, nothing, nothing, nothing
     end
-end # job_flow
+end # job_shop
 
 
 # # Number of jobs.
 # n = 5
 # # Durations of jobs.
-# p=[ 3; 2; 4; 5; 1 ]
+# p = [ 3; 2; 4; 5; 1 ]
 # # Ready moments of jobs.
-# r=[ 2; 1; 3; 1; 0 ]	
+# r = [ 2; 1; 3; 1; 0 ]	
 # # Weights of jobs.	
-# w=[ 1.0; 1.0; 1.0; 1.0; 1.0 ]
+# w = [ 1.0; 1.0; 1.0; 1.0; 1.0 ]
 
 n = 9
 m = 3
@@ -69,10 +69,10 @@ p = [1; 2; 1; 2; 1; 1; 3; 6; 2]
 r = [(1,4) (2,4) (2,5) (3,4) (3,5) (4,6) (4,7) (5,7) (5,8) (6,9) (7,9)]
 
 
-(status, fcelu, c_max, table) = job_flow(n,m,p,r)
+(status, obj, c_max, table) = job_shop(n,m,p,r)
 
 if status == MOI.OPTIMAL
-    println("funkcja celu: ", fcelu)
+    println("funkcja celu: ", obj)
     # println("momenty rozpoczecia zadan: ", table)
     moments = multiple_start_times_to_finish_times(multiple_horizons_to_moments(table), p)
     println(moments)

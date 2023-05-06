@@ -78,18 +78,18 @@ function sawmill(main_width::Int,       # Width of a main plank.
     end
     println("Unused: ", unused(x, cuts, demand, widths, n_of_cuts, n_of_widths))
     println("Leftovers: ", leftovers(x, main_width, widths, cuts, n_of_cuts, n_of_widths))
-end
+end # sawmill
 
 
 # PARAMETERS GIVEN
+b = 22
+w = [7 5 3]
+d = [110 120 80]
 # m = 22
 # w = [7 5 3]
-# d = [110 120 80]
-m = 22
-w = [7 5 3]
-d = [110 129 80]
+# d = [110 129 80]
 # m = 12
 # w = [4 5]
 # d = [20 100]
 
-sawmill(m, w, d)
+sawmill(b,w,d)

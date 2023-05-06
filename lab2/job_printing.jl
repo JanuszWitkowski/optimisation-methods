@@ -22,7 +22,7 @@ function horizon_to_moments(horizon)
         for j in 1:m
             # if horizon[i,j] == 1.0
             if horizon[i,j] >= 0.9
-                C[i] = j
+                C[i] = j-1
                 break
             end
         end
