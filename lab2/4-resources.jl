@@ -17,7 +17,7 @@ function resource_management(n_of_resources,    # Number of resources.
                                 precedence      # Edges from graph of job's order.
     )
 
-    T = sum(durations) + 1
+    T = sum(durations) + 1  # Length of the time horizon.
     Jobs = 1:n_of_jobs
     Resources = 1:n_of_resources
     Horizon = 1:T
