@@ -64,6 +64,8 @@ g = [(1,2),(1,3),(1,4),(2,5),(3,6),(4,6),(4,7),(5,8),(6,8),(7,8)]
 
 if status == MOI.OPTIMAL
     c = trunc(Int, c_max) + 1
+    # Printing time table.
+    println("TIME TABLE")
     for i in 1:n
         for s in 1:c
             if sum(table[i,max(1, s - t[i] + 1):s]) >= 0.9
@@ -74,6 +76,8 @@ if status == MOI.OPTIMAL
         end
         println()
     end
+    # Printing basic schedule.
+    println("SCHEDULE")
     for i in 1:n
         for s in 1:c
             if table[i,s] >= 0.9
@@ -81,6 +85,21 @@ if status == MOI.OPTIMAL
                 break
             end
         end
+    end
+    # Printing resource requirements (in time).
+    println("RESOURCES")
+    for e in 1:p
+        print(e, " (max ", N[e], "): ")
+        for s in 1:c
+            resource_sum = 0
+            for i in 1:n
+                if sum(table[i,max(1, s - t[i] + 1):s]) >= 0.9
+                    resource_sum += r[e,i]
+                end
+            end
+            print(resource_sum, "|")
+        end
+        println()
     end
     println("Funkcja celu: ", obj)
     println("Czas rozwiązania: ", stime)
