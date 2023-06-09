@@ -124,6 +124,10 @@ function feasibility_points(times, T)
     end
 end
 
+function possible_opt(T)
+    return T ÷ 2
+end
+
 
 
 
@@ -148,4 +152,5 @@ println("T_min = ", T_min)
 # println("Feasibile: ", feasibility)
 # println("Lowest infeasible T: ", lowest)
 println("Feasibility border: ($T_a, $T_b)")
+println("OPT is equal at least ", possible_opt(T_min))
 
